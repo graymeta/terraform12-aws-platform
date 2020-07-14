@@ -1,0 +1,10 @@
+.terraform
+
+# VIm swap
+[._]*.s[a-v][a-z]
+[._]*.sw[a-p]
+[._]s[a-v][a-z]
+[._]sw[a-p]
+
+# Mac OS X .DS_Store files
+.DS_Store
