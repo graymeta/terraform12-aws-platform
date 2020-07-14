@@ -1,5 +1,5 @@
 variable "ecs_amis" {
-  type        = "map"
+  type        = map(string)
   description = "map of region to ami for ecs nodes"
 
   default = {
@@ -12,7 +12,7 @@ variable "ecs_amis" {
 }
 
 variable "mlservices_amis" {
-  type        = "map"
+  type        = map(string)
   description = "map of region to ami for mlservices nodes"
 
   default = {
@@ -25,7 +25,7 @@ variable "mlservices_amis" {
 }
 
 variable "proxy_amis" {
-  type        = "map"
+  type        = map(string)
   description = "map of region to ami for proxy nodes"
 
   default = {
@@ -38,7 +38,7 @@ variable "proxy_amis" {
 }
 
 variable "services_amis" {
-  type        = "map"
+  type        = map(string)
   description = "map of region to ami for services nodes"
 
   default = {
