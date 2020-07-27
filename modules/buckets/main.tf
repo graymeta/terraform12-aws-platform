@@ -8,8 +8,8 @@ module "file_api_bucket" {
 module "custom_labels_bucket" {
   source = "./custom_labels"
 
-  bucket_name = var.custom_labels_bucket
-  region      = var.region
+  bucket_name          = var.custom_labels_bucket
+  region               = var.region
   platform_instance_id = var.platform_instance_id
 }
 
