@@ -10,7 +10,7 @@ module "custom_labels_bucket" {
 
   bucket_name = var.custom_labels_bucket
   region      = var.region
-  # platform_instance_id = var.platform_instance_id
+  platform_instance_id = var.platform_instance_id
 }
 
 module "temp_bucket" {

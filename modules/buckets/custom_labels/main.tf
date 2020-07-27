@@ -4,14 +4,10 @@ resource "aws_s3_bucket" "custom_labels_s3_bucket" {
 
   policy = data.aws_iam_policy_document.bucket.json
 
-  lifecycle {
-    prevent_destroy = false
+  tags = {
+    ApplicationName    = "Curio"
+    PlatformInstanceID = "${var.platform_instance_id}"
   }
-
-  # tags = {
-  #   ApplicationName    = "Curio"
-  #   PlatformInstanceID = "${var.platform_instance_id}"
-  # }
 }
 
 resource "aws_s3_bucket_public_access_block" "custom_labels_s3_bucket" {

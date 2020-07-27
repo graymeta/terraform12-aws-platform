@@ -8,10 +8,10 @@ variable "file_api_bucket" {
   description = "The file_api bucket name"
 }
 
-# variable "platform_instance_id" {
-#   type = string
-#   description = "instance id of platform"
-# }
+variable "platform_instance_id" {
+  type = string
+  description = "instance id of platform"
+}
 
 variable "region" {
   type        = string

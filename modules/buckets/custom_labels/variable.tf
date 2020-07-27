@@ -3,12 +3,10 @@ variable "bucket_name" {
   description = "The custom_labels bucket name"
 }
 
-# variable "platform_instance_id" {
-#   type = string
-#   // TODO
-#   // This description sucks.
-#   description = "instance id of platform"
-# }
+variable "platform_instance_id" {
+  type = string
+  description = "A human-readable string for this instance of the GrayMeta Platform"
+}
 
 variable "region" {
   type        = string
