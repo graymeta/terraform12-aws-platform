@@ -8,17 +8,17 @@ resource "aws_lb" "proxy_lb" {
   tags {
     Name               = "GrayMetaPlatform-${var.platform_instance_id}-ProxyLB"
     ApplicationName    = "GrayMetaPlatform"
-    PlatformInstanceID = "${var.platform_instance_id}"
+    PlatformInstanceID = var.platform_instance_id
   }
 }
 
 resource "aws_lb_listener" "port3128" {
-  load_balancer_arn = "${aws_lb.proxy_lb.arn}"
+  load_balancer_arn = aws_lb.proxy_lb.arn
   port              = "3128"
   protocol          = "TCP"
 
   default_action {
-    target_group_arn = "${aws_lb_target_group.port3128.arn}"
+    target_group_arn = aws_lb_target_group.port3128.arn
     type             = "forward"
   }
 }
@@ -27,7 +27,7 @@ resource "aws_lb_target_group" "port3128" {
   name_prefix = "s3128-"
   port        = "3128"
   protocol    = "TCP"
-  vpc_id      = "${data.aws_subnet.subnet_proxy_1.vpc_id}"
+  vpc_id      = data.aws_subnet.subnet_proxy_1.vpc_id
 
   health_check {
     healthy_threshold   = 3
@@ -40,6 +40,6 @@ resource "aws_lb_target_group" "port3128" {
   tags {
     Name               = "GrayMetaPlatform-${var.platform_instance_id}-port3128"
     ApplicationName    = "GrayMetaPlatform"
-    PlatformInstanceID = "${var.platform_instance_id}"
+    PlatformInstanceID = var.platform_instance_id
   }
 }

@@ -79,12 +79,12 @@ resource "aws_launch_configuration" "launch_config_proxy" {
 
   root_block_device {
     volume_type           = "gp2"
-    volume_size           = "${var.proxy_volume_size}"
+    volume_size           = var.proxy_volume_size
     delete_on_termination = true
   }
 
   security_groups  = ["${aws_security_group.proxy.id}"]
-  user_data_base64 = "${data.template_cloudinit_config.config.rendered}"
+  user_data_base64 = data.template_cloudinit_config.config.rendered
 
   lifecycle {
     create_before_destroy = true
@@ -99,30 +99,30 @@ data "template_cloudinit_config" "config" {
 
   part {
     content_type = "text/cloud-config"
-    content      = "${data.template_file.userdata.rendered}"
+    content      = data.template_file.userdata.rendered
   }
 
   part {
     content_type = "text/cloud-config"
-    content      = "${var.proxy_user_init}"
+    content      = var.proxy_user_init
     merge_type   = "list(append)+dict(recurse_array)+str()"
   }
 }
 
 data "template_file" "userdata" {
-  template = "${file("${path.module}/userdata.tpl")}"
+  template = file("${path.module}/userdata.tpl")
 
   vars {
-    log_group = "${aws_cloudwatch_log_group.proxy.name}"
-    region    = "${data.aws_region.current.name}"
-    dns_name  = "${var.dns_name}"
-    safelist  = "${join("\n", formatlist("        %s",var.safelist))}"
+    log_group = aws_cloudwatch_log_group.proxy.name
+    region    = data.aws_region.current.name
+    dns_name  = var.dns_name
+    safelist  = join("\n", formatlist("        %s", var.safelist))
   }
 }
 
 resource "aws_autoscaling_policy" "scale_up" {
   adjustment_type        = "ChangeInCapacity"
-  autoscaling_group_name = "${aws_cloudformation_stack.proxy_asg.outputs["AsgName"]}"
+  autoscaling_group_name = aws_cloudformation_stack.proxy_asg.outputs["AsgName"]
   cooldown               = 60
   name                   = "GrayMetaPlatform-${var.platform_instance_id}-Proxy-scale-up"
   scaling_adjustment     = 1
@@ -130,7 +130,7 @@ resource "aws_autoscaling_policy" "scale_up" {
 
 resource "aws_autoscaling_policy" "scale_down" {
   adjustment_type        = "ChangeInCapacity"
-  autoscaling_group_name = "${aws_cloudformation_stack.proxy_asg.outputs["AsgName"]}"
+  autoscaling_group_name = aws_cloudformation_stack.proxy_asg.outputs["AsgName"]
   cooldown               = 180
   name                   = "GrayMetaPlatform-${var.platform_instance_id}-Proxy-scale-down"
   scaling_adjustment     = -1
@@ -140,15 +140,15 @@ resource "aws_cloudwatch_metric_alarm" "scale_up" {
   alarm_actions       = ["${aws_autoscaling_policy.scale_up.arn}"]
   alarm_name          = "GrayMetaPlatform-${var.platform_instance_id}-Proxy-scale-up"
   comparison_operator = "GreaterThanThreshold"
-  evaluation_periods  = "${var.proxy_scale_up_evaluation_periods}"
+  evaluation_periods  = var.proxy_scale_up_evaluation_periods
   metric_name         = "NetworkOut"
   namespace           = "AWS/EC2"
-  period              = "${var.proxy_scale_up_period}"
+  period              = var.proxy_scale_up_period
   statistic           = "Average"
-  threshold           = "${var.proxy_scale_up_thres}"
+  threshold           = var.proxy_scale_up_thres
 
   dimensions {
-    AutoScalingGroupName = "${aws_cloudformation_stack.proxy_asg.outputs["AsgName"]}"
+    AutoScalingGroupName = aws_cloudformation_stack.proxy_asg.outputs["AsgName"]
   }
 }
 
@@ -156,14 +156,14 @@ resource "aws_cloudwatch_metric_alarm" "scale_down" {
   alarm_actions       = ["${aws_autoscaling_policy.scale_down.arn}"]
   alarm_name          = "GrayMetaPlatform-${var.platform_instance_id}-Proxy-scale-down"
   comparison_operator = "LessThanThreshold"
-  evaluation_periods  = "${var.proxy_scale_down_evaluation_periods}"
+  evaluation_periods  = var.proxy_scale_down_evaluation_periods
   metric_name         = "NetworkOut"
   namespace           = "AWS/EC2"
-  period              = "${var.proxy_scale_down_period}"
+  period              = var.proxy_scale_down_period
   statistic           = "Average"
-  threshold           = "${var.proxy_scale_down_thres}"
+  threshold           = var.proxy_scale_down_thres
 
   dimensions {
-    AutoScalingGroupName = "${aws_cloudformation_stack.proxy_asg.outputs["AsgName"]}"
+    AutoScalingGroupName = aws_cloudformation_stack.proxy_asg.outputs["AsgName"]
   }
 }

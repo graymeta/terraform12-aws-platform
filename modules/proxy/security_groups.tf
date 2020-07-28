@@ -1,6 +1,6 @@
 resource "aws_security_group" "proxy" {
   description = "Access to proxy nodes"
-  vpc_id      = "${data.aws_subnet.subnet_proxy_1.vpc_id}"
+  vpc_id      = data.aws_subnet.subnet_proxy_1.vpc_id
 
   ingress {
     from_port   = 22
@@ -31,6 +31,6 @@ resource "aws_security_group" "proxy" {
   tags {
     Name               = "GrayMetaPlatform-${var.platform_instance_id}-proxy"
     ApplicationName    = "GrayMetaPlatform"
-    PlatformInstanceID = "${var.platform_instance_id}"
+    PlatformInstanceID = var.platform_instance_id
   }
 }

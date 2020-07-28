@@ -23,5 +23,5 @@ variable "proxy_volume_size" {}
 variable "ssh_cidr_blocks" {}
 
 variable "safelist" {
-  type = "list"
+  type = list(string)
 }
