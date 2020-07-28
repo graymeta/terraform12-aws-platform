@@ -1,7 +1,7 @@
 resource "aws_internet_gateway" "main" {
   vpc_id = aws_vpc.main.id
 
-  tags {
+  tags  = {
     Name               = "GrayMetaPlatform-${var.platform_instance_id}"
     Application        = "GrayMetaPlatform"
     PlatformInstanceID = var.platform_instance_id
@@ -21,7 +21,7 @@ resource "aws_nat_gateway" "az1" {
   subnet_id     = aws_subnet.public_1.id
   depends_on    = [aws_internet_gateway.main]
 
-  tags {
+  tags = {
     Name               = "GrayMetaPlatform-${var.platform_instance_id}-az1"
     Application        = "GrayMetaPlatform"
     PlatformInstanceID = var.platform_instance_id
@@ -33,7 +33,7 @@ resource "aws_nat_gateway" "az2" {
   subnet_id     = aws_subnet.public_2.id
   depends_on    = [aws_internet_gateway.main]
 
-  tags {
+  tags = {
     Name               = "GrayMetaPlatform-${var.platform_instance_id}-az2"
     Application        = "GrayMetaPlatform"
     PlatformInstanceID = var.platform_instance_id
