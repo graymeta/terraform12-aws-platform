@@ -1,7 +1,7 @@
 resource "aws_internet_gateway" "main" {
   vpc_id = aws_vpc.main.id
 
-  tags  = {
+  tags = {
     Name               = "GrayMetaPlatform-${var.platform_instance_id}"
     Application        = "GrayMetaPlatform"
     PlatformInstanceID = var.platform_instance_id
