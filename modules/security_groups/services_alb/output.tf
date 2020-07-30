@@ -1,0 +1,1 @@
+output "services_alb_nsg_id" { value = aws_security_group.services_alb.id }
