@@ -98,6 +98,12 @@ variable "cidr_vpc" {
   default     = "10.0.0.0/16"
 }
 
+variable "enforce_proxy" {
+  type        = string
+  description = "Only needed if using Watson extractor.  Please talk to Graymeta Support before changing"
+  default     = false
+}
+
 variable "platform_instance_id" {
   type        = string
   description = "A human-readable string for this instance of the GrayMeta Platform"
