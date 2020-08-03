@@ -27,7 +27,7 @@ resource "aws_elasticsearch_domain" "es" {
   }
 
   vpc_options {
-    security_group_ids = [aws_security_group.elasticsearch.id]
+    security_group_ids = [var.elasticsearch_security_group]
     subnet_ids         = [var.subnet_id_1, var.subnet_id_2]
   }
 
@@ -45,30 +45,5 @@ data "template_file" "policy" {
     account_id  = data.aws_caller_identity.current.account_id
     region      = var.region
     domain_name = "graymeta-${var.platform_instance_id}"
-  }
-}
-
-resource "aws_security_group" "elasticsearch" {
-  description = "Access to elasticsearch"
-  vpc_id      = data.aws_subnet.subnet_1.vpc_id
-
-  ingress {
-    from_port       = 0
-    to_port         = 0
-    protocol        = "-1"
-    security_groups = [split(",", var.security_group_ids)]
-  }
-
-  egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  tags = {
-    Name               = "GrayMetaPlatform-${var.platform_instance_id}-Elasticsearch"
-    ApplicationName    = "GrayMetaPlatform"
-    PlatformInstanceID = var.platform_instance_id
   }
 }
