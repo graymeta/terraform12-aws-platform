@@ -1,9 +1,9 @@
 variable "dedicated_master_count" {
-  type = string
+  type        = string
   description = "Number of dedicated master nodes in the cluster"
 }
 variable "dedicated_master_type" {
-  type = string
+  type        = string
   description = "Instance type of the dedicated master nodes in the cluster."
 }
 
@@ -12,12 +12,12 @@ variable "elasticsearch_security_group" {
 }
 
 variable "instance_count" {
-  type = string
+  type        = string
   description = "Number of instances in the cluster."
 }
 
 variable "instance_type" {
-  type = string
+  type        = string
   description = "Instance type of data nodes in the cluster."
 }
 
@@ -36,7 +36,7 @@ variable "subnet_id_1" {}
 variable "subnet_id_2" {}
 
 variable "volume_size" {
-  type = string
+  type        = string
   description = "The size of EBS volumes attached to data nodes (in GB)."
 }
 
