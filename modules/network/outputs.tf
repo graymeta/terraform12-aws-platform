@@ -78,3 +78,7 @@ output "services_subnet_id_1" {
 output "services_subnet_id_2" {
   value = aws_subnet.services_2.id
 }
+
+output "vpc_id" {
+  value = aws_vpc.main.id
+}
