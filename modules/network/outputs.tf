@@ -21,6 +21,10 @@ output "ecs_subnet_id_2" {
   value = aws_subnet.ecs_2.id
 }
 
+output "elasticache_subnet_group_name" {
+  value = aws_elasticache_subnet_group.cache.name
+}
+
 output "elasticsearch_subnet_id_1" {
   value = aws_subnet.elasticsearch_1.id
 }
