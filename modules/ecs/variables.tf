@@ -1,4 +1,4 @@
-variable "ami_id" {}
+variable "ecs_ami_id" {}
 variable "ecs_iam_instance_profile" {}
 variable "ecs_instance_type" {}
 variable "ecs_max_cluster_size" {}
