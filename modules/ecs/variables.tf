@@ -1,0 +1,15 @@
+variable "ami_id" {}
+variable "ecs_iam_instance_profile" {}
+variable "ecs_instance_type" {}
+variable "ecs_max_cluster_size" {}
+variable "ecs_min_cluster_size" {}
+variable "ecs_nsg" {}
+variable "ecs_subnet_id_1" {}
+variable "ecs_subnet_id_2" {}
+variable "ecs_user_init" {}
+variable "ecs_volume_size" {}
+variable "key_name" {}
+variable "platform_instance_id" {}
+variable "proxy_endpoint" {}
+variable "region" {}
+variable "ssh_cidr_blocks" {}
