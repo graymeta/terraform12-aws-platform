@@ -35,7 +35,7 @@ resource "aws_autoscaling_group" "ecs" {
 
 resource "aws_launch_configuration" "ecs" {
   name_prefix          = "GrayMetaPlatform-${var.platform_instance_id}-ECS-"
-  image_id             = var.ami_id
+  image_id             = var.ecs_ami_id
   instance_type        = var.ecs_instance_type
   iam_instance_profile = var.ecs_iam_instance_profile
   key_name             = var.key_name
