@@ -1,5 +1,5 @@
 resource "aws_rds_cluster_instance" "cluster_instances" {
-  count              = 2
+  count              = var.instance_count
   identifier         = "gm-${var.platform_instance_id}-platform-${count.index}"
   cluster_identifier = aws_rds_cluster.postgresql.id
   engine             = "aurora-postgresql"
@@ -11,7 +11,7 @@ resource "aws_rds_cluster_instance" "cluster_instances" {
   tags = {
     Name               = "GrayMetaPlatform-${var.platform_instance_id}"
     ApplicationName    = "GrayMetaPlatform"
-    PlatformInstanceID = "${var.platform_instance_id}"
+    PlatformInstanceID = var.platform_instance_id
   }
 }
 
@@ -29,7 +29,7 @@ resource "aws_rds_cluster" "postgresql" {
   port                      = "5432"
   preferred_backup_window   = var.rds_backup_window
   storage_encrypted         = var.rds_storage_encrypted
-  vpc_security_group_ids    = ["${var.rds_nsg}"]
+  vpc_security_group_ids    = [var.rds_nsg]
 
   snapshot_identifier = var.rds_snapshot == "final" ? format("GrayMetaPlatform-${var.platform_instance_id}-aurora-final") : var.rds_snapshot
 
@@ -47,14 +47,3 @@ resource "aws_rds_cluster" "postgresql" {
     PlatformInstanceID = var.platform_instance_id
   }
 }
-
-resource "aws_rds_cluster_endpoint" "static" {
-  cluster_identifier          = aws_rds_cluster.postgresql.id
-  cluster_endpoint_identifier = "static"
-  custom_endpoint_type        = "READER"
-
-  static_members = [
-    element(aws_rds_cluster_instance.cluster_instances.*.id, 0)
-  ]
-}
-

@@ -1,11 +1,12 @@
-# variable "allocated_storage" {
-#   type        = string
-#   description = "The amount of allocated storage."
-# }
-
 variable "apply_immediately" {
   type        = bool
   description = "Apply database modifications immediately, or during the next maintenance window."
+}
+
+variable "instance_count" {
+  type        = number
+  description = "The number of RDS cluster instances."
+  default     = 2
 }
 
 variable "platform_instance_id" {
@@ -66,24 +67,3 @@ variable "rds_version" {
   type        = string
   description = "The database engine version."
 }
-
-# variable "rds_subnet_id_1" {}
-# variable "rds_subnet_id_2" {}
-# variable "services_subnet_id_1" {}
-# variable "services_subnet_id_2" {}
-# 
-# data "aws_subnet" "rds_subnet_1" {
-#   id = var.rds_subnet_id_1
-# }
-# 
-# data "aws_subnet" "rds_subnet_2" {
-#   id = var.rds_subnet_id_2
-# }
-# 
-# data "aws_subnet" "services_subnet_1" {
-#   id = var.services_subnet_id_1
-# }
-# 
-# data "aws_subnet" "services_subnet_2" {
-#   id = var.services_subnet_id_2
-# }
