@@ -56,6 +56,10 @@ output "public_subnet_id_2" {
   value = aws_subnet.public_2.id
 }
 
+output "rds_subnet_group_name" {
+  value = aws_db_subnet_group.rds.name
+}
+
 output "rds_subnet_id_1" {
   value = aws_subnet.rds_1.id
 }
