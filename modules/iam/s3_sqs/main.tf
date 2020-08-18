@@ -9,7 +9,7 @@ data "aws_iam_policy_document" "sns-topic-policy" {
       variable = "AWS:SourceARN"
 
       values = [
-        "${data.aws_s3_bucket.bucket.arn}",
+        data.aws_s3_bucket.bucket.arn,
       ]
     }
 
@@ -21,7 +21,7 @@ data "aws_iam_policy_document" "sns-topic-policy" {
     }
 
     resources = [
-      "${aws_sns_topic.topic.arn}",
+      aws_sns_topic.topic.arn,
     ]
 
     sid = "allow_publish"
@@ -38,7 +38,7 @@ data "aws_iam_policy_document" "sns-topic-policy" {
       variable = "SNS:Endpoint"
 
       values = [
-        "${aws_sns_topic.topic.arn}",
+        aws_sns_topic.topic.arn,
       ]
     }
 
@@ -50,7 +50,7 @@ data "aws_iam_policy_document" "sns-topic-policy" {
     }
 
     resources = [
-      "${data.aws_sqs_queue.queue.arn}",
+      data.aws_sqs_queue.queue.arn,
     ]
 
     sid = "allow_subscription"
@@ -70,7 +70,7 @@ data "aws_iam_policy_document" "sqs-policy" {
       variable = "AWS:SourceARN"
 
       values = [
-        "${aws_sns_topic.topic.arn}",
+        aws_sns_topic.topic.arn,
       ]
     }
 
@@ -82,7 +82,7 @@ data "aws_iam_policy_document" "sqs-policy" {
     }
 
     resources = [
-      "${data.aws_sqs_queue.queue.arn}",
+      data.aws_sqs_queue.queue.arn,
     ]
   }
 }
