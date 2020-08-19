@@ -98,36 +98,10 @@ variable "cidr_vpc" {
   default     = "10.0.0.0/16"
 }
 
-variable "customer" {
-  type        = string
-  description = "The customer name"
-}
-
-variable "enforce_proxy" {
-  type        = string
-  description = "Only needed if using Watson extractor.  Please talk to Graymeta Support before changing"
-  default     = false
-}
-
-variable "key_name" {
-  type        = string
-  description = "The name of the SSH key to use"
-}
-
 variable "log_retention" {
   type        = string
   description = "Optional. The log retention for cloudwatch logs.  Default 7 days"
   default     = "7"
-}
-
-variable "mlservices_subnet_id_1" {
-  type        = string
-  description = "The first subnet ID to use to deploy the ML services cluster(s) into. Needs to be in a different AZ than mlservices_subnet_id_2"
-}
-
-variable "mlservices_subnet_id_2" {
-  type        = string
-  description = "The second subnet ID to use to deploy the ML services cluster(s) into. Needs to be in a different AZ than mlservices_subnet_id_1"
 }
 
 variable "platform_instance_id" {
@@ -135,17 +109,7 @@ variable "platform_instance_id" {
   description = "A human-readable string for this instance of the GrayMeta Platform"
 }
 
-# variable "proxy_endpoint" {
-#   type        = string
-#   description = "The Proxy Load Balancer created by the network module"
-# }
-
 variable "region" {
   type        = string
   description = "The region to deploy into"
-}
-
-variable "ssh_cidr_blocks" {
-  type        = string
-  description = "Comma delimited list of cidr blocks from which to allow access via SSH"
 }

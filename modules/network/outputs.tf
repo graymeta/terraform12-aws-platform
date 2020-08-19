@@ -1,9 +1,5 @@
-output "az1_nat_ip" {
-  value = aws_eip.nat_gateway_az1.public_ip
-}
-
-output "az2_nat_ip" {
-  value = aws_eip.nat_gateway_az2.public_ip
+output "default_route_table_id" {
+  value = aws_vpc.main.default_route_table_id
 }
 
 output "ecs_cidrs" {
@@ -35,17 +31,25 @@ output "elasticsearch_subnet_id_2" {
 
 output "mlservices_cidrs" {
   value = [
-    "${aws_subnet.faces_1.cidr_block}",
-    "${aws_subnet.faces_2.cidr_block}",
+    "${aws_subnet.mlservices_1.cidr_block}",
+    "${aws_subnet.mlservices_2.cidr_block}",
   ]
 }
 
 output "mlservices_subnet_id_1" {
-  value = aws_subnet.faces_1.id
+  value = aws_subnet.mlservices_1.id
 }
 
 output "mlservices_subnet_id_2" {
-  value = aws_subnet.faces_2.id
+  value = aws_subnet.mlservices_2.id
+}
+
+output "proxy_subnet_id_1" {
+  value = aws_subnet.proxy_1.id
+}
+
+output "proxy_subnet_id_2" {
+  value = aws_subnet.proxy_2.id
 }
 
 output "public_subnet_id_1" {
