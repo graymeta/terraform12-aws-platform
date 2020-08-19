@@ -1,3 +1,7 @@
+data "aws_subnet" "subnet_1" {
+  id = var.subnets[0]
+}
+
 resource "aws_lb" "services_alb" {
   name_prefix                = "svcs-"
   internal                   = false
