@@ -1,6 +1,5 @@
 resource "aws_internet_gateway" "main" {
-  vpc_id = aws_vpc.main.id
-
+  vpc_id = var.vpc_id
   tags = {
     Name               = "GrayMetaPlatform-${var.platform_instance_id}"
     Application        = "GrayMetaPlatform"
@@ -18,7 +17,7 @@ resource "aws_eip" "nat_gateway_az2" {
 
 resource "aws_nat_gateway" "az1" {
   allocation_id = aws_eip.nat_gateway_az1.id
-  subnet_id     = aws_subnet.public_1.id
+  subnet_id     = var.public_subnet_id_1
   depends_on    = [aws_internet_gateway.main]
 
   tags = {
@@ -30,7 +29,7 @@ resource "aws_nat_gateway" "az1" {
 
 resource "aws_nat_gateway" "az2" {
   allocation_id = aws_eip.nat_gateway_az2.id
-  subnet_id     = aws_subnet.public_2.id
+  subnet_id     = var.public_subnet_id_2
   depends_on    = [aws_internet_gateway.main]
 
   tags = {
@@ -38,16 +37,4 @@ resource "aws_nat_gateway" "az2" {
     Application        = "GrayMetaPlatform"
     PlatformInstanceID = var.platform_instance_id
   }
-}
-
-resource "aws_vpc_endpoint" "proxy_s3" {
-  vpc_id            = aws_vpc.main.id
-  vpc_endpoint_type = "Gateway"
-  service_name      = "com.amazonaws.${var.region}.s3"
-
-  route_table_ids = [
-    aws_route_table.az1.id,
-    aws_route_table.az2.id,
-    aws_default_route_table.default.id,
-  ]
 }
