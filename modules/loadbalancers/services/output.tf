@@ -1,3 +1,7 @@
+output "services_endpoint" {
+  value = aws_lb.services_alb.dns_name
+}
+
 output "target_group_7000_arn" {
   value = aws_lb_target_group.port7000.arn
 }

@@ -98,18 +98,7 @@ variable "cidr_vpc" {
   default     = "10.0.0.0/16"
 }
 
-variable "log_retention" {
-  type        = string
-  description = "Optional. The log retention for cloudwatch logs.  Default 7 days"
-  default     = "7"
-}
-
 variable "platform_instance_id" {
   type        = string
   description = "A human-readable string for this instance of the GrayMeta Platform"
-}
-
-variable "region" {
-  type        = string
-  description = "The region to deploy into"
 }

@@ -13,7 +13,7 @@ variable "account_lockout_period" {
   default = "10m"
 }
 
-variable "custom_labels_s3_bucket_arn" {
+variable "custom_labels_bucket" {
   type = string
 }
 
@@ -54,18 +54,6 @@ variable "customer" {
 variable "cw_dest_bucket" {
   type    = string
   default = ""
-}
-
-variable "db_endpoint" {
-  type = string
-}
-
-variable "db_password" {
-  type = string
-}
-
-variable "db_username" {
-  type = string
 }
 
 variable "dns_name" {
@@ -111,10 +99,6 @@ variable "ecs_memory_soft_reservation" {
   default = "3000"
 }
 
-variable "elasticache_services" {
-  type = string
-}
-
 variable "elasticsearch_endpoint" {
   type = string
 }
@@ -134,7 +118,7 @@ variable "faces_endpoint" {
   default = ""
 }
 
-variable "file_api_s3_bucket_arn" {
+variable "file_api_bucket" {
   type = string
 }
 
@@ -297,7 +281,19 @@ variable "proxy_endpoint" {
   type = string
 }
 
-variable "region" {
+variable "rds_endpoint" {
+  type = string
+}
+
+variable "rds_password" {
+  type = string
+}
+
+variable "rds_username" {
+  type = string
+}
+
+variable "redis_endpoint" {
   type = string
 }
 
@@ -476,11 +472,11 @@ variable "target_group_7009_arn" {
   type = string
 }
 
-variable "temp_s3_bucket_arn" {
+variable "temp_bucket" {
   type = string
 }
 
-variable "usage_s3_bucket_arn" {
+variable "usage_bucket" {
   type = string
 }
 

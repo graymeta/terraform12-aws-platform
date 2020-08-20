@@ -1,3 +1,5 @@
+data "aws_region" "current" {}
+
 data "template_cloudinit_config" "config" {
   gzip          = true
   base64_encode = true
@@ -19,7 +21,7 @@ data "template_file" "userdata" {
 
   vars = {
     ecs_cluster    = aws_ecs_cluster.ecs_cluster.name
-    region         = var.region
+    region         = data.aws_region.current.name
     proxy_endpoint = var.proxy_endpoint
   }
 }

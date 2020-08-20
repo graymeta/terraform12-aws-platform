@@ -3,11 +3,15 @@ resource "aws_iam_role" "ecs" {
   assume_role_policy = file("${path.module}/policy-assume-role.json")
 }
 
+data "aws_s3_bucket" "temp" {
+  bucket = var.temp_bucket
+}
+
 data "template_file" "policy_ecs" {
   template = file("${path.module}/policy-ecs.json.tpl")
 
   vars = {
-    bucket_arn = var.temp_s3_bucket_arn
+    bucket_arn = data.aws_s3_bucket.temp.arn
   }
 }
 

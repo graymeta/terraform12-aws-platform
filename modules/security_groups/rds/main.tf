@@ -11,7 +11,7 @@ resource "aws_security_group" "rds" {
 
 resource "aws_security_group_rule" "ingress" {
   security_group_id        = aws_security_group.rds.id
-  description              = "RDS ingress security group rule."
+  description              = "Allow tcp/5432 services_nsg"
   type                     = "ingress"
   from_port                = 5432
   to_port                  = 5432

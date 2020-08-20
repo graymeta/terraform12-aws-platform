@@ -57,11 +57,6 @@ variable "proxy_user_init" {
   default     = ""
 }
 
-variable "region" {
-  type        = string
-  description = "The region to deploy into"
-}
-
 variable "safelist" {
   type        = list(string)
   description = "List of dstdomain to add to the proxy server.  Please talk to Graymeta Support before changing"

@@ -31,7 +31,7 @@ resource "aws_security_group_rule" "ingress_22" {
 
 resource "aws_security_group_rule" "ingress_services" {
   security_group_id        = aws_security_group.mlservices.id
-  description              = "Allow tcp/10300-10310 services"
+  description              = "Allow tcp/10300-10310 services_nsg"
   type                     = "ingress"
   from_port                = 10300
   to_port                  = 10310
@@ -41,7 +41,7 @@ resource "aws_security_group_rule" "ingress_services" {
 
 resource "aws_security_group_rule" "ingress_ecs" {
   security_group_id        = aws_security_group.mlservices.id
-  description              = "Allow tcp/10300-10310 ecs"
+  description              = "Allow tcp/10300-10310 ecs_nsg"
   type                     = "ingress"
   from_port                = 10300
   to_port                  = 10310

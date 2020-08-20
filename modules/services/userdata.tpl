@@ -116,7 +116,7 @@ write_files:
         gm_logograb_api_key=${logograb_key}
         gm_recently_walked_expiration=1209600s
         gm_recently_walked_redis_key_prefix="recwalked:"
-        gm_redis=${elasticache_services}:6379
+        gm_redis=${redis_endpoint}:6379
         gm_redis_db=0
         gm_roles_key_prefix="roles:"
         gm_runtime_metrics_enabled=false

@@ -39,14 +39,24 @@ resource "aws_security_group_rule" "ingress_443" {
   cidr_blocks       = split(",", var.platform_access_cidrs)
 }
 
-resource "aws_security_group_rule" "ingress_443_nat" {
-  security_group_id = aws_security_group.services_alb.id
-  description       = "Allow tcp/443 NAT IPs"
-  type              = "ingress"
-  from_port         = 443
-  to_port           = 443
-  protocol          = "tcp"
-  cidr_blocks       = [var.az1_nat_ip, var.az2_nat_ip]
+resource "aws_security_group_rule" "ingress_443_services" {
+  security_group_id        = aws_security_group.services_alb.id
+  description              = "Allow tcp/443 services_nsg"
+  type                     = "ingress"
+  from_port                = 443
+  to_port                  = 443
+  protocol                 = "tcp"
+  source_security_group_id = var.services_nsg
+}
+
+resource "aws_security_group_rule" "ingress_443_ecs" {
+  security_group_id        = aws_security_group.services_alb.id
+  description              = "Allow tcp/443 ecs_nsg"
+  type                     = "ingress"
+  from_port                = 443
+  to_port                  = 443
+  protocol                 = "tcp"
+  source_security_group_id = var.ecs_nsg
 }
 
 resource "aws_security_group_rule" "ingress_8443" {

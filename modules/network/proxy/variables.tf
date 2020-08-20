@@ -27,11 +27,6 @@ variable "proxy_subnet_id_2" {
   description = "the proxy_subnet_id for az2"
 }
 
-variable "region" {
-  type        = string
-  description = "region for s3 aws_vpc_endpoint"
-}
-
 variable "vpc_id" {
   type        = string
   description = "The vpc_id to apply gateways and routes too"

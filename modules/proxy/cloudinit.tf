@@ -1,3 +1,5 @@
+data "aws_region" "current" {}
+
 data "template_cloudinit_config" "config" {
   base64_encode = true
   gzip          = true
@@ -19,7 +21,7 @@ data "template_file" "userdata" {
 
   vars = {
     log_group = "GrayMetaPlatform-${var.platform_instance_id}-Proxy"
-    region    = var.region
+    region    = data.aws_region.current.name
     dns_name  = var.dns_name
     safelist  = join("\n", formatlist("        %s", var.safelist))
   }
