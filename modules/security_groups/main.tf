@@ -49,3 +49,24 @@ module "ecs" {
   ssh_cidr_blocks      = var.ssh_cidr_blocks
   vpc_id               = var.vpc_id
 }
+
+module "mlservices" {
+  source = "./mlservices"
+
+  platform_instance_id = var.platform_instance_id
+  ecs_nsg              = module.ecs.nsg_id
+  services_nsg         = module.services.nsg_id
+  ssh_cidr_blocks      = var.ssh_cidr_blocks
+  vpc_id               = var.vpc_id
+}
+
+module "proxy" {
+  source = "./proxy"
+
+  platform_instance_id = var.platform_instance_id
+  ecs_nsg              = module.ecs.nsg_id
+  mlservices_nsg       = module.mlservices.nsg_id
+  services_nsg         = module.services.nsg_id
+  ssh_cidr_blocks      = var.ssh_cidr_blocks
+  vpc_id               = var.vpc_id
+}
