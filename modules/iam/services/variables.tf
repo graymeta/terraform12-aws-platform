@@ -1,4 +1,4 @@
-variable "aws_cust_labels_bucket_arn" {
+variable "custom_labels_bucket" {
   type = string
 }
 
@@ -15,7 +15,7 @@ variable "cw_dest_bucket_arn" {
   }
 }
 
-variable "file_storage_s3_bucket_arn" {
+variable "file_api_bucket" {
   type = string
 }
 
@@ -24,14 +24,6 @@ variable "notifications_from_addr" {
 }
 
 variable "platform_instance_id" {
-  type = string
-}
-
-variable "region" {
-  type = string
-}
-
-variable "services_iam_role_name" {
   type = string
 }
 
@@ -99,10 +91,10 @@ variable "sqs_walk_arn" {
   type = string
 }
 
-variable "temporary_bucket_arn" {
+variable "temp_bucket" {
   type = string
 }
 
-variable "usage_s3_bucket_arn" {
+variable "usage_bucket" {
   type = string
 }

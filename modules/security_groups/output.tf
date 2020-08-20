@@ -1,31 +1,31 @@
 output "ecs_nsg" {
-  value = module.ecs.nsg_id
+  value = module.ecs.ecs_nsg
 }
 
 output "elasticache_nsg" {
-  value = module.elasticache.nsg_id
+  value = module.elasticache.elasticache_nsg
 }
 
 output "elasticsearch_nsg" {
-  value = module.elasticsearch.nsg_id
+  value = module.elasticsearch.elasticsearch_nsg
 }
 
 output "mlservices_nsg" {
-  value = module.mlservices.nsg_id
+  value = module.mlservices.mlservices_nsg
 }
 
 output "proxy_nsg" {
-  value = module.proxy.nsg_id
-}
-
-output "services_alb_nsg" {
-  value = module.services_alb.nsg_id
-}
-
-output "services_nsg" {
-  value = module.services.nsg_id
+  value = module.proxy.proxy_nsg
 }
 
 output "rds_nsg" {
-  value = module.rds.nsg_id
+  value = module.rds.rds_nsg
+}
+
+output "services_alb_nsg" {
+  value = module.services_alb.services_alb_nsg
+}
+
+output "services_nsg" {
+  value = module.services.services_nsg
 }

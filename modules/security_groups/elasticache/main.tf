@@ -11,7 +11,7 @@ resource "aws_security_group" "elasticache" {
 
 resource "aws_security_group_rule" "ingress" {
   security_group_id        = aws_security_group.elasticache.id
-  description              = "Elasticache ingress security group rule."
+  description              = "Allow tcp/6739 services_nsg"
   type                     = "ingress"
   from_port                = 6739
   to_port                  = 6739

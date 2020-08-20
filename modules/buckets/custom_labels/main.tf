@@ -1,6 +1,8 @@
+data "aws_region" "current" {}
+
 resource "aws_s3_bucket" "custom_labels_s3_bucket" {
   bucket = var.bucket_name
-  region = var.region
+  region = data.aws_region.current.name
 
   policy = data.aws_iam_policy_document.bucket.json
 

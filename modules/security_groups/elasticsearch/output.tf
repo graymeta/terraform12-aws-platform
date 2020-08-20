@@ -1,3 +1,3 @@
-output "nsg_id" {
+output "elasticsearch_nsg" {
   value = aws_security_group.elasticsearch.id
 }

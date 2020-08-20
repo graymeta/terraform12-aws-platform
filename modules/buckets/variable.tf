@@ -13,11 +13,6 @@ variable "platform_instance_id" {
   description = "A human-readable string for this instance of the GrayMeta Platform"
 }
 
-variable "region" {
-  type        = string
-  description = "The region to deploy buckets"
-}
-
 variable "temp_bucket" {
   type        = string
   description = "The temp bucket name"

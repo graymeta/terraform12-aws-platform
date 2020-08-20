@@ -14,6 +14,24 @@ data "template_cloudinit_config" "config" {
   }
 }
 
+data "aws_region" "current" {}
+
+data "aws_s3_bucket" "custom_labels" {
+  bucket = var.custom_labels_bucket
+}
+
+data "aws_s3_bucket" "file" {
+  bucket = var.file_api_bucket
+}
+
+data "aws_s3_bucket" "temp" {
+  bucket = var.temp_bucket
+}
+
+data "aws_s3_bucket" "usage" {
+  bucket = var.usage_bucket
+}
+
 data "template_file" "userdata" {
   template = file("${path.module}/userdata.tpl")
 
@@ -21,7 +39,7 @@ data "template_file" "userdata" {
     account_lockout_attempts          = var.account_lockout_attempts
     account_lockout_interval          = var.account_lockout_interval
     account_lockout_period            = var.account_lockout_period
-    custom_labels_s3_bucket_arn       = var.custom_labels_s3_bucket_arn
+    custom_labels_s3_bucket_arn       = data.aws_s3_bucket.custom_labels.arn
     aws_cust_labels_inference_units   = var.aws_cust_labels_inference_units
     bcrypt_cost                       = var.bcrypt_cost
     box_com_client_id                 = var.box_com_client_id
@@ -30,9 +48,9 @@ data "template_file" "userdata" {
     client_secret_internal            = var.client_secret_internal
     cw_prefix                         = "GrayMetaPlatform-${var.platform_instance_id}"
     cw_dest_bucket                    = var.cw_dest_bucket
-    db_endpoint                       = var.db_endpoint
-    db_password                       = var.db_password
-    db_username                       = var.db_username
+    db_endpoint                       = var.rds_endpoint
+    db_password                       = var.rds_password
+    db_username                       = var.rds_username
     dns_name                          = var.dns_name
     dropbox_app_key                   = var.dropbox_app_key
     dropbox_app_secret                = var.dropbox_app_secret
@@ -43,12 +61,12 @@ data "template_file" "userdata" {
     ecs_log_group                     = "GrayMetaPlatform-${var.platform_instance_id}-ECS"
     ecs_memory_hard_reservation       = var.ecs_memory_hard_reservation
     ecs_memory_soft_reservation       = var.ecs_memory_soft_reservation
-    elasticache_services              = var.elasticache_services
+    redis_endpoint                    = var.redis_endpoint
     elasticsearch_endpoint            = var.elasticsearch_endpoint
     encrypted_config_blob             = var.encrypted_config_blob
     encryption_key                    = var.encryption_key
     faces_endpoint                    = var.faces_endpoint
-    file_api_s3_bucket_arn            = var.file_api_s3_bucket_arn
+    file_api_s3_bucket_arn            = data.aws_s3_bucket.file.arn
     from_addr                         = var.notifications_from_addr
     from_region                       = var.notifications_region
     gm_celeb_detection_enabled        = var.gm_celeb_detection_enabled
@@ -82,7 +100,7 @@ data "template_file" "userdata" {
     onedrive_client_secret            = var.onedrive_client_secret
     password_min_length               = var.password_min_length
     proxy_endpoint                    = var.proxy_endpoint
-    region                            = var.region
+    region                            = data.aws_region.current.name
     rollbar_token                     = var.rollbar_token
     s3subscriber_priority             = var.s3subscriber_priority
     saml_attr_email                   = var.saml_attr_email
@@ -104,8 +122,8 @@ data "template_file" "userdata" {
     sqs_stage                         = "${var.sqs_stage01},${var.sqs_stage02},${var.sqs_stage03},${var.sqs_stage04},${var.sqs_stage05},${var.sqs_stage06},${var.sqs_stage07},${var.sqs_stage08},${var.sqs_stage09},${var.sqs_stage10}"
     sqs_walk                          = var.sqs_walk
     statsd_host                       = var.statsd_host
-    temp_s3_bucket_arn                = var.temp_s3_bucket_arn
-    usage_s3_bucket_arn               = var.usage_s3_bucket_arn
+    temp_s3_bucket_arn                = data.aws_s3_bucket.temp.arn
+    usage_s3_bucket_arn               = data.aws_s3_bucket.usage.arn
     walkd_item_batch_size             = var.walkd_item_batch_size
   }
 }
