@@ -48,3 +48,24 @@ resource "aws_security_group_rule" "ingress_ecs" {
   protocol                 = "tcp"
   source_security_group_id = var.ecs_nsg
 }
+
+data "aws_subnet" "mlservices_subnet_id_1" {
+  id = var.mlservices_subnet_id_1
+}
+
+data "aws_subnet" "mlservices_subnet_id_2" {
+  id = var.mlservices_subnet_id_2
+}
+
+resource "aws_security_group_rule" "ingress_3128_proxy" {
+  security_group_id = aws_security_group.mlservices.id
+  description       = "Allow tcp/3128 mlservices subnets"
+  type              = "ingress"
+  from_port         = 3128
+  to_port           = 3128
+  protocol          = "tcp"
+  cidr_blocks = [
+    data.aws_subnet.mlservices_subnet_id_1.cidr_block,
+    data.aws_subnet.mlservices_subnet_id_2.cidr_block,
+  ]
+}
