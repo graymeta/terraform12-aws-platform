@@ -31,7 +31,7 @@ resource "aws_security_group_rule" "ingress_22" {
 
 resource "aws_security_group_rule" "ingress_80" {
   security_group_id        = aws_security_group.services.id
-  description              = "Allow tcp/80 services"
+  description              = "Allow tcp/80 services_alb_nsg"
   type                     = "ingress"
   from_port                = 80
   to_port                  = 80
@@ -41,7 +41,7 @@ resource "aws_security_group_rule" "ingress_80" {
 
 resource "aws_security_group_rule" "ingress_7000" {
   security_group_id        = aws_security_group.services.id
-  description              = "Allow tcp/7000 services"
+  description              = "Allow tcp/7000 services_alb_nsg"
   type                     = "ingress"
   from_port                = 7000
   to_port                  = 7000
@@ -51,7 +51,7 @@ resource "aws_security_group_rule" "ingress_7000" {
 
 resource "aws_security_group_rule" "ingress_7009" {
   security_group_id        = aws_security_group.services.id
-  description              = "Allow tcp/7009 services"
+  description              = "Allow tcp/7009 services_alb_nsg"
   type                     = "ingress"
   from_port                = 7009
   to_port                  = 7009
@@ -61,7 +61,7 @@ resource "aws_security_group_rule" "ingress_7009" {
 
 resource "aws_security_group_rule" "ingress_9090" {
   security_group_id        = aws_security_group.services.id
-  description              = "Allow tcp/9090 services"
+  description              = "Allow tcp/9090 services_alb_nsg"
   type                     = "ingress"
   from_port                = 9090
   to_port                  = 9090

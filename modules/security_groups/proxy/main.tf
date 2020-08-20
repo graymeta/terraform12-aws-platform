@@ -31,7 +31,7 @@ resource "aws_security_group_rule" "ingress_22" {
 
 resource "aws_security_group_rule" "ingress_3128_services" {
   security_group_id        = aws_security_group.proxy.id
-  description              = "Allow tcp/3128 Services"
+  description              = "Allow tcp/3128 services_nsg"
   type                     = "ingress"
   from_port                = 3128
   to_port                  = 3128
@@ -41,7 +41,7 @@ resource "aws_security_group_rule" "ingress_3128_services" {
 
 resource "aws_security_group_rule" "ingress_3128_ecs" {
   security_group_id        = aws_security_group.proxy.id
-  description              = "Allow tcp/3128 Ecs"
+  description              = "Allow tcp/3128 ecs_nsg"
   type                     = "ingress"
   from_port                = 3128
   to_port                  = 3128
@@ -51,10 +51,35 @@ resource "aws_security_group_rule" "ingress_3128_ecs" {
 
 resource "aws_security_group_rule" "ingress_3128_mlservices" {
   security_group_id        = aws_security_group.proxy.id
-  description              = "Allow tcp/3128 MLServices"
+  description              = "Allow tcp/3128 mlservices_nsg"
   type                     = "ingress"
   from_port                = 3128
   to_port                  = 3128
   protocol                 = "tcp"
   source_security_group_id = var.mlservices_nsg
 }
+
+data "aws_subnet" "proxy_subnet_id_1" {
+  id = var.proxy_subnet_id_1
+}
+
+data "aws_subnet" "proxy_subnet_id_2" {
+  id = var.proxy_subnet_id_2
+}
+
+resource "aws_security_group_rule" "ingress_3128_proxy" {
+  security_group_id = aws_security_group.proxy.id
+  description       = "Allow tcp/3128 proxy subnets"
+  type              = "ingress"
+  from_port         = 3128
+  to_port           = 3128
+  protocol          = "tcp"
+  cidr_blocks = [
+    data.aws_subnet.proxy_subnet_id_1.cidr_block,
+    data.aws_subnet.proxy_subnet_id_2.cidr_block,
+  ]
+}
+
+
+
+
