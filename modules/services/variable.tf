@@ -13,10 +13,6 @@ variable "account_lockout_period" {
   default = "10m"
 }
 
-variable "custom_labels_bucket" {
-  type = string
-}
-
 variable "aws_cust_labels_inference_units" {
   type    = string
   default = 1
@@ -45,6 +41,10 @@ variable "client_secret_fe" {
 variable "client_secret_internal" {
   type    = string
   default = ""
+}
+
+variable "custom_labels_bucket" {
+  type = string
 }
 
 variable "customer" {
@@ -281,11 +281,11 @@ variable "proxy_endpoint" {
   type = string
 }
 
-variable "rds_endpoint" {
+variable "rds_database_name" {
   type = string
 }
 
-variable "rds_database_name" {
+variable "rds_endpoint" {
   type = string
 }
 
