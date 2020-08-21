@@ -208,12 +208,12 @@ variable "google_maps_key" {
 
 variable "harvest_complete_stow_fields" {
   type    = string
-  default = "6h"
+  default = ""
 }
 
 variable "harvest_polling_time" {
   type    = string
-  default = ""
+  default = "6h"
 }
 
 variable "indexer_concurrency" {
@@ -282,6 +282,10 @@ variable "proxy_endpoint" {
 }
 
 variable "rds_endpoint" {
+  type = string
+}
+
+variable "rds_database_name" {
   type = string
 }
 

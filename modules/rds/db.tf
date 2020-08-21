@@ -19,7 +19,7 @@ resource "aws_rds_cluster" "postgresql" {
   apply_immediately         = var.apply_immediately
   backup_retention_period   = var.rds_backup_retention
   cluster_identifier        = "gm-${var.platform_instance_id}"
-  database_name             = "platform"
+  database_name             = var.rds_database_name
   db_subnet_group_name      = var.rds_subnet_group_name
   engine                    = "aurora-postgresql"
   engine_version            = var.rds_version

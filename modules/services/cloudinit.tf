@@ -16,16 +16,8 @@ data "template_cloudinit_config" "config" {
 
 data "aws_region" "current" {}
 
-data "aws_s3_bucket" "custom_labels" {
-  bucket = var.custom_labels_bucket
-}
-
 data "aws_s3_bucket" "file" {
   bucket = var.file_api_bucket
-}
-
-data "aws_s3_bucket" "temp" {
-  bucket = var.temp_bucket
 }
 
 data "aws_s3_bucket" "usage" {
@@ -39,7 +31,7 @@ data "template_file" "userdata" {
     account_lockout_attempts          = var.account_lockout_attempts
     account_lockout_interval          = var.account_lockout_interval
     account_lockout_period            = var.account_lockout_period
-    custom_labels_s3_bucket_arn       = data.aws_s3_bucket.custom_labels.arn
+    custom_labels_s3_bucket           = var.custom_labels_bucket
     aws_cust_labels_inference_units   = var.aws_cust_labels_inference_units
     bcrypt_cost                       = var.bcrypt_cost
     box_com_client_id                 = var.box_com_client_id
@@ -49,6 +41,7 @@ data "template_file" "userdata" {
     cw_prefix                         = "GrayMetaPlatform-${var.platform_instance_id}"
     cw_dest_bucket                    = var.cw_dest_bucket
     db_endpoint                       = var.rds_endpoint
+    db_name                           = var.rds_database_name
     db_password                       = var.rds_password
     db_username                       = var.rds_username
     dns_name                          = var.dns_name
@@ -62,7 +55,7 @@ data "template_file" "userdata" {
     ecs_memory_hard_reservation       = var.ecs_memory_hard_reservation
     ecs_memory_soft_reservation       = var.ecs_memory_soft_reservation
     redis_endpoint                    = var.redis_endpoint
-    elasticsearch_endpoint            = var.elasticsearch_endpoint
+    elasticsearch_endpoint            = "https://${var.elasticsearch_endpoint}"
     encrypted_config_blob             = var.encrypted_config_blob
     encryption_key                    = var.encryption_key
     faces_endpoint                    = var.faces_endpoint
@@ -122,7 +115,7 @@ data "template_file" "userdata" {
     sqs_stage                         = "${var.sqs_stage01},${var.sqs_stage02},${var.sqs_stage03},${var.sqs_stage04},${var.sqs_stage05},${var.sqs_stage06},${var.sqs_stage07},${var.sqs_stage08},${var.sqs_stage09},${var.sqs_stage10}"
     sqs_walk                          = var.sqs_walk
     statsd_host                       = var.statsd_host
-    temp_s3_bucket_arn                = data.aws_s3_bucket.temp.arn
+    temp_s3_bucket                    = var.temp_bucket
     usage_s3_bucket_arn               = data.aws_s3_bucket.usage.arn
     walkd_item_batch_size             = var.walkd_item_batch_size
   }

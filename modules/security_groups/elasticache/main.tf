@@ -13,8 +13,8 @@ resource "aws_security_group_rule" "ingress" {
   security_group_id        = aws_security_group.elasticache.id
   description              = "Allow tcp/6739 services_nsg"
   type                     = "ingress"
-  from_port                = 6739
-  to_port                  = 6739
+  from_port                = 6379
+  to_port                  = 6379
   protocol                 = "tcp"
   source_security_group_id = var.services_nsg
 }

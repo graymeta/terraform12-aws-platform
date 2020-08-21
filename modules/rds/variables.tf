@@ -24,6 +24,11 @@ variable "rds_backup_window" {
   description = "The daily time range during which automated backups are created. Time in UTC. e.g. e.g. 04:00-09:00"
 }
 
+variable "rds_database_name" {
+  type        = string
+  description = "The database name to deploy"
+}
+
 variable "rds_instance_size" {
   type        = string
   description = "The instance class to use. Aurora uses db.* instance classes/types."
