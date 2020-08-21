@@ -10,41 +10,41 @@ variable "proxy_instance_type" {
   default     = "m3.large"
 }
 
-variable "proxy_max_cluster_size" { type = string }
-variable "proxy_min_cluster_size" { type = string }
+variable "proxy_max_cluster_size" { type = number }
+variable "proxy_min_cluster_size" { type = number }
 variable "proxy_nsg" { type = string }
 
 variable "proxy_scale_down_evaluation_periods" {
-  type        = string
+  type        = number
   description = "The scale down evaluation periods.  Default 4"
-  default     = "4"
+  default     = 4
 }
 
 variable "proxy_scale_down_period" {
-  type        = string
+  type        = number
   description = "The scale down period.  Default 300"
-  default     = "300"
+  default     = 300
 }
 
 variable "proxy_scale_down_thres" {
-  type        = string
+  type        = number
   description = "Threshold in Bytes when to scale down the proxy cluster"
 }
 
 variable "proxy_scale_up_evaluation_periods" {
-  type        = string
+  type        = number
   description = "The scale up evaluation periods.  Default 2"
-  default     = "2"
+  default     = 2
 }
 
 variable "proxy_scale_up_period" {
-  type        = string
+  type        = number
   description = "The scale up period.  Default 120"
-  default     = "120"
+  default     = 120
 }
 
 variable "proxy_scale_up_thres" {
-  type        = string
+  type        = number
   description = "Threshold in Bytes when to scale up the proxy cluster"
 }
 

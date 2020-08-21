@@ -8,42 +8,6 @@ variable "az2" {
   description = "Availability zone 2"
 }
 
-variable "cidr_subnet_public_1" {
-  type        = string
-  description = "The CIDR block to use for the public 1 subnet"
-  default     = "10.0.0.0/24"
-}
-
-variable "cidr_subnet_public_2" {
-  type        = string
-  description = "The CIDR block to use for the public 2 subnet"
-  default     = "10.0.1.0/24"
-}
-
-variable "cidr_subnet_rds_1" {
-  type        = string
-  description = "The CIDR block to use for the rds 1 subnet"
-  default     = "10.0.2.0/24"
-}
-
-variable "cidr_subnet_rds_2" {
-  type        = string
-  description = "The CIDR block to use for the rds 2 subnet"
-  default     = "10.0.3.0/24"
-}
-
-variable "cidr_subnet_services_1" {
-  type        = string
-  description = "The CIDR block to use for the services 1 subnet"
-  default     = "10.0.4.0/24"
-}
-
-variable "cidr_subnet_services_2" {
-  type        = string
-  description = "The CIDR block to use for the services 2 subnet"
-  default     = "10.0.5.0/24"
-}
-
 variable "cidr_subnet_ecs_1" {
   type        = string
   description = "The CIDR block to use for the ecs subnet"
@@ -90,6 +54,42 @@ variable "cidr_subnet_proxy_2" {
   type        = string
   description = "The CIDR block to use for the proxy 2 subnet"
   default     = "10.0.21.0/24"
+}
+
+variable "cidr_subnet_public_1" {
+  type        = string
+  description = "The CIDR block to use for the public 1 subnet"
+  default     = "10.0.0.0/24"
+}
+
+variable "cidr_subnet_public_2" {
+  type        = string
+  description = "The CIDR block to use for the public 2 subnet"
+  default     = "10.0.1.0/24"
+}
+
+variable "cidr_subnet_rds_1" {
+  type        = string
+  description = "The CIDR block to use for the rds 1 subnet"
+  default     = "10.0.2.0/24"
+}
+
+variable "cidr_subnet_rds_2" {
+  type        = string
+  description = "The CIDR block to use for the rds 2 subnet"
+  default     = "10.0.3.0/24"
+}
+
+variable "cidr_subnet_services_1" {
+  type        = string
+  description = "The CIDR block to use for the services 1 subnet"
+  default     = "10.0.4.0/24"
+}
+
+variable "cidr_subnet_services_2" {
+  type        = string
+  description = "The CIDR block to use for the services 2 subnet"
+  default     = "10.0.5.0/24"
 }
 
 variable "cidr_vpc" {
