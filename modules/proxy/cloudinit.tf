@@ -6,7 +6,7 @@ data "template_cloudinit_config" "config" {
 
   part {
     content_type = "text/cloud-config"
-    content      = "${data.template_file.userdata.rendered}"
+    content      = data.template_file.userdata.rendered
   }
 
   part {
@@ -17,7 +17,7 @@ data "template_cloudinit_config" "config" {
 }
 
 data "template_file" "userdata" {
-  template = "${file("${path.module}/userdata.tpl")}"
+  template = file("${path.module}/userdata.tpl")
 
   vars = {
     log_group = "GrayMetaPlatform-${var.platform_instance_id}-Proxy"
