@@ -1,5 +1,5 @@
 variable "account_lockout_attempts" {
-  type    = string
+  type    = number
   default = 5
 }
 
@@ -19,8 +19,8 @@ variable "aws_cust_labels_inference_units" {
 }
 
 variable "bcrypt_cost" {
-  type    = string
-  default = "14"
+  type    = number
+  default = 14
 }
 
 variable "box_com_client_id" {
@@ -85,13 +85,13 @@ variable "ecs_cluster" {
 }
 
 variable "ecs_cpu_reservation" {
-  type    = string
-  default = "1024"
+  type    = number
+  default = 1024
 }
 
 variable "ecs_memory_hard_reservation" {
-  type    = string
-  default = "4000"
+  type    = number
+  default = 4000
 }
 
 variable "ecs_memory_soft_reservation" {
@@ -123,8 +123,8 @@ variable "file_api_bucket" {
 }
 
 variable "gm_celeb_detection_enabled" {
-  type    = string
-  default = "false"
+  type    = bool
+  default = false
 }
 
 variable "gm_celeb_detection_interval" {
@@ -143,23 +143,23 @@ variable "gm_celeb_detection_provider" {
 }
 
 variable "gm_es_bulk_size" {
-  type    = string
-  default = "20000000"
+  type    = number
+  default = 20000000
 }
 
 variable "gm_es_bulk_workers" {
-  type    = string
-  default = "2"
+  type    = number
+  default = 2
 }
 
 variable "gm_es_replicas" {
-  type    = string
-  default = "1"
+  type    = number
+  default = 1
 }
 
 variable "gm_es_shards" {
-  type    = string
-  default = "5"
+  type    = number
+  default = 5
 }
 
 variable "gm_jwt_expiration_time" {
@@ -172,13 +172,13 @@ variable "gm_license_key" {
 }
 
 variable "gm_scheduled_max_items" {
-  type    = string
-  default = "100"
+  type    = number
+  default = 100
 }
 
 variable "gm_scheduled_min_bytes" {
-  type    = string
-  default = "10485760"
+  type    = number
+  default = 10485760
 }
 
 variable "gm_scheduled_wait_duration" {
@@ -192,13 +192,13 @@ variable "gm_threshold_to_harvest" {
 }
 
 variable "gm_walkd_max_item_concurrency" {
-  type    = string
-  default = "600"
+  type    = number
+  default = 600
 }
 
 variable "gm_walkd_redis_max_active" {
-  type    = string
-  default = "1200"
+  type    = number
+  default = 1200
 }
 
 variable "google_maps_key" {
@@ -217,13 +217,13 @@ variable "harvest_polling_time" {
 }
 
 variable "indexer_concurrency" {
-  type    = string
-  default = "1"
+  type    = number
+  default = 1
 }
 
 variable "item_disable_transaction" {
-  type    = string
-  default = "false"
+  type    = bool
+  default = false
 }
 
 variable "jwt_key" {
@@ -269,8 +269,8 @@ variable "onedrive_client_secret" {
 }
 
 variable "password_min_length" {
-  type    = string
-  default = "8"
+  type    = number
+  default = 8
 }
 
 variable "platform_instance_id" {
@@ -307,8 +307,8 @@ variable "rollbar_token" {
 }
 
 variable "s3subscriber_priority" {
-  type    = string
-  default = "0"
+  type    = number
+  default = 0
 }
 
 variable "saml_attr_email" {
@@ -364,11 +364,11 @@ variable "services_instance_type" {
 }
 
 variable "services_max_cluster_size" {
-  type = string
+  type = number
 }
 
 variable "services_min_cluster_size" {
-  type = string
+  type = number
 }
 
 variable "services_nsg" {
@@ -490,6 +490,6 @@ variable "user_init" {
 }
 
 variable "walkd_item_batch_size" {
-  type    = string
-  default = "300"
+  type    = number
+  default = 300
 }
