@@ -1,7 +1,7 @@
 # Loading the template_body from a template file decouples the dependency between the LC and ASG and breaks the update, so use a HEREDOC instead :(
 # See https://github.com/hashicorp/terraform/issues/1552 for more info
 resource "aws_cloudformation_stack" "asg" {
-  name               = "GrayMetaPlatform-${var.ml_loadbalancer_output["platform_instance_id"]}-ML${var.service_name}-ASG"
+  name               = "GrayMetaPlatform-${var.platform_instance_id}-ML${var.service_name}-ASG"
   timeout_in_minutes = "90"
 
   timeouts {
@@ -21,7 +21,7 @@ resource "aws_cloudformation_stack" "asg" {
         "Tags": [
           {
             "Key": "Name",
-            "Value": "GrayMetaPlatform-${var.ml_loadbalancer_output["platform_instance_id"]}-ML${var.service_name}",
+            "Value": "GrayMetaPlatform-${var.platform_instance_id}-ML${var.service_name}",
             "PropagateAtLaunch": true
           },
           {
@@ -31,12 +31,12 @@ resource "aws_cloudformation_stack" "asg" {
           },
           {
             "Key": "PlatformInstanceID",
-            "Value": "${var.ml_loadbalancer_output["platform_instance_id"]}",
+            "Value": "${var.platform_instance_id}",
             "PropagateAtLaunch": true
           }
         ],
         "TargetGroupARNs": [
-            "${aws_lb_target_group.cluster.arn}"
+            "${var.target_group_mlservices_arn}"
         ],
         "TerminationPolicies": [
           "OldestLaunchConfiguration",
@@ -44,8 +44,8 @@ resource "aws_cloudformation_stack" "asg" {
           "Default"
         ],
         "VPCZoneIdentifier": [
-            "${var.ml_loadbalancer_output["mlservices_subnet_id_1"]}",
-            "${var.ml_loadbalancer_output["mlservices_subnet_id_2"]}"
+            "${var.mlservices_subnet_id_1}",
+            "${var.mlservices_subnet_id_2}"
         ]
       },
       "UpdatePolicy": {
@@ -86,18 +86,13 @@ data "template_cloudinit_config" "config" {
   }
 }
 
-# Pull the AMI information
-module "amis" {
-  source = "../amis"
-}
-
 # Create the Launch configuration for the ASG
 resource "aws_launch_configuration" "launch_config_cluster" {
-  iam_instance_profile = var.ml_loadbalancer_output["ml_alb_iam_profile_name"]
-  image_id             = lookup(module.amis.mlservices_amis, data.aws_region.current.name)
+  iam_instance_profile = var.mlservices_iam_instance_profile
+  image_id             = var.mlservices_ami_id
   instance_type        = var.instance_type
-  key_name             = var.ml_loadbalancer_output["key_name"]
-  name_prefix          = "GrayMetaPlatform-${var.ml_loadbalancer_output["platform_instance_id"]}-ML${var.service_name}"
+  key_name             = var.key_name
+  name_prefix          = "GrayMetaPlatform-${var.platform_instance_id}-ML${var.service_name}"
 
   root_block_device {
     volume_type           = "gp2"
@@ -105,7 +100,7 @@ resource "aws_launch_configuration" "launch_config_cluster" {
     delete_on_termination = true
   }
 
-  security_groups  = ["${aws_security_group.cluster.id}"]
+  security_groups  = [var.mlservices_nsg]
   user_data_base64 = data.template_cloudinit_config.config.rendered
 
   lifecycle {
@@ -118,7 +113,7 @@ resource "aws_autoscaling_policy" "scale_up" {
   adjustment_type        = "ChangeInCapacity"
   autoscaling_group_name = aws_cloudformation_stack.asg.outputs["AsgName"]
   cooldown               = 60
-  name                   = "GrayMetaPlatform-${var.ml_loadbalancer_output["platform_instance_id"]}-ML${var.service_name}-scale-up"
+  name                   = "GrayMetaPlatform-${var.platform_instance_id}-ML${var.service_name}-scale-up"
   scaling_adjustment     = 1
 }
 
@@ -126,13 +121,13 @@ resource "aws_autoscaling_policy" "scale_down" {
   adjustment_type        = "ChangeInCapacity"
   autoscaling_group_name = aws_cloudformation_stack.asg.outputs["AsgName"]
   cooldown               = 180
-  name                   = "GrayMetaPlatform-${var.ml_loadbalancer_output["platform_instance_id"]}-ML${var.service_name}-scale-down"
+  name                   = "GrayMetaPlatform-${var.platform_instance_id}-ML${var.service_name}-scale-down"
   scaling_adjustment     = -1
 }
 
 resource "aws_cloudwatch_metric_alarm" "scale_up" {
-  alarm_actions       = ["${aws_autoscaling_policy.scale_up.arn}"]
-  alarm_name          = "GrayMetaPlatform-${var.ml_loadbalancer_output["platform_instance_id"]}-ML${var.service_name}-scale-up"
+  alarm_actions       = [aws_autoscaling_policy.scale_up.arn]
+  alarm_name          = "GrayMetaPlatform-${var.platform_instance_id}-ML${var.service_name}-scale-up"
   comparison_operator = "GreaterThanThreshold"
   evaluation_periods  = "1"
   metric_name         = "CPUUtilization"
@@ -141,14 +136,14 @@ resource "aws_cloudwatch_metric_alarm" "scale_up" {
   statistic           = "Average"
   threshold           = "80"
 
-  dimensions {
+  dimensions = {
     AutoScalingGroupName = aws_cloudformation_stack.asg.outputs["AsgName"]
   }
 }
 
 resource "aws_cloudwatch_metric_alarm" "scale_down" {
-  alarm_actions       = ["${aws_autoscaling_policy.scale_down.arn}"]
-  alarm_name          = "GrayMetaPlatform-${var.ml_loadbalancer_output["platform_instance_id"]}-ML${var.service_name}-scale-down"
+  alarm_actions       = [aws_autoscaling_policy.scale_down.arn]
+  alarm_name          = "GrayMetaPlatform-${var.platform_instance_id}-ML${var.service_name}-scale-down"
   comparison_operator = "LessThanThreshold"
   evaluation_periods  = "2"
   metric_name         = "CPUUtilization"
@@ -157,7 +152,7 @@ resource "aws_cloudwatch_metric_alarm" "scale_down" {
   statistic           = "Average"
   threshold           = "50"
 
-  dimensions {
+  dimensions = {
     AutoScalingGroupName = aws_cloudformation_stack.asg.outputs["AsgName"]
   }
 }
