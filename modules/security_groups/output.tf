@@ -10,6 +10,10 @@ output "elasticsearch_nsg" {
   value = module.elasticsearch.elasticsearch_nsg
 }
 
+output "mlservices_alb_nsg" {
+  value = module.mlservices_alb.mlservices_alb_nsg
+}
+
 output "mlservices_nsg" {
   value = module.mlservices.mlservices_nsg
 }

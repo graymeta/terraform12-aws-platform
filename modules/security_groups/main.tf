@@ -64,6 +64,16 @@ module "mlservices" {
   vpc_id                 = var.vpc_id
 }
 
+module "mlservices_alb" {
+  source = "./mlservices_alb"
+
+  ecs_nsg               = module.ecs.ecs_nsg
+  platform_access_cidrs = var.platform_access_cidrs
+  platform_instance_id  = var.platform_instance_id
+  services_nsg          = module.services.services_nsg
+  vpc_id                = var.vpc_id
+}
+
 module "proxy" {
   source = "./proxy"
 
