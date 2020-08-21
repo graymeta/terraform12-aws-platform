@@ -29,24 +29,46 @@ resource "aws_security_group_rule" "ingress_22" {
   cidr_blocks       = split(",", var.ssh_cidr_blocks)
 }
 
+data "aws_subnet" "services_subnet_id_1" {
+  id = var.services_subnet_id_1
+}
+
+data "aws_subnet" "services_subnet_id_2" {
+  id = var.services_subnet_id_2
+}
+
 resource "aws_security_group_rule" "ingress_services" {
-  security_group_id        = aws_security_group.mlservices.id
-  description              = "Allow tcp/10300-10310 services_nsg"
-  type                     = "ingress"
-  from_port                = 10300
-  to_port                  = 10310
-  protocol                 = "tcp"
-  source_security_group_id = var.services_nsg
+  security_group_id = aws_security_group.mlservices.id
+  description       = "Allow tcp/10300-10310 services subnets"
+  type              = "ingress"
+  from_port         = 10300
+  to_port           = 10310
+  protocol          = "tcp"
+  cidr_blocks = [
+    data.aws_subnet.services_subnet_id_1.cidr_block,
+    data.aws_subnet.services_subnet_id_2.cidr_block,
+  ]
+}
+
+data "aws_subnet" "ecs_subnet_id_1" {
+  id = var.ecs_subnet_id_1
+}
+
+data "aws_subnet" "ecs_subnet_id_2" {
+  id = var.ecs_subnet_id_2
 }
 
 resource "aws_security_group_rule" "ingress_ecs" {
-  security_group_id        = aws_security_group.mlservices.id
-  description              = "Allow tcp/10300-10310 ecs_nsg"
-  type                     = "ingress"
-  from_port                = 10300
-  to_port                  = 10310
-  protocol                 = "tcp"
-  source_security_group_id = var.ecs_nsg
+  security_group_id = aws_security_group.mlservices.id
+  description       = "Allow tcp/10300-10310 ecs_nsg"
+  type              = "ingress"
+  from_port         = 10300
+  to_port           = 10310
+  protocol          = "tcp"
+  cidr_blocks = [
+    data.aws_subnet.ecs_subnet_id_1.cidr_block,
+    data.aws_subnet.ecs_subnet_id_2.cidr_block,
+  ]
 }
 
 data "aws_subnet" "mlservices_subnet_id_1" {

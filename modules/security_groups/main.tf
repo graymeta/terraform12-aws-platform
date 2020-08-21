@@ -54,10 +54,12 @@ module "mlservices" {
   source = "./mlservices"
 
   platform_instance_id   = var.platform_instance_id
-  ecs_nsg                = module.ecs.ecs_nsg
+  ecs_subnet_id_1        = var.ecs_subnet_id_1
+  ecs_subnet_id_2        = var.ecs_subnet_id_2
   mlservices_subnet_id_1 = var.mlservices_subnet_id_1
   mlservices_subnet_id_2 = var.mlservices_subnet_id_2
-  services_nsg           = module.services.services_nsg
+  services_subnet_id_1   = var.services_subnet_id_1
+  services_subnet_id_2   = var.services_subnet_id_2
   ssh_cidr_blocks        = var.ssh_cidr_blocks
   vpc_id                 = var.vpc_id
 }
@@ -65,12 +67,15 @@ module "mlservices" {
 module "proxy" {
   source = "./proxy"
 
-  platform_instance_id = var.platform_instance_id
-  proxy_subnet_id_1    = var.proxy_subnet_id_1
-  proxy_subnet_id_2    = var.proxy_subnet_id_2
-  ecs_nsg              = module.ecs.ecs_nsg
-  mlservices_nsg       = module.mlservices.mlservices_nsg
-  services_nsg         = module.services.services_nsg
-  ssh_cidr_blocks      = var.ssh_cidr_blocks
-  vpc_id               = var.vpc_id
+  ecs_subnet_id_1        = var.ecs_subnet_id_1
+  ecs_subnet_id_2        = var.ecs_subnet_id_2
+  mlservices_subnet_id_1 = var.mlservices_subnet_id_1
+  mlservices_subnet_id_2 = var.mlservices_subnet_id_2
+  platform_instance_id   = var.platform_instance_id
+  proxy_subnet_id_1      = var.proxy_subnet_id_1
+  proxy_subnet_id_2      = var.proxy_subnet_id_2
+  services_subnet_id_1   = var.services_subnet_id_1
+  services_subnet_id_2   = var.services_subnet_id_2
+  ssh_cidr_blocks        = var.ssh_cidr_blocks
+  vpc_id                 = var.vpc_id
 }

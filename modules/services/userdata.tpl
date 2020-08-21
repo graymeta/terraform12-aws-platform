@@ -50,7 +50,7 @@ write_files:
         account_lockout_attempts=${account_lockout_attempts}
         account_lockout_interval=${account_lockout_interval}
         account_lockout_period=${account_lockout_period}
-        aws_cust_labels_bucket=${custom_labels_s3_bucket_arn}
+        aws_cust_labels_bucket=${custom_labels_s3_bucket}
         aws_cust_labels_inference_units=${aws_cust_labels_inference_units}
         aws_cust_labels_project_import_enabled=true
         aws_cust_labels_region=${region}
@@ -82,7 +82,7 @@ write_files:
         gm_cw_prefix=${cw_prefix}
         gm_cw_region=${region}
         gm_db_host=${db_endpoint}
-        gm_db_name=graymeta
+        gm_db_name=${db_name}
         gm_db_password=${db_password}
         gm_db_port=5432
         gm_db_username=${db_username}
@@ -127,7 +127,7 @@ write_files:
         gm_sqs_notifications=${sqs_notifications}
         gm_sqs_stage=${sqs_stage}
         gm_sqs_walk=${sqs_walk}
-        gm_temp_bucket_name=${temp_s3_bucket_arn}
+        gm_temp_bucket_name=${temp_s3_bucket}
         gm_temp_bucket_region=${region}
         gm_threshold_to_harvest=${gm_threshold_to_harvest}
         gm_usage_prefix=${gm_usage_prefix}
@@ -138,7 +138,7 @@ write_files:
         gm_walkd_redis_max_active=${gm_walkd_redis_max_active}
         google_maps_key=${google_maps_key}
         harvest_gm_faces_recog_api_addr=http://${faces_endpoint}
-        harvest_gm_temp_bucket_name=${temp_s3_bucket_arn}
+        harvest_gm_temp_bucket_name=${temp_s3_bucket}
         harvest_gm_temp_bucket_region=${region}
         harvest_http_proxy=http://${proxy_endpoint}/
         harvest_https_proxy=http://${proxy_endpoint}/
