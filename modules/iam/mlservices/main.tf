@@ -7,12 +7,12 @@ resource "aws_iam_policy" "iam_policy" {
 resource "aws_iam_policy_attachment" "iam_policy_attachment" {
   name       = aws_iam_policy.iam_policy.name
   policy_arn = aws_iam_policy.iam_policy.arn
-  roles      = [module.mliam.ml_iam_role_name]
+  roles      = [aws_iam_role.iam_role.name]
 }
 
-resource "aws_iam_instance_profile" "iam_instance_profile_ml" {
+resource "aws_iam_instance_profile" "iam_instance_profile_mlservices" {
   name = "GrayMetaPlatform-${var.platform_instance_id}-ML-InstanceProfile"
-  role = module.mliam.ml_iam_role_name
+  role = aws_iam_role.iam_role.name
 }
 
 data "template_file" "policy_ml" {

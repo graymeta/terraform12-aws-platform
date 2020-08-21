@@ -1,0 +1,17 @@
+variable "cloud_init" {}
+variable "instance_type" {}
+variable "max_cluster_size" {}
+variable "min_cluster_size" {}
+variable "port" {}
+variable "service_name" {}
+variable "user_init" {}
+variable "volume_size" {}
+variable "platform_instance_id" {}
+variable "mlservices_subnet_id_1" {}
+variable "mlservices_subnet_id_2" {}
+variable "mlservices_iam_instance_profile" {}
+variable "mlservices_ami_id" {}
+variable "key_name" {}
+variable "mlservices_nsg" {}
+variable "mlservices_alb_dns" {}
+variable "target_group_mlservices_arn" {}
