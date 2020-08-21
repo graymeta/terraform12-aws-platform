@@ -4,7 +4,7 @@ variable "graymeta_account" {
   default     = "913397769129"
 }
 
-variable "usage_s3_bucket_arn" {
+variable "usage_bucket" {
   type        = "string"
-  description = "The Usage bucket ARN"
+  description = "The usage bucket name"
 }

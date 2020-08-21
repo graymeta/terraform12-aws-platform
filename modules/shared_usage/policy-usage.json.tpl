@@ -12,8 +12,8 @@
                 "s3:GetObject"
             ],
             "Resource": [
-                "${usage_s3_bucket_arn}",
-                "${usage_s3_bucket_arn}/*"
+                "${usage_bucket_arn}",
+                "${usage_bucket_arn}/*"
             ]
        }
     ]
