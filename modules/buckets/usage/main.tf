@@ -1,8 +1,5 @@
-data "aws_region" "current" {}
-
 resource "aws_s3_bucket" "usage_s3_bucket" {
   bucket = var.bucket_name
-  region = data.aws_region.current.name
 }
 
 resource "aws_s3_bucket_public_access_block" "usage_s3_bucket" {

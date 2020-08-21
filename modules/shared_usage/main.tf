@@ -5,7 +5,7 @@ data "aws_s3_bucket" "usage" {
 data "template_file" "policy_usage" {
   template = file("${path.module}/policy-usage.json.tpl")
 
-  vars {
+  vars = {
     usage_bucket_arn = data.aws_s3_bucket.usage.arn
     graymeta_account = var.graymeta_account
   }
