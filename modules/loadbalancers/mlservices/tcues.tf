@@ -10,7 +10,7 @@ resource "aws_lb_listener" "tcues" {
 }
 
 resource "aws_lb_target_group" "tcues" {
-  port     = 10300
+  port     = local.tcues_port
   protocol = "HTTP"
   vpc_id   = data.aws_subnet.subnet_1.vpc_id
 

@@ -10,7 +10,7 @@ resource "aws_lb_listener" "nld" {
 }
 
 resource "aws_lb_target_group" "nld" {
-  port     = 10300
+  port     = local.nld_port
   protocol = "HTTP"
   vpc_id   = data.aws_subnet.subnet_1.vpc_id
 

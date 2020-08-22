@@ -10,7 +10,7 @@ resource "aws_lb_listener" "object" {
 }
 
 resource "aws_lb_target_group" "object" {
-  port     = 10300
+  port     = local.object_port
   protocol = "HTTP"
   vpc_id   = data.aws_subnet.subnet_1.vpc_id
 

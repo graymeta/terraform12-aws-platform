@@ -10,7 +10,7 @@ resource "aws_lb_listener" "audio" {
 }
 
 resource "aws_lb_target_group" "audio" {
-  port     = 10300
+  port     = local.audio_port
   protocol = "HTTP"
   vpc_id   = data.aws_subnet.subnet_1.vpc_id
 
