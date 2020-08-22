@@ -4,7 +4,7 @@ data "aws_subnet" "subnet_1" {
 
 resource "aws_lb" "mlservices_alb" {
   name_prefix                = "ml-"
-  internal                   = false
+  internal                   = true
   security_groups            = [var.mlservices_alb_nsg]
   subnets                    = var.subnets
   enable_deletion_protection = false

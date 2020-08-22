@@ -10,7 +10,7 @@ resource "aws_lb_listener" "nlp" {
 }
 
 resource "aws_lb_target_group" "nlp" {
-  port     = 10300
+  port     = local.nlp_port
   protocol = "HTTP"
   vpc_id   = data.aws_subnet.subnet_1.vpc_id
 
