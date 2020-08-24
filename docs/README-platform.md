@@ -18,12 +18,17 @@ This will deploy Network and Platform.
 * `custom_labels_bucket` - Used for the AWS Rekognition Custom Labels services
 
 ### Install steps
-* Download one of the examples in: 
-  * `examples/platform/small`
-  * `examples/platform/medium`
-  * `examples/platform/large`
+* Download one of the examples in `examples/platform`
 * Update the terraform.tfvars
-* Deploy `terraform init` & `terraform apply`
+* Initialize terraform `terraform init`
+* Apply terraform use the sizing tfvars for the size of the systems to deploy
+  * Small
+    * `terraform apply -var-files=sizing_small.tfvars`
+  * Medium
+    * `terraform apply -var-files=sizing_medium.tfvars`
+  * Large
+    * `terraform apply -var-files=sizing_large.tfvars`
+
 
 ### Post steps
 * After the apply.  Create a CNAME from your `dns_name` to the value of the `GrayMetaPlatformEndpoint` output. This needs to be publicly resolvable.

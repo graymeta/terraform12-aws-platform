@@ -1,4 +1,4 @@
-proxy_instance_type                    = "m5.xlarge"
+proxy_instance_type                    = "m5.large"
 proxy_max_cluster_size                 = 4
 proxy_min_cluster_size                 = 1
 proxy_scale_down_thres                 = 250000000
@@ -18,7 +18,7 @@ ecs_min_cluster_size                   = 1
 ecs_volume_size                        = 50
 services_instance_type                 = "m5.xlarge"
 services_max_cluster_size              = 4
-services_min_cluster_size              = 1
+services_min_cluster_size              = 2
 
 faces_instance_type       = "m5.xlarge"
 faces_max_cluster_size    = 4
