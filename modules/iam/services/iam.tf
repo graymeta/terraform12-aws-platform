@@ -6,13 +6,13 @@ resource "aws_iam_policy" "iam_policy" {
 
 resource "aws_iam_policy_attachment" "iam_policy_attachment" {
   name       = aws_iam_policy.iam_policy.name
-  roles      = [var.services_role_name]
+  roles      = [var.services_iam_role_name]
   policy_arn = aws_iam_policy.iam_policy.arn
 }
 
 resource "aws_iam_instance_profile" "iam_instance_profile_services" {
   name = "GrayMetaPlatform-${var.platform_instance_id}-Services-InstanceProfile"
-  role = var.services_role_name
+  role = var.services_iam_role_name
 }
 
 data "aws_region" "current" {}
