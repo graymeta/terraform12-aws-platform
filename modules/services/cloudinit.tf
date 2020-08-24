@@ -59,6 +59,8 @@ data "template_file" "userdata" {
     encrypted_config_blob             = var.encrypted_config_blob
     encryption_key                    = var.encryption_key
     faces_endpoint                    = var.faces_endpoint
+    faces_password                    = var.faces_password
+    faces_user                        = var.faces_user
     file_api_s3_bucket_arn            = data.aws_s3_bucket.file.arn
     from_addr                         = var.notifications_from_addr
     from_region                       = var.notifications_region

@@ -103,6 +103,8 @@ write_files:
         gm_es_replicas=${gm_es_replicas}
         gm_es_shards=${gm_es_shards}
         gm_faces_recog_api_addr=http://${faces_endpoint}
+        gm_faces_auth_password=${faces_password}
+        gm_faces_auth_username=${faces_user}
         gm_fileapi_stow_kind=s3
         gm_front_end_client_secret=${client_secret_fe}
         gm_harvest_complete_stow_fields=${harvest_complete_stow_fields}
