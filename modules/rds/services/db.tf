@@ -31,7 +31,7 @@ resource "aws_rds_cluster" "postgresql" {
   storage_encrypted         = var.rds_storage_encrypted
   vpc_security_group_ids    = [var.rds_nsg]
 
-  snapshot_identifier = var.rds_snapshot == "final" ? format("GrayMetaPlatform-${var.platform_instance_id}-aurora-final") : var.rds_snapshot
+  snapshot_identifier = var.rds_snapshot == "final" ? format("GrayMetaPlatform-${var.platform_instance_id}-services-final") : var.rds_snapshot
 
   lifecycle {
     ignore_changes = [

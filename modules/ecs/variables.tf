@@ -11,4 +11,3 @@ variable "ecs_volume_size" {}
 variable "key_name" {}
 variable "platform_instance_id" {}
 variable "proxy_endpoint" {}
-variable "ssh_cidr_blocks" {}

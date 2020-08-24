@@ -118,6 +118,16 @@ variable "faces_endpoint" {
   default = ""
 }
 
+variable "faces_password" {
+  type    = string
+  default = ""
+}
+
+variable "faces_user" {
+  type    = string
+  default = ""
+}
+
 variable "file_api_bucket" {
   type = string
 }
