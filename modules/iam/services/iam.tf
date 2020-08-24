@@ -1,3 +1,9 @@
+resource "aws_iam_policy" "iam_policy" {
+  name        = "GrayMetaPlatform-${var.platform_instance_id}-Services-Policy"
+  description = "GrayMeta Platform Services Nodes privileges"
+  policy      = data.template_file.policy_services.rendered
+}
+
 resource "aws_iam_policy_attachment" "iam_policy_attachment" {
   name       = aws_iam_policy.iam_policy.name
   roles      = [var.services_role_name]
