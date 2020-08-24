@@ -201,7 +201,7 @@ module "services_iam" {
   file_api_bucket          = var.file_api_bucket
   notifications_from_addr  = var.notifications_from_addr
   platform_instance_id     = var.platform_instance_id
-  services_role_name       = module.servicesiam.services_iam_role_name
+  services_iam_role_name   = module.servicesiam.services_iam_role_name
   sns_harvest_complete_arn = aws_sns_topic.harvest_complete.arn
   sqs_activity_arn         = module.queues.activity_arn
   sqs_index_arn            = module.queues.index_arn
