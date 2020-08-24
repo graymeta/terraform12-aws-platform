@@ -40,7 +40,7 @@ module "s3_sqs" {
 
 ## Prerequisite:
 
-* s3 bucket configured with notifications for ObjectCreated\* events that get published to an SQS queue. If you do not have this set up already, see [here](README-s3notifications-setup.md)
+* s3 bucket configured with notifications for ObjectCreated\* events that get published to an SQS queue. If you do not have this set up already, see [here](s3notifications-setup.md)
 * s3 bucket has been added as a storage location inside the GrayMeta Platform and the container is toggled into the `on` state
 
 ## Configuration
@@ -49,7 +49,7 @@ Set the following variables to terraform.tfvars when instantiating the module:
 
 ```
 # (Optional) s3 notification
-# https://github.com/graymeta/terraform12-aws-platform/blob/master/docs/README-s3notifications-setup.md
+# https://github.com/graymeta/terraform12-aws-platform/blob/master/docs/s3notifications-setup.md
 s3subscriber_priority   = 2
 sqs_s3notifications_arn = "arn of the queue"
 sqs_s3notifications     = "name of the queue"

@@ -14,7 +14,5 @@ Installation steps
   * `profile` - AWS profile to use on deployment
   * `region` - Pick which AWS region you want to deploy into from the list: [ us-east-1, us-east-2, us-west-2, ap-southeast-2, eu-west-1 ]
 
-* [Create s3 buckets](./docs/Readme-buckets.md)
-* [Deploy platform](./docs/Readme-platform.md)
-
-
+* [Create s3 buckets](./docs/buckets.md)
+* [Deploy platform](./docs/platform.md)
