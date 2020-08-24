@@ -1,7 +1,9 @@
 .terraform
-private.tfvars
-privateconfig.tf
-development
+private_terraform.tfvars
+private_config.tf
+private_dns.tf
+.terraform.tfstate.lock.info
+terraform.tfstate
 
 # VIm swap
 [._]*.s[a-v][a-z]
