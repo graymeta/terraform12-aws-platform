@@ -27,6 +27,10 @@ variable "platform_instance_id" {
   type = string
 }
 
+variable "services_role_name" {
+  type = string
+}
+
 variable "sns_harvest_complete_arn" {
   type = string
 }
