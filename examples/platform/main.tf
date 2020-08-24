@@ -6,20 +6,21 @@ provider "aws" {
 data "aws_region" "current" {}
 
 module "services_iam_role" {
-  # source = "github.com/graymeta/terraform12-aws-platform//modules/iam/services_role?ref=master"
-  source = "../../../modules/iam/services_role"
+  # source = "../../modules/iam/services_role"
+  source = "github.com/graymeta/terraform12-aws-platform//modules/iam/services_role?ref=master"
 
   platform_instance_id = var.platform_instance_id
 }
 
 module "amis" {
-  # source = "github.com/graymeta/terraform12-aws-platform//modules/amis?ref=master"
-  source = "../../../modules/amis"
+  # source = "../../modules/amis"
+  source = "github.com/graymeta/terraform12-aws-platform//modules/amis?ref=master"
+
 }
 
 module "network" {
-  # source = "github.com/graymeta/terraform12-aws-platform//modules/network/vpc?ref=master"
-  source = "../../../modules/network/vpc"
+  # source = "../../modules/network/vpc"
+  source = "github.com/graymeta/terraform12-aws-platform//modules/network/vpc?ref=master"
 
   az1                         = var.az1
   az2                         = var.az2
@@ -42,8 +43,8 @@ module "network" {
 }
 
 module "nsg" {
-  # source = "github.com/graymeta/terraform12-aws-platform//modules/security_groups?ref=master"
-  source = "../../../modules/security_groups"
+  # source = "../../modules/security_groups"
+  source = "github.com/graymeta/terraform12-aws-platform//modules/security_groups?ref=master"
 
   ecs_subnet_id_1        = module.network.ecs_subnet_id_1
   ecs_subnet_id_2        = module.network.ecs_subnet_id_2
@@ -60,15 +61,15 @@ module "nsg" {
 }
 
 module "proxy_iam" {
-  # source = "github.com/graymeta/terraform12-aws-platform//modules/iam/proxy?ref=master"
-  source = "../../../modules/iam/proxy"
+  # source = "../../modules/iam/proxy"
+  source = "github.com/graymeta/terraform12-aws-platform//modules/iam/proxy?ref=master"
 
   platform_instance_id = var.platform_instance_id
 }
 
 module "proxy_loadbalancer" {
-  # source = "github.com/graymeta/terraform12-aws-platform//modules/loadbalancers/proxy?ref=master"
-  source = "../../../modules/loadbalancers/proxy"
+  # source = "../../modules/loadbalancers/proxy"
+  source = "github.com/graymeta/terraform12-aws-platform//modules/loadbalancers/proxy?ref=master"
 
   platform_instance_id = var.platform_instance_id
   subnets = [
@@ -78,24 +79,24 @@ module "proxy_loadbalancer" {
 }
 
 module "proxy_asg" {
-  # source = "github.com/graymeta/terraform12-aws-platform//modules/proxy?ref=master"
-  source = "../../../modules/proxy"
+  # source = "../../modules/proxy"
+  source = "github.com/graymeta/terraform12-aws-platform//modules/proxy?ref=master"
 
   dns_name                            = var.dns_name
   key_name                            = var.key_name
   platform_instance_id                = var.platform_instance_id
   proxy_ami_id                        = lookup(module.amis.proxy_amis, data.aws_region.current.name)
   proxy_iam_instance_profile          = module.proxy_iam.proxy_iam_instance_profile
-  proxy_instance_type                 = "m5.large"
-  proxy_max_cluster_size              = 2
-  proxy_min_cluster_size              = 1
+  proxy_instance_type                 = var.proxy_instance_type
+  proxy_max_cluster_size              = var.proxy_max_cluster_size
+  proxy_min_cluster_size              = var.proxy_min_cluster_size
   proxy_nsg                           = module.nsg.proxy_nsg
   proxy_scale_down_evaluation_periods = 4
   proxy_scale_down_period             = 300
-  proxy_scale_down_thres              = "250000000"
+  proxy_scale_down_thres              = var.proxy_scale_down_thres
   proxy_scale_up_evaluation_periods   = 2
   proxy_scale_up_period               = 120
-  proxy_scale_up_thres                = "875000000"
+  proxy_scale_up_thres                = var.proxy_scale_up_thres
   proxy_subnet_id_1                   = module.network.proxy_subnet_id_1
   proxy_subnet_id_2                   = module.network.proxy_subnet_id_1
   proxy_user_init                     = ""
@@ -103,8 +104,9 @@ module "proxy_asg" {
 }
 
 module "proxy_network" {
-  # source = "github.com/graymeta/terraform12-aws-platform//modules/network/proxy?ref=master"
-  source = "../../../modules/network/proxy"
+  # source = "../../modules/network/proxy"
+  source = "github.com/graymeta/terraform12-aws-platform//modules/network/proxy?ref=master"
+
 
   default_route_table_id = module.network.default_route_table_id
   platform_instance_id   = var.platform_instance_id
@@ -116,41 +118,43 @@ module "proxy_network" {
 }
 
 module "cloudwatch_logs" {
-  # source = "github.com/graymeta/terraform12-aws-platform//modules/cloudwatch?ref=master"
-  source = "../../../modules/cloudwatch"
+  # source = "../../modules/cloudwatch"
+  source = "github.com/graymeta/terraform12-aws-platform//modules/cloudwatch?ref=master"
+
 
   log_retention        = var.log_retention
   platform_instance_id = var.platform_instance_id
 }
 
 module "queues" {
-  # source = "github.com/graymeta/terraform12-aws-platform//modules/queues?ref=master"
-  source = "../../../modules/queues"
+  # source = "../../modules/queues"
+  source = "github.com/graymeta/terraform12-aws-platform//modules/queues?ref=master"
+
 
   platform_instance_id = var.platform_instance_id
 }
 
 module "elasticache" {
-  # source = "github.com/graymeta/terraform12-aws-platform//modules/elasticache?ref=master"
-  source = "../../../modules/elasticache"
+  # source = "../../modules/elasticache"
+  source = "github.com/graymeta/terraform12-aws-platform//modules/elasticache?ref=master"
 
   elasticache_security_group    = module.nsg.elasticache_nsg
   elasticache_subnet_group_name = module.network.elasticache_subnet_group_name
-  instance_type                 = "cache.m5.large"
+  instance_type                 = var.elasticache_instance_type
   platform_instance_id          = var.platform_instance_id
 }
 
 module "rds" {
-  # source = "github.com/graymeta/terraform12-aws-platform//modules/rds/services?ref=master"
-  source = "../../../modules/rds/services"
+  # source = "../../modules/rds/services"
+  source = "github.com/graymeta/terraform12-aws-platform//modules/rds/services?ref=master"
 
   apply_immediately     = true
-  instance_count        = 1
+  instance_count        = var.rds_instance_count
   platform_instance_id  = var.platform_instance_id
   rds_backup_retention  = 1
   rds_backup_window     = "03:00-04:00"
   rds_database_name     = "graymeta"
-  rds_instance_size     = "db.r5.large"
+  rds_instance_size     = var.rds_instance_size
   rds_kms_key_id        = ""
   rds_nsg               = module.nsg.rds_nsg
   rds_password          = var.rds_password
@@ -162,44 +166,45 @@ module "rds" {
 }
 
 module "elasticsearch" {
-  # source = "github.com/graymeta/terraform12-aws-platform//modules/elasticsearch?ref=master"
-  source = "../../../modules/elasticsearch"
+  # source = "../../modules/elasticsearch"
+  source = "github.com/graymeta/terraform12-aws-platform//modules/elasticsearch?ref=master"
 
   create_iam_service_linked_role = var.elasticsearch_create_service_role
-  dedicated_master_count         = 0
-  dedicated_master_enabled       = false
-  dedicated_master_type          = "m5.large.elasticsearch"
+  dedicated_master_count         = var.elasticsearch_dedicated_master_count
+  dedicated_master_enabled       = var.elasticsearch_dedicated_master_enabled
+  dedicated_master_type          = var.elasticsearch_dedicated_master_type
   elasticsearch_security_group   = module.nsg.elasticsearch_nsg
-  instance_count                 = 4
-  instance_type                  = "m5.large.elasticsearch"
+  instance_count                 = var.elasticsearch_instance_count
+  instance_type                  = var.elasticsearch_instance_type
   platform_instance_id           = var.platform_instance_id
   subnet_id_1                    = module.network.elasticsearch_subnet_id_1
   subnet_id_2                    = module.network.elasticsearch_subnet_id_2
-  volume_size                    = 50
+  volume_size                    = var.elasticsearch_volume_size
 }
 
 module "ecs_iam" {
-  # source = "github.com/graymeta/terraform12-aws-platform//modules/iam/ecs?ref=master"
-  source = "../../../modules/iam/ecs"
+  # source = "../../modules/iam/ecs"
+  source = "github.com/graymeta/terraform12-aws-platform//modules/iam/ecs?ref=master"
+
 
   platform_instance_id = var.platform_instance_id
   temp_bucket          = var.temp_bucket
 }
 
 module "ecs" {
-  # source = "github.com/graymeta/terraform12-aws-platform//modules/ecs?ref=master"
-  source = "../../../modules/ecs"
+  # source = "../../modules/ecs"
+  source = "github.com/graymeta/terraform12-aws-platform//modules/ecs?ref=master"
 
   ecs_ami_id               = lookup(module.amis.ecs_amis, data.aws_region.current.name)
   ecs_iam_instance_profile = module.ecs_iam.ecs_iam_instance_profile
-  ecs_instance_type        = "m5.large"
-  ecs_max_cluster_size     = 4
-  ecs_min_cluster_size     = 1
+  ecs_instance_type        = var.ecs_instance_type
+  ecs_max_cluster_size     = var.ecs_max_cluster_size
+  ecs_min_cluster_size     = var.ecs_min_cluster_size
   ecs_nsg                  = module.nsg.ecs_nsg
   ecs_subnet_id_1          = module.network.ecs_subnet_id_1
   ecs_subnet_id_2          = module.network.ecs_subnet_id_2
   ecs_user_init            = ""
-  ecs_volume_size          = 50
+  ecs_volume_size          = var.ecs_volume_size
   key_name                 = var.key_name
   platform_instance_id     = var.platform_instance_id
   proxy_endpoint           = module.proxy_loadbalancer.proxy_endpoint
@@ -210,8 +215,8 @@ resource "aws_sns_topic" "harvest_complete" {
 }
 
 module "services_iam" {
-  # source = "github.com/graymeta/terraform12-aws-platform//modules/iam/services_policy?ref=master"
-  source = "../../../modules/iam/services_policy"
+  # source = "../../modules/iam/services_policy"
+  source = "github.com/graymeta/terraform12-aws-platform//modules/iam/services_policy?ref=master"
 
   custom_labels_bucket     = var.custom_labels_bucket
   file_api_bucket          = var.file_api_bucket
@@ -239,8 +244,8 @@ module "services_iam" {
 }
 
 module "services_alb" {
-  # source = "github.com/graymeta/terraform12-aws-platform//modules/loadbalancers/services?ref=master"
-  source = "../../../modules/loadbalancers/services"
+  # source = "../../modules/loadbalancers/services"
+  source = "github.com/graymeta/terraform12-aws-platform//modules/loadbalancers/services?ref=master"
 
   platform_instance_id = var.platform_instance_id
   services_alb_nsg     = module.nsg.services_alb_nsg
@@ -252,26 +257,26 @@ module "services_alb" {
 }
 
 module "services" {
-  # source = "github.com/graymeta/terraform12-aws-platform//modules/services?ref=master"
-  source = "../../../modules/services"
+  # source = "../../modules/services"
+  source = "github.com/graymeta/terraform12-aws-platform//modules/services?ref=master"
 
   account_lockout_attempts          = 5
   account_lockout_interval          = "10m"
   account_lockout_period            = "10m"
-  aws_cust_labels_inference_units   = 1
+  aws_cust_labels_inference_units   = var.aws_cust_labels_inference_units
   bcrypt_cost                       = 14
-  box_com_client_id                 = ""
-  box_com_secret_key                = ""
+  box_com_client_id                 = var.box_com_client_id
+  box_com_secret_key                = var.box_com_secret_key
   client_secret_fe                  = var.client_secret_fe
   client_secret_internal            = var.client_secret_internal
   custom_labels_bucket              = var.custom_labels_bucket
   customer                          = var.customer
   cw_dest_bucket                    = ""
   dns_name                          = var.dns_name
-  dropbox_app_key                   = ""
-  dropbox_app_secret                = ""
-  dropbox_teams_app_key             = ""
-  dropbox_teams_app_secret          = ""
+  dropbox_app_key                   = var.dropbox_app_key
+  dropbox_app_secret                = var.dropbox_app_secret
+  dropbox_teams_app_key             = var.dropbox_teams_app_key
+  dropbox_teams_app_secret          = var.dropbox_teams_app_secret
   ecs_cluster                       = module.ecs.ecs_cluster
   ecs_cpu_reservation               = 1024
   ecs_memory_hard_reservation       = 4000
@@ -333,9 +338,9 @@ module "services" {
   segment_write_key                 = var.segment_write_key
   services_ami_id                   = lookup(module.amis.services_amis, data.aws_region.current.name)
   services_iam_instance_profile     = module.services_iam.services_iam_instance_profile
-  services_instance_type            = "m5.large"
-  services_max_cluster_size         = 2
-  services_min_cluster_size         = 1
+  services_instance_type            = var.services_instance_type
+  services_max_cluster_size         = var.services_max_cluster_size
+  services_min_cluster_size         = var.services_min_cluster_size
   services_nsg                      = module.nsg.services_nsg
   services_scale_down_threshold_cpu = 50
   services_scale_up_threshold_cpu   = 70
