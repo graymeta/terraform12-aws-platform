@@ -27,7 +27,7 @@ variable "platform_instance_id" {
   type = string
 }
 
-variable "services_role_name" {
+variable "services_iam_role_name" {
   type = string
 }
 
