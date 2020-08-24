@@ -49,7 +49,7 @@ jwt_key                     = "012345678901234567890123456789ab"
 oauthconnect_encryption_key = "012345678901234567890123456789ab"
 
 # Using AWS KMS to encrypt secrets in the platform.  Leave blank if not using this.
-# https://github.com/graymeta/terraform12-aws-platform/blob/master/docs/README-encryption.md
+# https://github.com/graymeta/terraform12-aws-platform/blob/master/docs/encryption.md
 encrypted_config_blob = ""
 
 # custom_labels_bucket - S3 bucket name to use during AWS Custom Labels service
@@ -119,7 +119,7 @@ logograb_key = ""
 segment_write_key = ""
 
 # (Optional) s3 notification
-# https://github.com/graymeta/terraform12-aws-platform/blob/master/docs/README-s3notifications-setup.md
+# https://github.com/graymeta/terraform12-aws-platform/blob/master/docs/s3notifications-setup.md
 s3subscriber_priority   = 2
 sqs_s3notifications_arn = ""
 sqs_s3notifications     = ""
@@ -142,7 +142,7 @@ gm_celeb_detection_min_confidence = "0.6"
 gm_celeb_detection_provider       = "gmceleb"
 
 # (Optional) OAuth-storage
-# https://github.com/graymeta/terraform12-aws-platform/blob/master/docs/README-oauth-storage.md
+# https://github.com/graymeta/terraform12-aws-platform/blob/master/docs/oauth-storage.md
 box_com_client_id        = ""
 box_com_secret_key       = ""
 dropbox_app_key          = ""
@@ -155,7 +155,7 @@ sharepoint_client_id     = ""
 sharepoint_client_secret = ""
 
 # (Optional) SAML Configuration
-# https://github.com/graymeta/terraform12-aws-platform/blob/master/docs/README-saml.md
+# https://github.com/graymeta/terraform12-aws-platform/blob/master/docs/saml.md
 saml_attr_email       = "email"
 saml_attr_firstname   = "firstname"
 saml_attr_lastname    = "lastname"
