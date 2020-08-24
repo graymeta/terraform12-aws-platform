@@ -1,14 +1,15 @@
 provider "aws" {
-  region = "us-east-1"
+  region  = var.region
+  profile = var.profile
 }
 
 module "buckets" {
-  source = "github.com/graymeta/terraform12-aws-platform//modules/buckets?ref=v0.0.1"
+  source = "github.com/graymeta/terraform12-aws-platform//modules/buckets?ref=master"
 
-  platform_instance_id = "acme"
+  platform_instance_id = var.platform_instance_id
 
-  custom_labels_bucket = "acme-cust-labels"
-  file_api_bucket      = "acme-file-api"
-  temp_bucket          = "acme-temp"
-  usage_bucket         = "acme-usage"
+  custom_labels_bucket = var.custom_labels_bucket
+  file_api_bucket      = var.file_api_bucket
+  temp_bucket          = var.temp_bucket
+  usage_bucket         = var.usage_bucket
 }
