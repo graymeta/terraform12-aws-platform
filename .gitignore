@@ -1,6 +1,7 @@
 .terraform
 private.tfvars
 privateconfig.tf
+development
 
 # VIm swap
 [._]*.s[a-v][a-z]
