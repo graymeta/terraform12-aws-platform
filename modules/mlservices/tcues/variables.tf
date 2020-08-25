@@ -33,6 +33,6 @@ variable "user_init" {
 
 variable "volume_size" {
   type        = string
-  description = "The OS disk size for credits Server"
+  description = "The OS disk size for tcues Server"
   default     = "50"
 }
