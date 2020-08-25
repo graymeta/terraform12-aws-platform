@@ -91,3 +91,42 @@ resource "aws_security_group_rule" "ingress_3128_proxy" {
     data.aws_subnet.mlservices_subnet_id_2.cidr_block,
   ]
 }
+
+# Faces 
+resource "aws_security_group" "rds" {
+  name_prefix = "${var.platform_instance_id}-faces"
+  description = "Access to faces RDS Service"
+  vpc_id      = data.aws_subnet.rds.vpc_id
+
+  tags {
+    Name               = "GrayMetaPlatform-${var.platform_instance_id}-faces"
+    ApplicationName    = "GrayMetaPlatform"
+    PlatformInstanceID = var.platform_instance_id
+  }
+}
+
+resource "aws_security_group_rule" "rds_allow_servers" {
+  security_group_id = aws_security_group.rds.id
+  description       = "Allow Faces Nodes"
+  type              = "ingress"
+  from_port         = 5432
+  to_port           = 5432
+  protocol          = "tcp"
+
+  cidr_blocks = [
+    "${data.aws_subnet.subnet_faces_1.cidr_block}",
+    "${data.aws_subnet.subnet_faces_2.cidr_block}",
+  ]
+}
+
+data "aws_subnet" "rds" {
+  id = var.rds_subnet_id_1
+}
+
+data "aws_subnet" "subnet_faces_1" {
+  id = var.ml_loadbalancer_output["faces_subnet_id_1"]
+}
+
+data "aws_subnet" "subnet_faces_2" {
+  id = var.ml_loadbalancer_output["faces_subnet_id_2"]
+}
