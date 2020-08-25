@@ -1,4 +1,6 @@
-variable "aws_cust_labels_inference_units" { type = string }
+variable "aws_cust_labels_inference_units" { 
+  type = string
+}
 variable "az1" { type = string }
 variable "az2" { type = string }
 variable "box_com_client_id" { type = string }
