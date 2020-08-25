@@ -1,0 +1,135 @@
+variable "aws_cust_labels_inference_units" { 
+  type = string
+}
+variable "az1" { type = string }
+variable "az2" { type = string }
+variable "box_com_client_id" { type = string }
+variable "box_com_secret_key" { type = string }
+variable "cidr_subnet_ecs_1" { type = string }
+variable "cidr_subnet_ecs_2" { type = string }
+variable "cidr_subnet_elasticsearch_1" { type = string }
+variable "cidr_subnet_elasticsearch_2" { type = string }
+variable "cidr_subnet_mlservices_1" { type = string }
+variable "cidr_subnet_mlservices_2" { type = string }
+variable "cidr_subnet_proxy_1" { type = string }
+variable "cidr_subnet_proxy_2" { type = string }
+variable "cidr_subnet_public_1" { type = string }
+variable "cidr_subnet_public_2" { type = string }
+variable "cidr_subnet_rds_1" { type = string }
+variable "cidr_subnet_rds_2" { type = string }
+variable "cidr_subnet_services_1" { type = string }
+variable "cidr_subnet_services_2" { type = string }
+variable "cidr_vpc" { type = string }
+variable "client_secret_fe" { type = string }
+variable "client_secret_internal" { type = string }
+variable "customer" { type = string }
+variable "custom_labels_bucket" { type = string }
+variable "dns_name" { type = string }
+variable "dropbox_app_key" { type = string }
+variable "dropbox_app_secret" { type = string }
+variable "dropbox_teams_app_key" { type = string }
+variable "dropbox_teams_app_secret" { type = string }
+variable "elasticsearch_create_service_role" { type = bool }
+variable "encrypted_config_blob" { type = string }
+variable "encryption_key" { type = string }
+variable "faces_endpoint" {
+  type    = string
+  default = ""
+}
+variable "faces_password" {
+  type    = string
+  default = ""
+}
+variable "faces_user" {
+  type    = string
+  default = ""
+}
+variable "file_api_bucket" { type = string }
+variable "gm_celeb_detection_enabled" { type = string }
+variable "gm_celeb_detection_interval" { type = string }
+variable "gm_celeb_detection_min_confidence" { type = string }
+variable "gm_celeb_detection_provider" { type = string }
+variable "gm_license_key" { type = string }
+variable "google_maps_key" { type = string }
+variable "harvest_complete_stow_fields" { type = string }
+variable "jwt_key" { type = string }
+variable "key_name" { type = string }
+variable "log_retention" { type = number }
+variable "logograb_key" { type = string }
+variable "mlservices_endpoint" {
+  type    = string
+  default = ""
+}
+variable "notifications_from_addr" { type = string }
+variable "notifications_region" { type = string }
+variable "oauthconnect_encryption_key" { type = string }
+variable "onedrive_client_id" { type = string }
+variable "onedrive_client_secret" { type = string }
+variable "platform_access_cidrs" { type = string }
+variable "platform_instance_id" { type = string }
+variable "profile" { type = string }
+variable "rds_password" { type = string }
+variable "rds_snapshot" { type = string }
+variable "rds_username" { type = string }
+variable "region" { type = string }
+variable "s3subscriber_priority" { type = number }
+variable "saml_attr_email" { type = string }
+variable "saml_attr_firstname" { type = string }
+variable "saml_attr_lastname" { type = string }
+variable "saml_attr_uid" { type = string }
+variable "saml_cert" { type = string }
+variable "saml_idp_metadata_url" { type = string }
+variable "saml_key" { type = string }
+variable "segment_write_key" { type = string }
+variable "sharepoint_client_id" { type = string }
+variable "sharepoint_client_secret" { type = string }
+variable "sqs_s3notifications" { type = string }
+variable "sqs_s3notifications_arn" { type = string }
+variable "ssh_cidr_blocks" { type = string }
+variable "ssl_certificate_arn" { type = string }
+variable "temp_bucket" { type = string }
+variable "usage_bucket" { type = string }
+
+variable "proxy_instance_type" { type = string }
+variable "proxy_max_cluster_size" { type = number }
+variable "proxy_min_cluster_size" { type = number }
+variable "proxy_scale_down_thres" { type = number }
+variable "proxy_scale_up_thres" { type = number }
+variable "elasticache_instance_type" { type = string }
+variable "rds_instance_size" { type = string }
+variable "rds_instance_count" { type = number }
+variable "elasticsearch_dedicated_master_enabled" { type = bool }
+variable "elasticsearch_dedicated_master_count" { type = number }
+variable "elasticsearch_dedicated_master_type" { type = string }
+variable "elasticsearch_instance_count" { type = number }
+variable "elasticsearch_instance_type" { type = string }
+variable "elasticsearch_volume_size" { type = number }
+variable "ecs_instance_type" { type = string }
+variable "ecs_max_cluster_size" { type = number }
+variable "ecs_min_cluster_size" { type = number }
+variable "ecs_volume_size" { type = number }
+variable "services_instance_type" { type = string }
+variable "services_max_cluster_size" { type = number }
+variable "services_min_cluster_size" { type = number }
+
+variable "faces_instance_type" { type = string }
+variable "faces_max_cluster_size" { type = number }
+variable "faces_min_cluster_size" { type = number }
+variable "audio_instance_type" { type = string }
+variable "audio_max_cluster_size" { type = number }
+variable "audio_min_cluster_size" { type = number }
+variable "nld_instance_type" { type = string }
+variable "nld_max_cluster_size" { type = number }
+variable "nld_min_cluster_size" { type = number }
+variable "nlp_instance_type" { type = string }
+variable "nlp_max_cluster_size" { type = number }
+variable "nlp_min_cluster_size" { type = number }
+variable "object_instance_type" { type = string }
+variable "object_max_cluster_size" { type = number }
+variable "object_min_cluster_size" { type = number }
+variable "tcues_instance_type" { type = string }
+variable "tcues_max_cluster_size" { type = number }
+variable "tcues_min_cluster_size" { type = number }
+variable "vssoccer_instance_type" { type = string }
+variable "vssoccer_max_cluster_size" { type = number }
+variable "vssoccer_min_cluster_size" { type = number }

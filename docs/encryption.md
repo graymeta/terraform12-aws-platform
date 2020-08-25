@@ -58,7 +58,7 @@ Add in the terraform.tfvars:
 
 ```
 # Using AWS KMS to encrypt secrets in the platform.  Leave blank if not using this.
-# https://github.com/graymeta/terraform12-aws-platform/blob/master/docs/README-encryption.md
+# https://github.com/graymeta/terraform12-aws-platform/blob/master/docs/encryption.md
 encrypted_config_blob = "base64 encoded string from gmcrypt"
 ```
 
