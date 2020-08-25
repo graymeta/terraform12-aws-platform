@@ -1,6 +1,6 @@
 provider "aws" {
-  region  = "us-west-2"
-  profile = "graymeta-dev"
+  region  = var.region
+  profile = var.profile
 }
 
 data "aws_region" "current" {}

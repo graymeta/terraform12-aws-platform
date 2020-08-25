@@ -1,3 +1,7 @@
+data "aws_s3_bucket" "bucket" {
+  bucket = element(split(":", var.bucket_arn), length(split(":", var.bucket_arn)) - 1)
+}
+
 resource "aws_s3_bucket_notification" "bucket_notification" {
   bucket = data.aws_s3_bucket.bucket.id
 
