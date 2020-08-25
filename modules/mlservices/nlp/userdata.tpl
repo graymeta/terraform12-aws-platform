@@ -49,8 +49,6 @@ write_files:
             --net bridge \
             -m 0b \
             -e "FLASK_API_PORT=${api_port}" \
-            -e "STATSD_ADDRESS=${statsite_ip}:8125" \
-            -e "STATSD_APP_PREFIX=${statsite_prefix}" \
             -e "STATSD_BATCH_SIZE=100" \
             -p ${api_port}:${api_port} \
             --log-driver=awslogs \

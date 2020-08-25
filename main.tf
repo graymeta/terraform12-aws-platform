@@ -15,7 +15,6 @@ module "services_iam_role" {
 module "amis" {
   # source = "./modules/amis"
   source = "github.com/graymeta/terraform12-aws-platform//modules/amis?ref=master"
-
 }
 
 module "network" {
