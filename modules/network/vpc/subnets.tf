@@ -142,30 +142,6 @@ resource "aws_subnet" "rds_2" {
   }
 }
 
-resource "aws_subnet" "rds-faces_1" {
-  vpc_id            = aws_vpc.main.id
-  cidr_block        = var.cidr_subnet_faces
-  availability_zone = var.az1
-
-  tags = {
-    Name               = "GrayMetaPlatform-${var.platform_instance_id}-Faces"
-    Application        = "GrayMetaPlatform"
-    PlatformInstanceID = var.platform_instance_id
-  }
-}
-
-resource "aws_subnet" "rds-faces_2" {
-  vpc_id            = aws_vpc.main.id
-  cidr_block        = var.cidr_subnet_faces
-  availability_zone = var.az2
-
-  tags = {
-    Name               = "GrayMetaPlatform-${var.platform_instance_id}-Faces"
-    Application        = "GrayMetaPlatform"
-    PlatformInstanceID = var.platform_instance_id
-  }
-}
-
 resource "aws_subnet" "services_1" {
   vpc_id            = aws_vpc.main.id
   cidr_block        = var.cidr_subnet_services_1

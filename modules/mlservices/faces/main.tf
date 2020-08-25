@@ -13,14 +13,15 @@ data "template_file" "userdata" {
     api_port          = local.api_port
     dataversion       = "1"
     data_port         = local.data_port
-    log_group         = var.ml_loadbalancer_output["ml_cloudwatch_log_group"]
-    postgresdb        = "faces"
-    postgresendpoint  = element(split(":", "${aws_rds_cluster.postgresql.endpoint}"), 0)
-    postgresrendpoint = element(split(":", "${aws_rds_cluster.postgresql.reader_endpoint}"), 0)
+    log_group         = "GrayMetaPlatform-${var.platform_instance_id}-ML"
+    postgresdb        = var.rds_database_name
+    postgresendpoint  = var.rds_endpoint
+    postgresrendpoint = var.rds_ro_endpoint
     postgrespass      = var.rds_db_password
     postgresport      = "5432"
     postgresuser      = var.rds_db_username
-    proxy_endpoint    = var.ml_loadbalancer_output["proxy_endpoint"]
+    proxy_endpoint    = var.proxy_endpoint
+    service_name      = local.api_name
     tfs_port          = local.tfs_port
   }
 }

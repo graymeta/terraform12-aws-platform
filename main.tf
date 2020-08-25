@@ -150,7 +150,7 @@ module "rds" {
   apply_immediately     = true
   instance_count        = var.rds_instance_count
   platform_instance_id  = var.platform_instance_id
-  rds_backup_retention  = 1
+  rds_backup_retention  = var.rds_backup_retention
   rds_backup_window     = "03:00-04:00"
   rds_database_name     = "graymeta"
   rds_instance_size     = var.rds_instance_size

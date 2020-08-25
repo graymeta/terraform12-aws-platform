@@ -10,7 +10,7 @@ resource "aws_db_subnet_group" "rds" {
 
 resource "aws_db_subnet_group" "rds-faces" {
   name       = "${var.platform_instance_id}-faces"
-  subnet_ids = [aws_subnet.rds-faces_1.id, aws_subnet.rds-faces_2.id]
+  subnet_ids = [aws_subnet.rds_1.id, aws_subnet.rds_2.id]
 
   tags = {
     Name               = "GrayMetaPlatform-${var.platform_instance_id}-faces"

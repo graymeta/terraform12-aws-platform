@@ -64,6 +64,10 @@ output "rds_subnet_group_name" {
   value = aws_db_subnet_group.rds.name
 }
 
+output "rds_faces_subnet_group_name" {
+  value = aws_db_subnet_group.rds-faces.name
+}
+
 output "rds_subnet_id_1" {
   value = aws_subnet.rds_1.id
 }

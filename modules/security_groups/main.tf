@@ -41,6 +41,14 @@ module "rds" {
   vpc_id               = var.vpc_id
 }
 
+module "rds_faces" {
+  source = "./rds_faces"
+
+  platform_instance_id = var.platform_instance_id
+  mlservices_nsg       = module.mlservices.mlservices_nsg
+  vpc_id               = var.vpc_id
+}
+
 module "ecs" {
   source = "./ecs"
 

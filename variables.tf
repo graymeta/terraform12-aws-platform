@@ -1,4 +1,4 @@
-variable "aws_cust_labels_inference_units" { 
+variable "aws_cust_labels_inference_units" {
   type = string
 }
 variable "az1" { type = string }
@@ -89,13 +89,13 @@ variable "ssh_cidr_blocks" { type = string }
 variable "ssl_certificate_arn" { type = string }
 variable "temp_bucket" { type = string }
 variable "usage_bucket" { type = string }
-
 variable "proxy_instance_type" { type = string }
 variable "proxy_max_cluster_size" { type = number }
 variable "proxy_min_cluster_size" { type = number }
 variable "proxy_scale_down_thres" { type = number }
 variable "proxy_scale_up_thres" { type = number }
 variable "elasticache_instance_type" { type = string }
+variable "rds_backup_retention" { type = number }
 variable "rds_instance_size" { type = string }
 variable "rds_instance_count" { type = number }
 variable "elasticsearch_dedicated_master_enabled" { type = bool }
@@ -115,6 +115,13 @@ variable "services_min_cluster_size" { type = number }
 variable "faces_instance_type" { type = string }
 variable "faces_max_cluster_size" { type = number }
 variable "faces_min_cluster_size" { type = number }
+variable "faces_rds_instance_count" { type = number }
+variable "faces_rds_max_capacity" { type = number }
+variable "faces_rds_backup_retention" { type = number }
+variable "faces_rds_instance_size" { type = string }
+variable "faces_rds_password" { type = string }
+variable "faces_rds_snapshot" { type = string }
+variable "faces_rds_username" { type = string }
 variable "audio_instance_type" { type = string }
 variable "audio_max_cluster_size" { type = number }
 variable "audio_min_cluster_size" { type = number }
