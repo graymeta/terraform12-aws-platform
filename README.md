@@ -2,7 +2,7 @@
 
 ![Graymeta Terraform Enterprise](images/Graymeta_Terraform_Enterprise.png)
 
-* `version` - Current version is v0.0.1
+* `version` - Current version is v1.0.0
 * Terraform 12 is only supported at this time.
 
 
