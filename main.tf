@@ -6,20 +6,20 @@ provider "aws" {
 data "aws_region" "current" {}
 
 module "services_iam_role" {
-  # source = "../../modules/iam/services_role"
+  # source = "./modules/iam/services_role"
   source = "github.com/graymeta/terraform12-aws-platform//modules/iam/services_role?ref=master"
 
   platform_instance_id = var.platform_instance_id
 }
 
 module "amis" {
-  # source = "../../modules/amis"
+  # source = "./modules/amis"
   source = "github.com/graymeta/terraform12-aws-platform//modules/amis?ref=master"
 
 }
 
 module "network" {
-  # source = "../../modules/network/vpc"
+  # source = "./modules/network/vpc"
   source = "github.com/graymeta/terraform12-aws-platform//modules/network/vpc?ref=master"
 
   az1                         = var.az1
@@ -43,7 +43,7 @@ module "network" {
 }
 
 module "nsg" {
-  # source = "../../modules/security_groups"
+  # source = "./modules/security_groups"
   source = "github.com/graymeta/terraform12-aws-platform//modules/security_groups?ref=master"
 
   ecs_subnet_id_1        = module.network.ecs_subnet_id_1
@@ -61,14 +61,14 @@ module "nsg" {
 }
 
 module "proxy_iam" {
-  # source = "../../modules/iam/proxy"
+  # source = "./modules/iam/proxy"
   source = "github.com/graymeta/terraform12-aws-platform//modules/iam/proxy?ref=master"
 
   platform_instance_id = var.platform_instance_id
 }
 
 module "proxy_loadbalancer" {
-  # source = "../../modules/loadbalancers/proxy"
+  # source = "./modules/loadbalancers/proxy"
   source = "github.com/graymeta/terraform12-aws-platform//modules/loadbalancers/proxy?ref=master"
 
   platform_instance_id = var.platform_instance_id
@@ -79,7 +79,7 @@ module "proxy_loadbalancer" {
 }
 
 module "proxy_asg" {
-  # source = "../../modules/proxy"
+  # source = "./modules/proxy"
   source = "github.com/graymeta/terraform12-aws-platform//modules/proxy?ref=master"
 
   dns_name                            = var.dns_name
@@ -104,7 +104,7 @@ module "proxy_asg" {
 }
 
 module "proxy_network" {
-  # source = "../../modules/network/proxy"
+  # source = "./modules/network/proxy"
   source = "github.com/graymeta/terraform12-aws-platform//modules/network/proxy?ref=master"
 
 
@@ -118,7 +118,7 @@ module "proxy_network" {
 }
 
 module "cloudwatch_logs" {
-  # source = "../../modules/cloudwatch"
+  # source = "./modules/cloudwatch"
   source = "github.com/graymeta/terraform12-aws-platform//modules/cloudwatch?ref=master"
 
 
@@ -127,7 +127,7 @@ module "cloudwatch_logs" {
 }
 
 module "queues" {
-  # source = "../../modules/queues"
+  # source = "./modules/queues"
   source = "github.com/graymeta/terraform12-aws-platform//modules/queues?ref=master"
 
 
@@ -135,7 +135,7 @@ module "queues" {
 }
 
 module "elasticache" {
-  # source = "../../modules/elasticache"
+  # source = "./modules/elasticache"
   source = "github.com/graymeta/terraform12-aws-platform//modules/elasticache?ref=master"
 
   elasticache_security_group    = module.nsg.elasticache_nsg
@@ -145,7 +145,7 @@ module "elasticache" {
 }
 
 module "rds" {
-  # source = "../../modules/rds/services"
+  # source = "./modules/rds/services"
   source = "github.com/graymeta/terraform12-aws-platform//modules/rds/services?ref=master"
 
   apply_immediately     = true
@@ -166,7 +166,7 @@ module "rds" {
 }
 
 module "elasticsearch" {
-  # source = "../../modules/elasticsearch"
+  # source = "./modules/elasticsearch"
   source = "github.com/graymeta/terraform12-aws-platform//modules/elasticsearch?ref=master"
 
   create_iam_service_linked_role = var.elasticsearch_create_service_role
@@ -183,7 +183,7 @@ module "elasticsearch" {
 }
 
 module "ecs_iam" {
-  # source = "../../modules/iam/ecs"
+  # source = "./modules/iam/ecs"
   source = "github.com/graymeta/terraform12-aws-platform//modules/iam/ecs?ref=master"
 
 
@@ -192,7 +192,7 @@ module "ecs_iam" {
 }
 
 module "ecs" {
-  # source = "../../modules/ecs"
+  # source = "./modules/ecs"
   source = "github.com/graymeta/terraform12-aws-platform//modules/ecs?ref=master"
 
   ecs_ami_id               = lookup(module.amis.ecs_amis, data.aws_region.current.name)
@@ -215,7 +215,7 @@ resource "aws_sns_topic" "harvest_complete" {
 }
 
 module "services_iam" {
-  # source = "../../modules/iam/services_policy"
+  # source = "./modules/iam/services_policy"
   source = "github.com/graymeta/terraform12-aws-platform//modules/iam/services_policy?ref=master"
 
   custom_labels_bucket     = var.custom_labels_bucket
@@ -244,7 +244,7 @@ module "services_iam" {
 }
 
 module "services_alb" {
-  # source = "../../modules/loadbalancers/services"
+  # source = "./modules/loadbalancers/services"
   source = "github.com/graymeta/terraform12-aws-platform//modules/loadbalancers/services?ref=master"
 
   platform_instance_id = var.platform_instance_id
@@ -257,7 +257,7 @@ module "services_alb" {
 }
 
 module "services" {
-  # source = "../../modules/services"
+  # source = "./modules/services"
   source = "github.com/graymeta/terraform12-aws-platform//modules/services?ref=master"
 
   account_lockout_attempts          = 5

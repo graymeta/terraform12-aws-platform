@@ -1,5 +1,5 @@
 module "mlservices_alb" {
-  # source = "../../modules/loadbalancers/mlservices"
+  # source = "./modules/loadbalancers/mlservices"
   source = "github.com/graymeta/terraform12-aws-platform//modules/loadbalancers/mlservices?ref=master"
 
 
@@ -12,7 +12,7 @@ module "mlservices_alb" {
 }
 
 module "mlservices_iam" {
-  # source = "../../modules/iam/mlservices"
+  # source = "./modules/iam/mlservices"
   source = "github.com/graymeta/terraform12-aws-platform//modules/iam/mlservices?ref=master"
 
   platform_instance_id = var.platform_instance_id
@@ -24,7 +24,7 @@ module "mlservices_iam" {
 ###########################################
 # MLServices Audio
 module "mlservices_audio" {
-  # source = "../../modules/mlservices/audio"
+  # source = "./modules/mlservices/audio"
   source = "github.com/graymeta/terraform12-aws-platform//modules/mlservices/audio?ref=master"
 
   instance_type                   = var.audio_instance_type
@@ -51,7 +51,7 @@ output "mlservices_audio" {
 # ###########################################
 # # MLServices NLD
 # module "mlservices_nld" {
-#   # source = "../../modules/mlservices/nld"
+#   # source = "./modules/mlservices/nld"
 #   source = "github.com/graymeta/terraform12-aws-platform//modules/mlservices/nld?ref=master"
 
 #   instance_type                   = var.nld_instance_type
@@ -78,7 +78,7 @@ output "mlservices_audio" {
 # ###########################################
 # # MLServices NLP
 # module "mlservices_nlp" {
-#   # source = "../../modules/mlservices/nlp"
+#   # source = "./modules/mlservices/nlp"
 #   source = "github.com/graymeta/terraform12-aws-platform//modules/mlservices/nlp?ref=master"
 
 #   instance_type                   = var.nlp_instance_type
@@ -105,7 +105,7 @@ output "mlservices_audio" {
 # ###########################################
 # # MLServices Object
 # module "mlservices_object" {
-#   # source = "../../modules/mlservices/object"
+#   # source = "./modules/mlservices/object"
 #   source = "github.com/graymeta/terraform12-aws-platform//modules/mlservices/object?ref=master"
 
 #   instance_type                   = var.object_instance_type
@@ -132,7 +132,7 @@ output "mlservices_audio" {
 # ###########################################
 # # MLServices Tcues
 # module "mlservices_tcues" {
-#   # source = "../../modules/mlservices/tcues"
+#   # source = "./modules/mlservices/tcues"
 #   source = "github.com/graymeta/terraform12-aws-platform//modules/mlservices/tcues?ref=master"
 
 #   instance_type                   = var.tcues_instance_type
@@ -159,7 +159,7 @@ output "mlservices_audio" {
 # ##########################################
 # # MLServices VSSOCCER
 # module "mlservices_vssoccer" {
-#   # source = "../../modules/mlservices/vssoccer"
+#   # source = "./modules/mlservices/vssoccer"
 #   source = "github.com/graymeta/terraform12-aws-platform//modules/mlservices/vssoccer?ref=master"
 
 #   instance_type                   = var.vssoccer_instance_type
