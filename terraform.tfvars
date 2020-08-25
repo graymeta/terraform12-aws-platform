@@ -96,12 +96,21 @@ ssh_cidr_blocks       = "10.0.0.0/16"
 # log_retention - The log retention set in Cloudwatch for all logs.
 log_retention = 14
 
-# RDS Postgres username and password.  
-rds_username = "mydbuser"
-rds_password = "mydbpassword"
+# RDS Postgres Services.  
+rds_username         = "mydbuser"
+rds_password         = "mydbpassword"
+rds_backup_retention = 14
 
 # RDS Snapshot to recover from.  After initial deployment this should be set to `rds_snapshot = "final"`
 rds_snapshot = ""
+
+# RDS Postgres MLServices.  
+faces_rds_username         = "faces"
+faces_rds_password         = "mydbpassword"
+faces_rds_backup_retention = 14
+
+# RDS Snapshot to recover from.  After initial deployment this should be set to `faces_rds_snapshot = "final"`
+faces_rds_snapshot = ""
 
 # Elasticsearch create linked service role.  If the role already exists set to false
 elasticsearch_create_service_role = false
@@ -163,3 +172,4 @@ saml_attr_uid         = "uid"
 saml_cert             = ""
 saml_idp_metadata_url = ""
 saml_key              = ""
+

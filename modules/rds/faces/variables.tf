@@ -1,117 +1,98 @@
-variable "instance_type" {
-  type        = "string"
-  description = "ec2 instance type"
+variable "apply_immediately" {
+  type        = bool
+  description = "Apply database modifications immediately, or during the next maintenance window."
 }
 
-variable "max_cluster_size" {
-  type        = "string"
-  description = "The max number of ec2 instances to spin up"
-}
-
-variable "min_cluster_size" {
-  type        = "string"
-  description = "The max number of ec2 instances to spin up"
-}
-
-variable "ml_loadbalancer_output" {
-  type        = "map"
-  description = "The output from the ml_network module"
+variable "instance_count" {
+  type        = number
+  description = "The number of RDS cluster instances."
+  default     = 2
 }
 
 variable "platform_instance_id" {
-  type        = "string"
+  type        = string
   description = "A human-readable string for this instance of the GrayMeta Platform"
 }
 
 variable "rds_asg_target_cpu" {
-  type        = "string"
+  type        = number
   description = "RDS ASG target CPU"
-  default     = "80"
+  default     = 80
 }
 
 variable "rds_asg_scalein_cooldown" {
-  type        = "string"
+  type        = number
   description = "RDS ASG Scale In cooldown"
-  default     = "300"
+  default     = 300
 }
 
 variable "rds_asg_scaleout_cooldown" {
-  type        = "string"
+  type        = number
   description = "RDS ASG Scale Out cooldown"
-  default     = "300"
+  default     = 300
 }
 
 variable "rds_asg_max_capacity" {
-  type        = "string"
+  type        = number
   description = "RDS max number of read nodes"
-  default     = "15"
+  default     = 15
 }
 
 variable "rds_backup_retention" {
-  type        = "string"
-  description = "RDS backup retention"
-  default     = "7"
+  type        = number
+  description = "The days to retain backups for."
 }
 
 variable "rds_backup_window" {
-  type        = "string"
-  description = "RDS Backup window"
-  default     = "03:00-04:00"
+  type        = string
+  description = "The daily time range during which automated backups are created. Time in UTC. e.g. e.g. 04:00-09:00"
 }
 
-variable "rds_db_instance_size" {
-  type        = "string"
-  description = "The size of the instance to use for the RDS database instance"
-  default     = "db.r4.2xlarge"
+variable "rds_database_name" {
+  type        = string
+  description = "The database name to deploy"
 }
 
-variable "rds_db_password" {
-  type        = "string"
-  description = "password for postgresql database"
+variable "rds_instance_size" {
+  type        = string
+  description = "The instance class to use. Aurora uses db.* instance classes/types."
 }
 
-variable "rds_db_username" {
-  type        = "string"
-  description = "username for postgresql database"
+variable "rds_kms_key_id" {
+  type        = string
+  description = "The ARN for the KMS encryption key. When specifying kms_key_id, rds_storage_encrypted needs to be set to true."
+}
+
+variable "rds_nsg" {
+  type        = string
+  description = "RDS network security group."
+}
+
+variable "rds_password" {
+  type        = string
+  description = " Password for the master DB user."
 }
 
 variable "rds_snapshot" {
-  type        = "string"
-  description = "(Optional) Specify a snapshot to use on db create.  For initial install this should be empty string.  After the initial create it is recommended to set this to final."
-  default     = ""
+  type = string
 }
 
-variable "rds_subnet_id_1" {
-  type        = "string"
-  description = "The first subnet ID to use to deploy the RDS database into. Needs to be in a different AZ than rds_subnet_id_2"
+variable "rds_storage_encrypted" {
+  type        = bool
+  description = "Specifies whether the DB cluster is encrypted."
 }
 
-variable "rds_subnet_id_2" {
-  type        = "string"
-  description = "The second subnet ID to use to deploy the RDS database into. Needs to be in a different AZ than rds_subnet_id_1"
+variable "rds_subnet_group_name" {
+  type        = string
+  description = "RDS subnet group name."
+}
+
+variable "rds_username" {
+  type        = string
+  description = "The master username for the database"
 }
 
 variable "rds_version" {
-  type        = "string"
-  description = "The Aurora postgres version.  Default 10.11"
-  default     = "10.11"
+  type        = string
+  description = "The database engine version."
 }
-
-variable "services_ecs_cidrs" {
-  type        = "list"
-  description = "The list of cidrs to allow connection to cluster"
-}
-
-variable "user_init" {
-  type        = "string"
-  description = "Custom cloud-init that is rendered to be used on cluster instances. (Not Recommened)"
-  default     = ""
-}
-
-variable "volume_size" {
-  type        = "string"
-  description = "The OS disk size for credits Server"
-  default     = "50"
-}
-
-data "aws_region" "current" {}

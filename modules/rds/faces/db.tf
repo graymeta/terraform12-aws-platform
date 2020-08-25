@@ -4,7 +4,7 @@ resource "aws_rds_cluster_instance" "cluster_instances" {
   cluster_identifier = aws_rds_cluster.postgresql.id
   engine             = "aurora-postgresql"
   engine_version     = var.rds_version
-  instance_class     = var.rds_db_instance_size
+  instance_class     = var.rds_instance_size
 
   copy_tags_to_snapshot = true
 
@@ -16,27 +16,27 @@ resource "aws_rds_cluster_instance" "cluster_instances" {
 }
 
 resource "aws_rds_cluster" "postgresql" {
-  apply_immediately         = true
+  apply_immediately         = var.apply_immediately
   backup_retention_period   = var.rds_backup_retention
   cluster_identifier        = "gm-${var.platform_instance_id}-faces"
-  database_name             = "faces"
+  database_name             = var.rds_database_name
   db_subnet_group_name      = var.rds_subnet_group_name
   engine                    = "aurora-postgresql"
   engine_version            = var.rds_version
   final_snapshot_identifier = "GrayMetaPlatform-${var.platform_instance_id}-faces-aurora-final"
-  master_password           = var.rds_db_password
-  master_username           = var.rds_db_username
+  master_password           = var.rds_password
+  master_username           = var.rds_username
   port                      = "5432"
   preferred_backup_window   = var.rds_backup_window
-  storage_encrypted         = true
+  storage_encrypted         = var.rds_storage_encrypted
   vpc_security_group_ids    = [var.rds_nsg]
 
-  snapshot_identifier = var.rds_snapshot == "final" ? format("GrayMetaPlatform-${var.platform_instance_id}-faces-aurora-final") : var.rds_snapshot
+  snapshot_identifier = var.rds_snapshot == "final" ? format("GrayMetaPlatform-${var.platform_instance_id}-faces-final") : var.rds_snapshot
 
-  lifecycle = {
+  lifecycle {
     ignore_changes = [
-      storage_encrypted
-      kms_key_id
+      storage_encrypted,
+      kms_key_id,
       snapshot_identifier
     ]
   }
