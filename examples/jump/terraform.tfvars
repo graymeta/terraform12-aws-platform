@@ -12,3 +12,6 @@ platform_instance_id = "test"
 
 # key_name - The default ssh key name to access the instances.
 key_name = "somekey"
+
+# Subnet id to deploy in
+subnet_id = ""

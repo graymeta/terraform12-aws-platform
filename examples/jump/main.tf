@@ -27,7 +27,7 @@ data "aws_ami" "centos7" {
 
 # Pull the subnet information
 data "aws_subnet" "jump" {
-  id = module.network.public_subnet_id_1
+  id = var.subnet_id
 }
 
 # Create the jump ec2 instance

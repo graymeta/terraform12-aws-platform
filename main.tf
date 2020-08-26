@@ -283,7 +283,7 @@ module "services" {
   elasticsearch_endpoint            = module.elasticsearch.elasticsearch_endpoint
   encrypted_config_blob             = var.encrypted_config_blob
   encryption_key                    = var.encryption_key
-  faces_endpoint                    = var.faces_endpoint
+  faces_endpoint                    = coalesce(module.mlservices_faces.faces_endpoint, var.faces_endpoint)
   faces_user                        = var.faces_user
   faces_password                    = var.faces_password
   file_api_bucket                   = var.file_api_bucket
