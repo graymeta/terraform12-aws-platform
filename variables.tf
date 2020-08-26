@@ -1,24 +1,79 @@
 variable "aws_cust_labels_inference_units" {
-  type = string
+  type        = string
+  description = "A single inference unit represents 1 hour of model use. A single inference unit can support up to 5 transactions per second (TPS). Use a higher number to increase the TPS throughput of your model. You are charged for the number of inference units that you use."
 }
-variable "az1" { type = string }
-variable "az2" { type = string }
-variable "box_com_client_id" { type = string }
-variable "box_com_secret_key" { type = string }
-variable "cidr_subnet_ecs_1" { type = string }
-variable "cidr_subnet_ecs_2" { type = string }
-variable "cidr_subnet_elasticsearch_1" { type = string }
-variable "cidr_subnet_elasticsearch_2" { type = string }
-variable "cidr_subnet_mlservices_1" { type = string }
-variable "cidr_subnet_mlservices_2" { type = string }
-variable "cidr_subnet_proxy_1" { type = string }
-variable "cidr_subnet_proxy_2" { type = string }
-variable "cidr_subnet_public_1" { type = string }
-variable "cidr_subnet_public_2" { type = string }
-variable "cidr_subnet_rds_1" { type = string }
-variable "cidr_subnet_rds_2" { type = string }
-variable "cidr_subnet_services_1" { type = string }
-variable "cidr_subnet_services_2" { type = string }
+variable "az1" {
+  type        = string
+  description = "Availability Zone 1."
+}
+variable "az2" {
+  type        = string
+  description = "Availability Zone 1."
+}
+variable "box_com_client_id" {
+  type        = string
+  description = "Box Oauth 2.0 Credentials Client ID."
+}
+variable "box_com_secret_key" {
+  type        = string
+  description = "Box Oauth 2.0 Credentials Client Secret."
+}
+variable "cidr_subnet_ecs_1" {
+  type        = string
+  description = "The CIDR block to use for the ecs subnet"
+}
+variable "cidr_subnet_ecs_2" {
+  type        = string
+  description = "The CIDR block to use for the ecs subnet"
+}
+variable "cidr_subnet_elasticsearch_1" {
+  type        = string
+  description = "The CIDR block to use for the elasticsearch subnet"
+}
+variable "cidr_subnet_elasticsearch_2" {
+  type        = string
+  description = "The CIDR block to use for the elasticsearch subnet"
+}
+variable "cidr_subnet_mlservices_1" {
+  type        = string
+  description = "The CIDR block to use for the mlservices subnet"
+}
+variable "cidr_subnet_mlservices_2" {
+  type        = string
+  description = "The CIDR block to use for the mlservices subnet"
+}
+variable "cidr_subnet_proxy_1" {
+  type        = string
+  description = "The CIDR block to use for the proxy subnet"
+}
+variable "cidr_subnet_proxy_2" {
+  type        = string
+  description = "The CIDR block to use for the proxy subnet"
+}
+variable "cidr_subnet_public_1" {
+  type        = string
+  description = "The CIDR block to use for the public subnet"
+}
+variable "cidr_subnet_public_2" {
+  type        = string
+  description = "The CIDR block to use for the public subnet"
+}
+variable "cidr_subnet_rds_1" {
+  type        = string
+  description = "The CIDR block to use for the rds subnet"
+}
+variable "cidr_subnet_rds_2" {
+  type        = string
+  description = "The CIDR block to use for the rds subnet"
+}
+variable "cidr_subnet_services_1" {
+  type        = string
+  description = "The CIDR block to use for the services subnet"
+}
+variable "cidr_subnet_services_2" {
+  type        = string
+  description = "The CIDR block to use for the services subnet"
+}
 variable "cidr_vpc" { type = string }
 variable "client_secret_fe" { type = string }
 variable "client_secret_internal" { type = string }
