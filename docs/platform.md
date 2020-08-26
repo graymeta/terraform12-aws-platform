@@ -1,5 +1,5 @@
 # Deploy platform
-This will deploy Network and Platform.
+ This doc outlines deploying the Network and Platform modules. You should have already deployed the four S3 buckets described in [Create S3 buckets](./docs/buckets.md) prior to this step.
 
 ### Variables
 * `customer` - Short name for you company.
