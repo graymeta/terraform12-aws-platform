@@ -26,6 +26,10 @@ output "rds_nsg" {
   value = module.rds.rds_nsg
 }
 
+output "rds_faces_nsg" {
+  value = module.rds_faces.rds_faces_nsg
+}
+
 output "services_alb_nsg" {
   value = module.services_alb.services_alb_nsg
 }

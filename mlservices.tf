@@ -36,7 +36,7 @@ module "rds_faces" {
   rds_database_name         = "faces"
   rds_instance_size         = var.faces_rds_instance_size
   rds_kms_key_id            = ""
-  rds_nsg                   = module.nsg.rds_nsg
+  rds_nsg                   = module.nsg.rds_faces_nsg
   rds_password              = var.faces_rds_password
   rds_snapshot              = var.faces_rds_snapshot
   rds_storage_encrypted     = true

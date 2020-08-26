@@ -2,6 +2,7 @@
 private_terraform.tfvars
 private_config.tf
 private_dns.tf
+private_*
 .terraform.tfstate.lock.info
 terraform.tfstate
 
