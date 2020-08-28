@@ -27,7 +27,3 @@
 
 ### Monitoring
 [Monitoring](.docs/monitoring.md) Health and "pre-flight" checks to make sure everything is running and configured correctly.
-
-
-## Modified Installations:
-This project is structured to accomodate making modifications based on your use-case. For example, if you need to make changes to the [Network module](./modules/network), you are able to do so.
