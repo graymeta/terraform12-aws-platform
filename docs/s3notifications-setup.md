@@ -2,13 +2,13 @@
 
 ## Prerequisites:
 
-* An s3 bucket's ARN
+* An S3 bucket's ARN
 
 ## Procedure:
 
 Assume we want to set up notifications for the bucket with ARN `arn:aws:s3:::somebucket` and only trigger notifications from the `logs/` prefix that have the `.txt` suffix.
 
-Add this block to your terraform code:
+Add this block to your Terraform code:
 
 ```
 resource "aws_sqs_queue" "my_notification_queue" {
@@ -16,7 +16,7 @@ resource "aws_sqs_queue" "my_notification_queue" {
 }
 
 module "s3_sqs" {
-    source = "github.com/graymeta/terraform-aws-platform//modules/s3_sqs?ref=master"
+    source = "github.com/graymeta/terraform12-aws-platform//modules/s3_sqs"
 
     platform_instance_id = "${var.platform_instance_id}"
     region               = "${var.region}"
@@ -36,19 +36,19 @@ module "s3_sqs" {
 * `filter_suffix` - (string) - Optional. The suffix that the s3 keys must match to trigger a notification. Leave blank if you want all items in the bucket to trigger notifications.
 
 
-# Triggering harvests via s3 ObjectCreated notifications
+# Triggering harvests via S3 ObjectCreated notifications
 
 ## Prerequisite:
 
-* s3 bucket configured with notifications for ObjectCreated\* events that get published to an SQS queue. If you do not have this set up already, see [here](s3notifications-setup.md)
-* s3 bucket has been added as a storage location inside the GrayMeta Platform and the container is toggled into the `on` state
+* S3 bucket configured with notifications for ObjectCreated\* events that get published to an SQS queue. If you do not have this set up already, see [here](s3notifications-setup.md)
+* S3 bucket has been added as a storage location inside the GrayMeta Platform and the container is toggled into the `enabled` state.
 
 ## Configuration
 
-Set the following variables to terraform.tfvars when instantiating the module:
+Set the following variables to `terraform.tfvars` when instantiating the module:
 
 ```
-# (Optional) s3 notification
+# (Optional) S3 notification
 # https://github.com/graymeta/terraform12-aws-platform/blob/master/docs/s3notifications-setup.md
 s3subscriber_priority   = 2
 sqs_s3notifications_arn = "arn of the queue"

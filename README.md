@@ -5,14 +5,14 @@
 * `version` - Current version is v1.0.0
 * Only Terraform 12 is supported at this time.
 
-Installation steps:
+## Basic Installation steps:
 * Contact Graymeta support@graymeta.com to get permissions and needed licenses.
 * Set variables used in in all of the module installs:
   * `platform_instance_id` - Pick a platform instance id for this deployment of the GrayMeta platform. A short, descriptive name like production, labs, test, etc. that can be used to uniquely identify this deployment of the GrayMeta Platform within your environment.
   * `profile` - AWS profile to use on deployment
   * `region` - Pick which AWS region you want to deploy into from this list: [ us-east-1, us-east-2, us-west-2, ap-southeast-2, eu-west-1 ]
 
-Navigate to the following docs:
+**Navigate to the following docs:**
 * [Create s3 buckets](./docs/buckets.md) - This step must be completed prior to deploying the Curio platform.
 * [Deploy platform](./docs/platform.md) - Following the steps in this doc will deploy a "base" Curio system. Please see optional feature documentation for instructions on enabling and configuring.
 
@@ -26,4 +26,8 @@ Navigate to the following docs:
 [SAML](.docs/saml.md) - SP initiated SAML logins supported (see documentation for supported identitiy providers).
 
 ### Monitoring
-[Monitoring](.docs/monitoring.md) Health and "pre flight" checks to make sure everything is running and configured correctly.
+[Monitoring](.docs/monitoring.md) Health and "pre-flight" checks to make sure everything is running and configured correctly.
+
+
+## Modified Installations:
+This project is structured to accomodate making modifications based on your use-case. For example, if you need to make changes to the [Network module](./modules/network), you are able to do so.
