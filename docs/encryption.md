@@ -1,6 +1,6 @@
 # Using AWS KMS to encrypt secrets in the platform.
 
-If your security policies prevent using secrets directly in Terraform, you can use AWS KMS to encrypt configuration data. You will have to jump through additional hoops to deploy the platform.
+If your security policies prevent using secrets directly in Terraform, you can use AWS KMS to encrypt configuration data. You will have to complete some additional steps to deploy the platform.
 
 ## Multi-Stage Deployment
 
@@ -52,7 +52,7 @@ Encrypt the file:
 
 A base64 encoded string will be output. This string becomes the `encrypted_config_blob` variable in the next step
 
-### Step 4: Add the rest of the configs to the terraform module
+### Step 4: Add the rest of the configs to the Terraform module
 
 Add in the terraform.tfvars:
 

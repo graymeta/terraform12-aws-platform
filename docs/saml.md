@@ -9,7 +9,7 @@ The GrayMeta Platform supports SP initiated SAML logins and has been tested agai
 
 ## Enabling SAML
 
-Before we begin, you must know the URL that your site is deployed at. If you set the `dns_name` variable in the terraform configuration to `foo.example.com`, your endpoint url (from now on referenced as `endpoint`) will be `https://foo.example.com`.
+Before we begin, you must know the URL that your site is deployed at. If you set the `dns_name` variable in the Terraform configuration to `foo.example.com`, your endpoint url (from now on referenced as `endpoint`) will be `https://foo.example.com`.
 
 Various URLs that you will need:
 
