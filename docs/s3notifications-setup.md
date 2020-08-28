@@ -8,7 +8,7 @@
 
 Assume we want to set up notifications for the bucket with ARN `arn:aws:s3:::somebucket` and only trigger notifications from the `logs/` prefix that have the `.txt` suffix.
 
-Add this block to your Terraform code:
+Add this block to the `main.tf` code:
 
 ```
 resource "aws_sqs_queue" "my_notification_queue" {
@@ -28,10 +28,10 @@ module "s3_sqs" {
 }
 ```
 
-* `platform_instance_id` - (string) - unique identifier for this instance of the platform
-* `region` - (string) - AWS region
-* `bucket_arn` - (string) - The ARN of the bucket to monitor
-* `queue_name` - (string) - The name of the SQS queue to put the notifications into
+* `platform_instance_id` - (string) - unique identifier for this instance of the platform.
+* `region` - (string) - AWS region.
+* `bucket_arn` - (string) - The ARN of the bucket to monitor.
+* `queue_name` - (string) - The name of the SQS queue to put the notifications into.
 * `filter_prefix` - (string) - Optional. The prefix that the s3 keys must match to trigger a notification. Leave blank if you want all items in the bucket to trigger notifications.
 * `filter_suffix` - (string) - Optional. The suffix that the s3 keys must match to trigger a notification. Leave blank if you want all items in the bucket to trigger notifications.
 
@@ -40,7 +40,7 @@ module "s3_sqs" {
 
 ## Prerequisite:
 
-* S3 bucket configured with notifications for ObjectCreated\* events that get published to an SQS queue. If you do not have this set up already, see [here](s3notifications-setup.md)
+* S3 bucket configured with notifications for ObjectCreated\* events that get published to an SQS queue. If you do not have this set up already, see [here](s3notifications-setup.md).
 * S3 bucket has been added as a storage location inside the GrayMeta Platform and the container is toggled into the `enabled` state.
 
 ## Configuration
@@ -56,6 +56,6 @@ sqs_s3notifications     = "name of the queue"
 }
 ```
 
-* `sqs_s3notifications_arn` - (string) - The ARN of the SQS queue that the s3 ObjectCreated notifications will be read from
-* `sqs_s3notifications` - (string) - The https endpoint of the SQS queue that the s3 ObjectCreated notifications will be read from
+* `sqs_s3notifications_arn` - (string) - The ARN of the SQS queue that the s3 ObjectCreated notifications will be read from.
+* `sqs_s3notifications` - (string) - The https endpoint of the SQS queue that the s3 ObjectCreated notifications will be read from.
 * `s3subscriber_priority` - (integer) - Optional. The priority to assign harvest jobs being scheduled from s3 ObjectCreated notifications. Valid values are 1 through 10 (1=highest priority). If not set, uses the platform default priority level (5).

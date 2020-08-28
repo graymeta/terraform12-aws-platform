@@ -64,7 +64,7 @@ temp_bucket = "temp_bucket"
 # usage_bucket - S3 bucket name to store usage reports.
 usage_bucket = "temp_bucket"
 
-# az1 and az2 - Pick the availablity zones to deploy in.
+# az1 and az2 - The availablity zones to deploy in.
 az1 = "us-east-1a"
 az2 = "us-east-1b"
 
@@ -93,7 +93,7 @@ cidr_subnet_services_2      = "10.0.5.0/24"
 platform_access_cidrs = "0.0.0.0/0"
 ssh_cidr_blocks       = "10.0.0.0/16"
 
-# log_retention - The log retention set in Cloudwatch for all logs.
+# log_retention - The log retention set in Cloudwatch for all logs. (days)
 log_retention = 14
 
 # RDS Postgres Services.  
@@ -109,19 +109,22 @@ faces_rds_username         = "faces"
 faces_rds_password         = "mydbpassword"
 faces_rds_backup_retention = 14
 
-# RDS Snapshot to recover from.  After initial deployment this should be set to `faces_rds_snapshot = "final"`
+# Faces - RDS Snapshot to recover from.  After initial deployment this should be set to `faces_rds_snapshot = "final"`
 faces_rds_snapshot = ""
 
-# Elasticsearch create linked service role.  If the role already exists set to false
+# Elasticsearch create linked service role.  If the role already exists set to false.
 elasticsearch_create_service_role = false
 
-# AWS Rekognition Custom Labels Configuration
+# AWS Rekognition Custom Labels Configuration. A single inference unit represents 1 hour of model use.
+# A single inference unit can support up to 5 transactions per second (TPS).
+# Use a higher number to increase the TPS throughput of your model.
+# You are charged for the number of inference units that you use.
 aws_cust_labels_inference_units = "1"
 
 # (Optional) Google maps - for plotting geocoded results on a map in the UI
 google_maps_key = ""
 
-# (Optional) logograb
+# (Optional) Logograb (Visua) - Logo detection.
 logograb_key = ""
 
 # (Optional) Segment.com Analytics Write Key. Set to an empty string to disable analytics.
@@ -172,4 +175,3 @@ saml_attr_uid         = "uid"
 saml_cert             = ""
 saml_idp_metadata_url = ""
 saml_key              = ""
-
