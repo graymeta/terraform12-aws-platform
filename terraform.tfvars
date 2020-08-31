@@ -121,22 +121,28 @@ elasticsearch_create_service_role = false
 # You are charged for the number of inference units that you use.
 aws_cust_labels_inference_units = "1"
 
-# (Optional) Google maps - for plotting geocoded results on a map in the UI
+# (Optional) Google Maps - for plotting geocoded results on a map in the UI
 google_maps_key = ""
 
-# (Optional) Logograb (Visua) - Logo detection.
+# (Optional) Logograb (Visua) API Key.
 logograb_key = ""
 
 # (Optional) Segment.com Analytics Write Key. Set to an empty string to disable analytics.
 segment_write_key = ""
 
-# (Optional) s3 notification
+# (Optional) s3subscriber_priority - The priority to assign harvest jobs being scheduled from s3 ObjectCreated notifications.
+#                                    Valid values are 1 through 10 (1=highest priority).
+#                                    If not set, uses the platform default priority level (5).
+# sqs_s3notifications_arn - The ARN of the SQS queue that the s3 ObjectCreated notifications will be read from.
+# sqs_s3notifications - The https endpoint of the SQS queue that the s3 ObjectCreated notifications will be read from.
 # https://github.com/graymeta/terraform12-aws-platform/blob/master/docs/s3notifications-setup.md
 s3subscriber_priority   = 2
 sqs_s3notifications_arn = ""
 sqs_s3notifications     = ""
 
 # (Optional) Harvest complete fields
+# A comma-delimited list of names of any keys from the Stow Metedata or Tags to include in the harvest complete notifications.
+# https://api.graymeta.com/040__Misc/Harvest_Complete_Notifications.html
 harvest_complete_stow_fields = ""
 
 # (Optional) Graymeta ML Services
