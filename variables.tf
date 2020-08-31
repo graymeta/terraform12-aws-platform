@@ -80,28 +80,31 @@ variable "cidr_subnet_services_2" {
 variable "cidr_vpc" { type = string }
 variable "client_secret_fe" { type = string }
 variable "client_secret_internal" { type = string }
-variable "customer" { 
-  type = string
+variable "customer" {
+  type        = string
   description = "Customer short name."
-  }
-variable "custom_labels_bucket" { 
-  type = string
+}
+variable "custom_labels_bucket" {
+  type        = string
   description = "Buket for AWS Custom Labels service."
-  }
+}
 variable "dns_name" { type = string }
-variable "dropbox_app_key" { 
-  type = string
-  description = "Dropbox App key" }
-variable "dropbox_app_secret" { 
-  type = string
-  description = "Dropbox Application secret" }
-variable "dropbox_teams_app_key" { 
-  type = string
+variable "dropbox_app_key" {
+  type        = string
   description = "Dropbox App key"
-   }
-variable "dropbox_teams_app_secret" { 
-  type = string
-  description = "Dropbox Application secret" }
+}
+variable "dropbox_app_secret" {
+  type        = string
+  description = "Dropbox Application secret"
+}
+variable "dropbox_teams_app_key" {
+  type        = string
+  description = "Dropbox App key"
+}
+variable "dropbox_teams_app_secret" {
+  type        = string
+  description = "Dropbox Application secret"
+}
 variable "ecs_instance_type" { type = string }
 variable "ecs_max_cluster_size" { type = number }
 variable "ecs_min_cluster_size" { type = number }
@@ -138,30 +141,33 @@ variable "faces_user" {
   default = ""
 }
 variable "faces_rds_username" { type = string }
-variable "file_api_bucket" { 
-  type = string
-  description = "S3 bucket name to store thumbnails, transcoded video and audio preview files, and metadata files." }
+variable "file_api_bucket" {
+  type        = string
+  description = "S3 bucket name to store thumbnails, transcoded video and audio preview files, and metadata files."
+}
 variable "gm_celeb_detection_enabled" { type = string }
 variable "gm_celeb_detection_interval" { type = string }
 variable "gm_celeb_detection_min_confidence" { type = string }
 variable "gm_celeb_detection_provider" { type = string }
-variable "gm_license_key" { 
-  type = string
-  description = "License key provided by GrayMeta." }
-variable "google_maps_key" { 
-  type = string
+variable "gm_license_key" {
+  type        = string
+  description = "License key provided by GrayMeta."
+}
+variable "google_maps_key" {
+  type        = string
   description = "Google Maps API key."
-   }
+}
 variable "harvest_complete_stow_fields" { type = string }
 variable "jwt_key" { type = string }
 variable "key_name" { type = string }
-variable "log_retention" { 
-  type = number
-  description = "Log retention in days." }
-variable "logograb_key" { 
-  type = string
+variable "log_retention" {
+  type        = number
+  description = "Log retention in days."
+}
+variable "logograb_key" {
+  type        = string
   description = "API key for the Logograb (Visua) service."
- }
+}
 variable "mlservices_endpoint" {
   type    = string
   default = ""
