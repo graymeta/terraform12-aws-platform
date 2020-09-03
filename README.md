@@ -17,13 +17,14 @@
 * [Deploy platform](./docs/platform.md) - Following the steps in this doc will deploy a "base" Curio system. Please see optional feature documentation for instructions on enabling and configuring.
 
 ### Optional Features
-[Encryption](.docs/encryption.md) -If your security policies prevent using secrets directly in Terraform, you can use AWS KMS to encrypt configuration data.
+[Encryption](./docs/encryption.md) -If your security policies prevent using secrets directly in Terraform, you can use AWS KMS to encrypt configuration data.
 
-[Oauth Storage](.docs/oauth-storage.md) - Most Oauth based cloud storage providers supported (see documentation for supported providers).
+[Oauth Storage](./docs/oauth-storage.md) - Most Oauth based cloud storage providers supported (see documentation for supported providers).
 
-[S3 Notifications](.docs/s3-notifications-setup.md) - Configure the GrayMeta Platform to analyze files triggered by S3 notifications.
+[S3 Notifications](./docs/s3-notifications-setup.md) - Configure the GrayMeta Platform to analyze files triggered by S3 notifications.
 
-[SAML](.docs/saml.md) - SP initiated SAML logins supported (see documentation for supported identitiy providers).
+[SAML](./docs/saml.md) - SP initiated SAML logins supported (see documentation for supported identitiy providers).
 
 ### Monitoring
-[Monitoring](.docs/monitoring.md) Health and "pre-flight" checks to make sure everything is running and configured correctly.
+[Monitoring](./docs/monitoring.md) Health and "pre-flight" checks to make sure everything is running and configured correctly.
+
