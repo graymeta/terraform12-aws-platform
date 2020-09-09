@@ -125,6 +125,20 @@ module "cloudwatch_logs" {
   platform_instance_id = var.platform_instance_id
 }
 
+module "dashboard" {
+  source = "./modules/dashboard"
+  #source = "github.com/graymeta/terraform12-aws-platform//modules/dashboard?ref=master"
+
+  dashboard_name       = "GrayMetaPlatform-${var.platform_instance_id}"
+  es_domain            = "graymeta-${var.platform_instance_id}"
+  platform_instance_id = var.platform_instance_id
+  proxy_asg            = module.proxy_asg.proxy_asg
+  rds_name             = "gm-${var.platform_instance_id}-platform"
+  region               = var.region
+  services_alb         = module.services_alb.services_alb_cw
+  services_asg         = module.services.services_asg
+}
+
 module "queues" {
   # source = "./modules/queues"
   source = "github.com/graymeta/terraform12-aws-platform//modules/queues?ref=master"
