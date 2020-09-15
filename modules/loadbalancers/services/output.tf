@@ -9,3 +9,7 @@ output "target_group_7000_arn" {
 output "target_group_7009_arn" {
   value = aws_lb_target_group.port7009.arn
 }
+
+output "services_alb_cw" {
+  value = "${aws_lb.services_alb.arn_suffix}"
+}
