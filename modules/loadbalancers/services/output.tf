@@ -11,5 +11,5 @@ output "target_group_7009_arn" {
 }
 
 output "services_alb_cw" {
-  value = "${aws_lb.services_alb.arn_suffix}"
+  value = aws_lb.services_alb.arn_suffix
 }

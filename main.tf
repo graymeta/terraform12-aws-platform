@@ -385,5 +385,5 @@ module "services" {
 }
 
 output "GrayMetaPlatformEndpoint" {
-  value = "${module.services_alb.services_endpoint}"
+  value = module.services_alb.services_endpoint
 }
