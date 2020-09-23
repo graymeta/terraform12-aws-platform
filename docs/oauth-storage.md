@@ -46,7 +46,7 @@ The below instructions will allow you to deploy Curio with additional OAuth base
 * Select "New registration".
   * Give your app a unique name.
   * Under "Supported Account Types" select "Accounts in any organizational directory".
-  * Under "Redirect URI" enter in your base URL/connect (Ex: `https://{dns_name}/connect`).
+  * Under "Redirect URI" enter in your base URL/connect (Ex: `https://{dns_name}:8443/connect`).
 * Record the "Application ID" from the app Overview section and input as `onedrive_client_id` to your [terraform.tfvars] (terraform.tfvars) file.
 * Create client secret under "Certificates & Secrets" and input the Value as Terraform variable `onedrive_client_secret` to your [terraform.tfvars] (terraform.tfvars) file.
 * In the "API permissions" section of the app console, add the following Graph API permissions as Delegated permissions `User.Read`, `Files.Read`, `offline_access`.
@@ -58,7 +58,7 @@ The below instructions will allow you to deploy Curio with additional OAuth base
 * Select "New registration".
   * Give your app a unique name.
   * Under "Supported Account Types" select "Accounts in any organizational directory".
-  * Under "Redirect URI" enter in your base URL/connect (Ex: `https://{dns_name}/connect`).
+  * Under "Redirect URI" enter in your base URL/connect (Ex: `https://{dns_name}:8443/connect`).
 * Record the "Application ID" from the app Overview section and input as `sharepoint_client_id` to your [terraform.tfvars] (terraform.tfvars) file.
 * Create client secret under "Certificates & Secrets" and input the Value as Terraform variable `sharepoint_client_secret` to your [terraform.tfvars] (terraform.tfvars) file.
 * In the "API permissions" section of the app console, add the following Graph API permissions as Delegated permissions `User.Read`, `Files.Read`, `offline_access`, `Group.Read.All`.
