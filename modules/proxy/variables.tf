@@ -75,6 +75,7 @@ variable "safelist" {
     ".forecast.io",
     ".geonames.org",
     ".googleapis.com",
+    "graph.microsoft.com",
     ".graymeta.com",
     ".kairos.com",
     ".logograb.com",
