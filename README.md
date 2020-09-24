@@ -23,7 +23,7 @@
 
 [S3 Notifications](./docs/s3-notifications-setup.md) - Configure the GrayMeta Platform to analyze files triggered by S3 notifications.
 
-[SAML](./docs/saml.md) - SP initiated SAML logins supported (see documentation for supported identitiy providers).
+[SAML](./docs/saml.md) - SP initiated SAML logins supported (see documentation for supported identity providers).
 
 ### Monitoring
 [Monitoring](./docs/monitoring.md) Health and "pre-flight" checks to make sure everything is running and configured correctly.

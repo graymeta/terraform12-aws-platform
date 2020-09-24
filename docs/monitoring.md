@@ -37,7 +37,7 @@ date: Wed, 04 Sep 2019 17:22:55 GMT
 }
 ```
 
-Here we can see that there are no issues as the endpoint returned an HTTP 200. If there had been an issue we sould see an HTTP 500, similar to this:
+Here we can see that there are no issues as the endpoint returned an HTTP 200. If there had been an issue we should see an HTTP 500, similar to this:
 
 ```
 $ curl -i https://example.com/healthz
