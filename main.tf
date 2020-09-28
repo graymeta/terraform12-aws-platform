@@ -78,8 +78,8 @@ module "proxy_loadbalancer" {
 }
 
 module "proxy_asg" {
-  source = "./modules/proxy"
-  #source = "github.com/graymeta/terraform12-aws-platform//modules/proxy?ref=master"
+  #source = "./modules/proxy"
+  source = "github.com/graymeta/terraform12-aws-platform//modules/proxy?ref=master"
 
   dns_name                            = var.dns_name
   key_name                            = var.key_name
