@@ -37,7 +37,8 @@ resource "aws_rds_cluster" "postgresql" {
     ignore_changes = [
       storage_encrypted,
       kms_key_id,
-      snapshot_identifier
+      snapshot_identifier,
+      master_password
     ]
   }
 

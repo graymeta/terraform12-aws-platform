@@ -24,6 +24,7 @@ runcmd:
 - sed -i 's/^log_group_name = .*/log_group_name = ${services_log_group}/' /var/awslogs/etc/awslogs.conf
 - systemctl restart awslogs
 - sed 's/^export //g' < /etc/profile.d/proxy.sh  >> /etc/graymeta/metafarm.env
+- sed -i 's/^gm_db_password=omitpassword//g' /etc/graymeta/metafarm.env
 - /opt/graymeta/bin/aws_configurator -bucket ${file_api_s3_bucket_arn} -usage-bucket ${usage_s3_bucket_arn} -region ${region} -encrypted-config-blob "${encrypted_config_blob}" >> /etc/graymeta/metafarm.env 2>/var/log/graymeta/aws_configurator.log
 - systemctl daemon-reload
 - /opt/graymeta/bin/all-services.sh restart
