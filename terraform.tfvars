@@ -104,7 +104,9 @@ rds_backup_retention = 14
 # RDS Snapshot to recover from.  After initial deployment this should be set to `rds_snapshot = "final"`
 rds_snapshot = ""
 
-# RDS Postgres MLServices.  
+# RDS Postgres MLServices.
+# Password Constraints: At least 8 printable ASCII characters.
+# Password can't contain any of the following: / (slash), '(single quote), "(double quote) and @ (at sign).
 faces_rds_username         = "faces"
 faces_rds_password         = "mydbpassword"
 faces_rds_backup_retention = 14

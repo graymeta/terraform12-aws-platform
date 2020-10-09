@@ -77,10 +77,22 @@ encrypted_config_blob = "base64 encoded string from gmcrypt"
 ```
 
 NOTE: If you are encrypting `rds_password` you must use `omitpassword` as a temporary password, i.e. `rds_password = "omitpassword"`.
-Curio will ignore this password and use the encrypted one your provided. You cannot set this variable to a blank value `""`, or use a different temporary password `"my_temp_pwd`. Ignoring this step will cause Curio to be unable to connect to RDS and require you to start over.
+Curio will ignore this password and use the encrypted one your provided. You cannot set this variable to a blank value `""`, or use a different temporary password. Ignoring this step will cause Curio to be unable to connect to RDS and require you to start over.
 
 AWS RDS password constraints:
 >  At least 8 printable ASCII characters. Can't contain any of the following: / (slash), '(single quote), "(double quote) and @ (at sign).
+
+There are some variables keys that map to a different key, which must be used for encryption. They are as follows:
+
+| terraform.tfvars key name | encrypted key name        |
+|---------------------------|---------------------------|
+| client_secret_fe          | gm_front_end_client_secret|
+| client_secret_internal    | gm_internal_client_secret |
+| encryption_key            | gm_encryption_key         |
+| jwt_key                   | gm_jwt_private_key        |
+| logograb_key              | gm_logograb_api_key       |
+| rds_password              | gm_db_password            |
+
 
 Now, run a `terraform plan` and a `terraform apply -var-file=terraform.tfvars -var-file={sizing_foo}.tfvars`.
 
