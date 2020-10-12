@@ -6,7 +6,7 @@ Note: Encrypting RDS usernames is not supported at this time.
 
 Prerequisites: You should have all of the variables set in your `terraform.tfvars` file.
 
-Before you begin, please take the time to read through these steps carefully. Skipping steps, or doing them incorrectly will likely result in having to start the process over, from scratch.
+Before you begin, please take the time to read through these steps carefully. Skipping steps or doing them incorrectly will likely result in having to start the process over, from scratch.
 
 ## Multi-Stage Deployment
 
@@ -71,7 +71,7 @@ Add in the `gmcrypt` output to the `encrypted_config_blob` in `terraform.tfvars`
 
 ```
 # Using AWS KMS to encrypt secrets in the platform.
-#Leave blank if not using this.
+# Leave blank if not using this.
 # https://github.com/graymeta/terraform12-aws-platform/blob/master/docs/encryption.md
 encrypted_config_blob = "base64 encoded string from gmcrypt"
 ```
@@ -99,20 +99,22 @@ Now, run a `terraform plan` and a `terraform apply -var-file=terraform.tfvars -v
 
 ### Change RDS Master Password in AWS Console, and retrieve Services instance IDs.
 
-IN the AWS Console, navigate to RDS. Under Databases, select the DB identified as `gm-{platform_instance_id}-0`. Click `Modify`, and change the master password to the unencrypted password in your text file. For example, if your text file has `gm_db_password=ILoveGrayMeta`, enter `ILoveGrayMeta` as the new master password in the console.
+In the AWS Console, navigate to RDS. Under Databases, select the DB identified as `gm-{platform_instance_id}-0`. Click `Modify` and change the master password to the unencrypted password in your text file. For example, if your text file has `gm_db_password=ILoveGrayMeta`, enter `ILoveGrayMeta` as the new master password in the console.
 
-Click continue.
+Click `Continue`.
 
 Under `Scheduling of modifications` select `Immediately`. Then click `Modify DB Instance.
 
-Navigate to EC2, and record the instance-ID of the service(s) instances, identified as `GrayMetaPlatform-{platform_instance_id}-Services`. One of these is your initial password to log in to the Curio UI.
+Navigate to EC2 and record the instance-ID of the service(s) instances, identified as `GrayMetaPlatform-{platform_instance_id}-Services`. One of these is your initial password to log in to the Curio UI.
 
 Finally, select all of the `GrayMetaPlatform-{platform_instance_id}-Services` (you may or may not have more than one, depending on your deployment size). Click `Actions` > `Instance state` > `Terminate instance`.
 
 The services instances will be terminated, and auto-scaling will spin up new instances bringing all of these steps in to sync.
 
-You should now be able to log in to Curio with one of the instance-IDs. It is recommened you change this password after your initial log in.
+You should now be able to log in to Curio with one of the instance-IDs. It is recommended you change this password after your initial log in.
+
 ---
+
 # Migrating from RDS to encrypted.
 
 * Manually create a snapshot as a backup.  The destroy should create a final backup.  This is just in case something goes wrong.
