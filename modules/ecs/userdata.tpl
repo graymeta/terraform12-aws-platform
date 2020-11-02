@@ -13,7 +13,6 @@ runcmd:
 - echo "env HTTPS_PROXY=${proxy_endpoint}" >> /etc/init/ecs.override
 - echo "env NO_PROXY=169.254.169.254,169.254.170.2,/var/run/docker.sock" >> /etc/init/ecs.override
 - echo ECS_CLUSTER=${ecs_cluster} >> /etc/ecs/ecs.config
-- yum install chrony -y
 - systemctl enable chronyd
 - systemctl start chronyd
 - mkdir /data

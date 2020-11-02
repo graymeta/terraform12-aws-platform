@@ -1,21 +1,16 @@
 #cloud-config
 package_upgrade: false
 runcmd:
-- yum update -y
-- yum install -y cloud-utils-growpart
 - growpart /dev/xvda 2
 - growpart /dev/nvme0n1 2
 - pvresize /dev/xvda2
 - pvresize /dev/nvme0n1p2
 - lvextend -l +100%FREE /dev/mapper/centos-root
 - xfs_growfs /dev/mapper/centos-root
-- yum install chrony -y
 - systemctl enable chronyd
 - systemctl start chronyd
-- yum install squid -y
 - systemctl enable squid
 - systemctl start squid
-- pip install --upgrade pip
 - cd /tmp && wget https://s3.amazonaws.com/aws-cloudwatch/downloads/latest/awslogs-agent-setup.py && python awslogs-agent-setup.py -n -r ${region} -c awslogs.conf
 write_files:
 - content: |

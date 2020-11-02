@@ -1,0 +1,198 @@
+#!/bin/bash
+
+if [ -z "${proxy_endpoint}" ]
+then
+  echo "No proxy_endpoint set."
+else
+  echo "export HTTP_PROXY=http://${proxy_endpoint}/" >> /etc/profile.d/proxy.sh
+  echo "export HTTPS_PROXY=http://${proxy_endpoint}/" >> /etc/profile.d/proxy.sh
+  echo "proxy=http://${proxy_endpoint}" >> /etc/yum.conf
+  echo "harvest_http_proxy=http://${proxy_endpoint}/" >> /etc/graymeta/metafarm.env
+  echo "harvest_https_proxy=http://${proxy_endpoint}/" >> /etc/graymeta/metafarm.env
+  echo "http_proxy=http://${proxy_endpoint}/" >> /etc/graymeta/metafarm.env
+  echo "https_proxy=http://${proxy_endpoint}/" >> /etc/graymeta/metafarm.env
+  echo "HTTP_PROXY=http://${proxy_endpoint}" >> /var/awslogs/etc/proxy.conf
+  echo "HTTPS_PROXY=https://${proxy_endpoint}" >> /var/awslogs/etc/proxy.conf
+fi
+
+echo "export NO_PROXY=169.254.169.254,localhost,127.0.0.1,s3.${region}.amazonaws.com,*.s3.${region}.amazonaws.com,$(echo ${elasticsearch_endpoint} |sed 's/https\?:\/\///'),${mlservices_endpoint}" >> /etc/profile.d/proxy.sh
+source /etc/profile.d/proxy.sh
+sed -i 's/^metalink=/#metalink=/g' /etc/yum.repos.d/*
+sed -i 's/^mirrorlist=/#mirrorlist=/g' /etc/yum.repos.d/*
+sed -i 's/^#baseurl=/baseurl=/g' /etc/yum.repos.d/*
+sed -i 's/download.fedoraproject.org/dl.fedoraproject.org/g' /etc/yum.repos.d/epel*
+yum remove -y docker-engine docker-engine-selinux
+growpart /dev/xvda 2
+growpart /dev/nvme0n1 2
+pvresize /dev/xvda2
+pvresize /dev/nvme0n1p2
+lvextend -l +100%FREE /dev/mapper/centos-root
+xfs_growfs /dev/mapper/centos-root
+systemctl enable chronyd
+systemctl start chronyd
+sed -i 's/^log_group_name = .*/log_group_name = ${services_log_group}/' /var/awslogs/etc/awslogs.conf
+systemctl restart awslogs
+sed 's/^export //g' < /etc/profile.d/proxy.sh  >> /etc/graymeta/metafarm.env
+sed -i 's/^gm_db_password=omitpassword//g' /etc/graymeta/metafarm.env
+/opt/graymeta/bin/aws_configurator -bucket ${file_api_s3_bucket_arn} -usage-bucket ${usage_s3_bucket_arn} -region ${region} -encrypted-config-blob ${encrypted_config_blob} 2>/var/log/graymeta/aws_configurator.log
+systemctl daemon-reload
+/opt/graymeta/bin/all-services.sh restart
+/opt/graymeta/bin/all-services.sh enable
+systemctl enable gm-termprotector.service
+systemctl restart gm-termprotector.service
+
+cat >/etc/sysctl.conf <<SYSCTLEOL
+net.ipv4.tcp_fin_timeout = 1
+net.ipv4.tcp_keepalive_intvl = 20
+net.ipv4.tcp_keepalive_probes = 5
+SYSCTLEOL
+
+sysctl -p
+
+cat >/etc/chrony.conf <<CHRONYEOL
+server 169.254.169.123 prefer iburst minpoll 4 maxpoll 4
+driftfile /var/lib/chrony/drift
+makestep 1.0 3
+rtcsync
+logdir /var/log/chrony
+CHRONYEOL
+
+cat >/etc/graymeta/metafarm.env <<METAFARMEOL
+AWS_REGION=${region}
+PATH=/opt/graymeta/bin:/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin
+SES_REGION=${from_region}
+ses_region=${from_region}
+account_lockout_attempts=${account_lockout_attempts}
+account_lockout_interval=${account_lockout_interval}
+account_lockout_period=${account_lockout_period}
+aws_cust_labels_bucket=${custom_labels_s3_bucket}
+aws_cust_labels_inference_units=${aws_cust_labels_inference_units}
+aws_cust_labels_project_import_enabled=true
+aws_cust_labels_region=${region}
+bcrypt_cost=${bcrypt_cost}
+box_com_client_id=${box_com_client_id}
+box_com_secret_key=${box_com_secret_key}
+dropbox_app_key=${dropbox_app_key}
+dropbox_app_secret=${dropbox_app_secret}
+dropbox_teams_app_key=${dropbox_teams_app_key}
+dropbox_teams_app_secret=${dropbox_teams_app_secret}
+onedrive_client_id=${onedrive_client_id}
+onedrive_client_secret=${onedrive_client_secret}
+sharepoint_client_id=${sharepoint_client_id}
+sharepoint_client_secret=${sharepoint_client_secret}
+external_data_api=https://${dns_name}/api/data
+external_file_api=https://${dns_name}/files
+external_scheduler_api=https://${dns_name}/api/scheduler
+external_usage_api=https://${dns_name}/api/usage
+gm_auth_api_redis_key_prefix="authapi:"
+gm_base_url=https://${dns_name}
+gm_celeb_detection_aws_region=${region}
+gm_celeb_detection_enabled=${gm_celeb_detection_enabled}
+gm_celeb_detection_interval=${gm_celeb_detection_interval}
+gm_celeb_detection_min_confidence=${gm_celeb_detection_min_confidence}
+gm_celeb_detection_provider=${gm_celeb_detection_provider}
+gm_completed_sns_topic_arn=${sns_topic_arn_harvest_complete}
+gm_container_image=graymeta/harvester
+gm_cw_dest_bucket=${cw_dest_bucket}
+gm_cw_prefix=${cw_prefix}
+gm_cw_region=${region}
+gm_db_host=${db_endpoint}
+gm_db_name=${db_name}
+gm_db_password=${db_password}
+gm_db_port=5432
+gm_db_username=${db_username}
+gm_ecs_cluster=${ecs_cluster}
+gm_ecs_cpu=${ecs_cpu_reservation}
+gm_ecs_log_group=${ecs_log_group}
+gm_ecs_memory_hard=${ecs_memory_hard_reservation}
+gm_ecs_memory_soft=${ecs_memory_soft_reservation}
+gm_ecs_region=${region}
+gm_elasticsearch=${elasticsearch_endpoint}
+gm_email_from=${from_addr}
+gm_email_sender=ses
+gm_encryption_key=${encryption_key}
+gm_enforce_default_password=false
+gm_env=${gm_env}
+gm_es_bulk_size=${gm_es_bulk_size}
+gm_es_bulk_workers=${gm_es_bulk_workers}
+gm_es_replicas=${gm_es_replicas}
+gm_es_shards=${gm_es_shards}
+gm_faces_recog_api_addr=http://${faces_endpoint}
+gm_faces_auth_password=${faces_password}
+gm_faces_auth_username=${faces_user}
+gm_fileapi_stow_kind=s3
+gm_front_end_client_secret=${client_secret_fe}
+gm_harvest_complete_stow_fields=${harvest_complete_stow_fields}
+gm_harvest_polling_time=${harvest_polling_time}
+gm_internal_client_secret=${client_secret_internal}
+gm_job_status_api=https://${dns_name}/api/jobstatus
+gm_job_store_redis_key_prefix="jobinfo:"
+gm_jwt_expiration_time=${gm_jwt_expiration_time}
+gm_jwt_private_key=${jwt_key}
+gm_license_key=${gm_license_key}
+gm_logograb_api_key=${logograb_key}
+gm_recently_walked_expiration=1209600s
+gm_recently_walked_redis_key_prefix="recwalked:"
+gm_redis=${redis_endpoint}:6379
+gm_redis_db=0
+gm_roles_key_prefix="roles:"
+gm_runtime_metrics_enabled=false
+gm_scheduled_wait_duration=${gm_scheduled_wait_duration}
+gm_sqs_activity=${sqs_activity}
+gm_sqs_index=${sqs_index}
+gm_sqs_itemcleanup=${sqs_itemcleanup}
+gm_sqs_notifications=${sqs_notifications}
+gm_sqs_stage=${sqs_stage}
+gm_sqs_walk=${sqs_walk}
+gm_temp_bucket_name=${temp_s3_bucket}
+gm_temp_bucket_region=${region}
+gm_threshold_to_harvest=${gm_threshold_to_harvest}
+gm_usage_prefix=${gm_usage_prefix}
+gm_usageapi_stow_kind=s3
+gm_user_apikey_prefix="apikey:"
+gm_user_key_prefix="user:"
+gm_walkd_max_item_concurrency=${gm_walkd_max_item_concurrency}
+gm_walkd_redis_max_active=${gm_walkd_redis_max_active}
+google_maps_key=${google_maps_key}
+harvest_gm_faces_recog_api_addr=http://${faces_endpoint}
+harvest_gm_temp_bucket_name=${temp_s3_bucket}
+harvest_gm_temp_bucket_region=${region}
+harvest_magic_files=/etc/magic:/usr/share/misc/magic:/etc/graymeta/mime.magic
+harvest_no_proxy=169.254.169.254,169.254.170.2,/var/run/docker.sock,${mlservices_endpoint}
+harvest_rollbar_token=${rollbar_token}
+indexer_client_timeout=5m
+indexer_concurrency=${indexer_concurrency}
+item_disable_transaction=${item_disable_transaction}
+no_proxy=localhost,127.0.0.1,169.254.169.254,s3.${region}.amazonaws.com,*.s3.${region}.amazonaws.com,$(echo ${elasticsearch_endpoint} |sed 's/https\?:\/\///'),${mlservices_endpoint}
+oauthconnect_encryption_key=${oauthconnect_encryption_key}
+oauthconnect_url=https://${dns_name}:8443/connect
+password_min_length=${password_min_length}
+reindex_walk_concurrency=16
+rollbar_token=${rollbar_token}
+s3subscriber_priority=${s3subscriber_priority}
+saml_attr_email=${saml_attr_email}
+saml_attr_firstname=${saml_attr_firstname}
+saml_attr_lastname=${saml_attr_lastname}
+saml_attr_uid=${saml_attr_uid}
+saml_cert=${saml_cert}
+saml_idp_metadata_url=${saml_idp_metadata_url}
+saml_key=${saml_key}
+scheduled_max_items=${gm_scheduled_max_items}
+scheduled_minimum_bytes=${gm_scheduled_min_bytes}
+segment_write_key=${segment_write_key}
+statsd_host=${statsd_host}
+stow_mountpath=/var/lib/graymeta/mounts
+walkd_item_batch_size=${walkd_item_batch_size}
+METAFARMEOL
+
+chmod 0400 /etc/graymeta/metafarm.env
+chown graymeta:graymeta /etc/graymeta/metafarm.env
+
+cat >/var/awslogs/etc/aws.conf <<AWSLOGSEOL
+[plugins]
+cwlogs = cwlogs
+[default]
+region = ${region}
+AWSLOGSEOL
+
+echo "NO_PROXY=169.254.169.254" >> /var/awslogs/etc/proxy.conf
