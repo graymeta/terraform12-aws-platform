@@ -34,6 +34,9 @@ In the `terraform.tfvars` are all the variables available to be set. At a minimu
   * Large
     * `terraform apply -var-files=sizing_large.tfvars`
 
+
+**Note:** If choosing to deploy the optional GrayMeta ML Services, see [MLservices.md](MLservices.md) for deployment instructions prior to deploying the platform.
+
 ### Post steps
 * After the apply.  Create a CNAME from your `dns_name` to the value of the `GrayMetaPlatformEndpoint` output. This needs to be publicly resolvable.
 * Load `https://dns_name` where _dns\_name_ is the name you chose above. The default username is `admin@graymeta.com`. The password is set to the instance ID of one of the Services nodes of the platform. These are tagged with the name `GrayMetaPlatform-${platform_instance_id}-Services` in the EC2 console. There should be at least 2 nodes running. Try the instance ID of both. After logging in for the first time, change the password of the `admin@graymeta.com` account. Create other accounts as necessary.
