@@ -93,38 +93,38 @@ Various URLs that you will need:
     | Audience (EntityID) | {endpoint}/saml/metadata |
     | Recipient | {endpoint}/saml/acs |
     |ACS (Consumer) URL Validator* | {endpoint}/saml/acs |
-    |ACS (Consumer) URL* | {endpoint}/saml/acs |
+    |ACS (Consumer) URL* | {endpoint} |
     |SAML initiator | OneLogin |
     |SAML nameID format | Unspecified |
     |SAML Issuer type | Generic |
     |SAML signature element | Assertion |
 
     All other default fields can be left blank or unchanged.
-1. Add the following changes/additions to your App Parameters tab:
+2. Add the following changes/additions to your App Parameters tab:
    * Change NameID Value to - No default –
    * Add the Field name “email”, click “include in SAML assertion”, set the value to “Email”
    * Add the Field name “firstname”, click “include in SAML assertion”, set the value to “First Name”
    * Add the Field name “lastname”, click “include in SAML assertion”, set the value to “Last Name”
    * Add the Field name “uid”, click “include in SAML assertion”, set the value to “OneLogin ID”
-1. Retrieve the **SAML IDP Metedata URL** from your App by clicking the More Actions button, then right-click on the SAML Metadata option and copy the link address.  Add this URL to your [terraform.tfvars](./../terraform.tfvars) file under (Optional) SAML Configuration as the `saml_idp_metadata_url` variable.
-1. Set the following your variables to your [terraform.tfvars](./../terraform.tfvars) file under (Optional) SAML Configuration:
+3. Retrieve the **SAML IDP Metedata URL** from your App by clicking the More Actions button, then right-click on the SAML Metadata option and copy the link address.  Add this URL to your [terraform.tfvars](./../terraform.tfvars) file under (Optional) SAML Configuration as the `saml_idp_metadata_url` variable.
+4. Set the following your variables to your [terraform.tfvars](./../terraform.tfvars) file under (Optional) SAML Configuration:
     * `saml_attr_email       = "email"`
     * `saml_attr_firstname   = "firstname"`
     * `saml_attr_lastname    = "lastname"`
     * `saml_attr_uid         = "uid"`
-1. Generate a self-signed x509 certificate:
+5. Generate a self-signed x509 certificate:
     ```
     openssl req -x509 -newkey rsa:2048 -keyout myservice.key -out myservice.cert -days 365 -nodes -subj "/CN=myservice.example.com"
     ```
     **NOTE:** the CN of the certificate doesn't matter.
-1. base64 encode the certificate:
+6. base64 encode the certificate:
     ```
     cat myservice.cert | base64 -w0
     ```
     Add this string to your [terraform.tfvars](./../terraform.tfvars) file under (Optional) SAML Configuration as the `saml_cert` variable. If you are using the encrypted blob, feel free to add this information to that configuration instead: `saml_cert={base64 encoded cert}`.
-1. base64 encode the key:
+7. base64 encode the key:
     ```
     cat myservice.key | base64 -w0
     ```
     Add this string to your [terraform.tfvars](./../terraform.tfvars) file under (Optional) SAML Configuration as the `saml_key` variable. If you are using the encrypted blob, feel free to add this information to that configuration instead: `saml_key={base64 encoded key}`.
-1. Run a `terraform apply` and browse to your `{endpoint}` URL. You should be redirected to your IDP's login screen to begin the authentication process. If you are not redirected and instead are dropped into the application, you may still be logged in as the `admin@graymeta.com` account. If that is the case, click the logout button and you should get redirected to your IDP login screen.
+8. Run a `terraform apply` and browse to your `{endpoint}` URL. You should be redirected to your IDP's login screen to begin the authentication process. If you are not redirected and instead are dropped into the application, you may still be logged in as the `admin@graymeta.com` account. If that is the case, click the logout button and you should get redirected to your IDP login screen.
