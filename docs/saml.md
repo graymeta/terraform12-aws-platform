@@ -112,19 +112,19 @@ Various URLs that you will need:
     * `saml_attr_firstname   = "firstname"`
     * `saml_attr_lastname    = "lastname"`
     * `saml_attr_uid         = "uid"`
-2. Generate a self-signed x509 certificate:
+1. Generate a self-signed x509 certificate:
     ```
     openssl req -x509 -newkey rsa:2048 -keyout myservice.key -out myservice.cert -days 365 -nodes -subj "/CN=myservice.example.com"
     ```
     **NOTE:** the CN of the certificate doesn't matter.
-3. base64 encode the certificate:
+1. base64 encode the certificate:
     ```
     cat myservice.cert | base64 -w0
     ```
     Add this string to your [terraform.tfvars](./../terraform.tfvars) file under (Optional) SAML Configuration as the `saml_cert` variable. If you are using the encrypted blob, feel free to add this information to that configuration instead: `saml_cert={base64 encoded cert}`.
-4. base64 encode the key:
+1. base64 encode the key:
     ```
     cat myservice.key | base64 -w0
     ```
     Add this string to your [terraform.tfvars](./../terraform.tfvars) file under (Optional) SAML Configuration as the `saml_key` variable. If you are using the encrypted blob, feel free to add this information to that configuration instead: `saml_key={base64 encoded key}`.
-5. Run a `terraform apply` and browse to your `{endpoint}` URL. You should be redirected to your IDP's login screen to begin the authentication process. If you are not redirected and instead are dropped into the application, you may still be logged in as the `admin@graymeta.com` account. If that is the case, click the logout button and you should get redirected to your IDP login screen.
+1. Run a `terraform apply` and browse to your `{endpoint}` URL. You should be redirected to your IDP's login screen to begin the authentication process. If you are not redirected and instead are dropped into the application, you may still be logged in as the `admin@graymeta.com` account. If that is the case, click the logout button and you should get redirected to your IDP login screen.
