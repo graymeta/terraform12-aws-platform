@@ -93,7 +93,7 @@ Various URLs that you will need:
     | Audience (EntityID) | {endpoint}/saml/metadata |
     | Recipient | {endpoint}/saml/acs |
     |ACS (Consumer) URL Validator* | {endpoint}/saml/acs |
-    |ACS (Consumer) URL* | {endpoint}/saml/acs |
+    |ACS (Consumer) URL* | {endpoint} |
     |SAML initiator | OneLogin |
     |SAML nameID format | Unspecified |
     |SAML Issuer type | Generic |
