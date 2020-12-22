@@ -4,7 +4,7 @@ data "aws_subnet" "subnet_1" {
 
 resource "aws_lb" "services_alb" {
   name_prefix                = "svcs-"
-  internal                   = false
+  internal                   = var.services_alb_internal
   security_groups            = [var.services_alb_nsg]
   subnets                    = var.subnets
   enable_deletion_protection = false

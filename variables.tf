@@ -210,6 +210,10 @@ variable "saml_cert" { type = string }
 variable "saml_idp_metadata_url" { type = string }
 variable "saml_key" { type = string }
 variable "segment_write_key" { type = string }
+variable "services_alb_internal" {
+  type    = bool
+  default = false
+}
 variable "services_instance_type" { type = string }
 variable "services_max_cluster_size" { type = number }
 variable "services_min_cluster_size" { type = number }
