@@ -106,7 +106,6 @@ module "proxy_network" {
   # source = "./modules/network/proxy"
   source = "github.com/graymeta/terraform12-aws-platform//modules/network/proxy?ref=master"
 
-
   default_route_table_id = module.network.default_route_table_id
   platform_instance_id   = var.platform_instance_id
   proxy_subnet_id_1      = module.network.proxy_subnet_id_1
@@ -119,7 +118,6 @@ module "proxy_network" {
 module "cloudwatch_logs" {
   # source = "./modules/cloudwatch"
   source = "github.com/graymeta/terraform12-aws-platform//modules/cloudwatch?ref=master"
-
 
   log_retention        = var.log_retention
   platform_instance_id = var.platform_instance_id
@@ -198,7 +196,6 @@ module "elasticsearch" {
 module "ecs_iam" {
   # source = "./modules/iam/ecs"
   source = "github.com/graymeta/terraform12-aws-platform//modules/iam/ecs?ref=master"
-
 
   platform_instance_id = var.platform_instance_id
   temp_bucket          = var.temp_bucket
