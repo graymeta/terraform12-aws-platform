@@ -7,11 +7,10 @@ locals {
 module "ml_init" {
   source = "../ml_init"
 
-  api_port       = local.api_port
-  log_group      = "GrayMetaPlatform-${var.platform_instance_id}-ML"
-  proxy_endpoint = var.proxy_endpoint
-  service_name   = local.api_name
-  tfs_port       = local.tfs_port
+  api_port     = local.api_port
+  log_group    = "GrayMetaPlatform-${var.platform_instance_id}-ML"
+  service_name = local.api_name
+  tfs_port     = local.tfs_port
 }
 
 # Create the cluster

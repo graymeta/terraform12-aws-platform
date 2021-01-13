@@ -1,7 +1,6 @@
 # module "mlservices_alb" {
-#   # source = "./modules/loadbalancers/mlservices"
-#   source = "github.com/graymeta/terraform12-aws-platform//modules/loadbalancers/mlservices?ref=master"
-
+#   # source = "../modules/loadbalancers/mlservices"
+#   source = "github.com/graymeta/terraform12-aws-platform//modules/loadbalancers/mlservices?ref=Support-No-Proxy"
 
 #   platform_instance_id = var.platform_instance_id
 #   mlservices_alb_nsg   = module.nsg.mlservices_alb_nsg
@@ -12,8 +11,8 @@
 # }
 
 # module "mlservices_iam" {
-#   # source = "./modules/iam/mlservices"
-#   source = "github.com/graymeta/terraform12-aws-platform//modules/iam/mlservices?ref=master"
+#   # source = "../modules/iam/mlservices"
+#   source = "github.com/graymeta/terraform12-aws-platform//modules/iam/mlservices?ref=Support-No-Proxy"
 
 #   platform_instance_id = var.platform_instance_id
 # }
@@ -21,8 +20,8 @@
 # ###########################################
 # # MLServices Faces
 # module "rds_faces" {
-#   # source = "./modules/rds/faces"
-#   source = "github.com/graymeta/terraform12-aws-platform//modules/rds/faces?ref=master"
+#   # source = "../modules/rds/faces"
+#   source = "github.com/graymeta/terraform12-aws-platform//modules/rds/faces?ref=Support-No-Proxy"
 
 #   apply_immediately         = true
 #   instance_count            = var.faces_rds_instance_count
@@ -46,8 +45,8 @@
 # }
 
 # module "mlservices_faces" {
-#   # source = "./modules/mlservices/faces"
-#   source = "github.com/graymeta/terraform12-aws-platform//modules/mlservices/faces?ref=master"
+#   # source = "../modules/mlservices/faces"
+#   source = "github.com/graymeta/terraform12-aws-platform//modules/mlservices/faces?ref=Support-No-Proxy"
 
 #   instance_type                   = var.faces_instance_type
 #   key_name                        = var.key_name
@@ -60,7 +59,6 @@
 #   mlservices_subnet_id_1          = module.network.mlservices_subnet_id_1
 #   mlservices_subnet_id_2          = module.network.mlservices_subnet_id_2
 #   platform_instance_id            = var.platform_instance_id
-#   proxy_endpoint                  = module.proxy_loadbalancer.proxy_endpoint
 #   rds_database_name               = module.rds_faces.rds_database_name
 #   rds_db_password                 = var.faces_rds_password
 #   rds_db_username                 = var.faces_rds_username
@@ -75,7 +73,7 @@
 # # MLServices Audio
 # module "mlservices_audio" {
 #   # source = "./modules/mlservices/audio"
-#   source = "github.com/graymeta/terraform12-aws-platform//modules/mlservices/audio?ref=master"
+#   source = "github.com/graymeta/terraform12-aws-platform//modules/mlservices/audio?ref=Support-No-Proxy"
 
 #   instance_type                   = var.audio_instance_type
 #   key_name                        = var.key_name
@@ -88,7 +86,6 @@
 #   mlservices_subnet_id_1          = module.network.mlservices_subnet_id_1
 #   mlservices_subnet_id_2          = module.network.mlservices_subnet_id_2
 #   platform_instance_id            = var.platform_instance_id
-#   proxy_endpoint                  = module.proxy_loadbalancer.proxy_endpoint
 #   target_group_mlservices_arn     = module.mlservices_alb.target_group_audio_arn
 #   user_init                       = ""
 #   volume_size                     = 50
@@ -102,7 +99,7 @@
 # # MLServices NLD
 # module "mlservices_nld" {
 #   # source = "./modules/mlservices/nld"
-#   source = "github.com/graymeta/terraform12-aws-platform//modules/mlservices/nld?ref=master"
+#   source = "github.com/graymeta/terraform12-aws-platform//modules/mlservices/nld?ref=Support-No-Proxy"
 
 #   instance_type                   = var.nld_instance_type
 #   key_name                        = var.key_name
@@ -115,7 +112,6 @@
 #   mlservices_subnet_id_1          = module.network.mlservices_subnet_id_1
 #   mlservices_subnet_id_2          = module.network.mlservices_subnet_id_2
 #   platform_instance_id            = var.platform_instance_id
-#   proxy_endpoint                  = module.proxy_loadbalancer.proxy_endpoint
 #   target_group_mlservices_arn     = module.mlservices_alb.target_group_nld_arn
 #   user_init                       = ""
 #   volume_size                     = 50
@@ -129,7 +125,7 @@
 # # MLServices NLP
 # module "mlservices_nlp" {
 #   # source = "./modules/mlservices/nlp"
-#   source = "github.com/graymeta/terraform12-aws-platform//modules/mlservices/nlp?ref=master"
+#   source = "github.com/graymeta/terraform12-aws-platform//modules/mlservices/nlp?ref=Support-No-Proxy"
 
 #   instance_type                   = var.nlp_instance_type
 #   key_name                        = var.key_name
@@ -142,7 +138,6 @@
 #   mlservices_subnet_id_1          = module.network.mlservices_subnet_id_1
 #   mlservices_subnet_id_2          = module.network.mlservices_subnet_id_2
 #   platform_instance_id            = var.platform_instance_id
-#   proxy_endpoint                  = module.proxy_loadbalancer.proxy_endpoint
 #   target_group_mlservices_arn     = module.mlservices_alb.target_group_nlp_arn
 #   user_init                       = ""
 #   volume_size                     = 50
@@ -156,7 +151,7 @@
 # # MLServices Object
 # module "mlservices_object" {
 #   # source = "./modules/mlservices/object"
-#   source = "github.com/graymeta/terraform12-aws-platform//modules/mlservices/object?ref=master"
+#   source = "github.com/graymeta/terraform12-aws-platform//modules/mlservices/object?ref=Support-No-Proxy"
 
 #   instance_type                   = var.object_instance_type
 #   key_name                        = var.key_name
@@ -169,7 +164,6 @@
 #   mlservices_subnet_id_1          = module.network.mlservices_subnet_id_1
 #   mlservices_subnet_id_2          = module.network.mlservices_subnet_id_2
 #   platform_instance_id            = var.platform_instance_id
-#   proxy_endpoint                  = module.proxy_loadbalancer.proxy_endpoint
 #   target_group_mlservices_arn     = module.mlservices_alb.target_group_object_arn
 #   user_init                       = ""
 #   volume_size                     = 50
@@ -183,7 +177,7 @@
 # # MLServices Tcues
 # module "mlservices_tcues" {
 #   # source = "./modules/mlservices/tcues"
-#   source = "github.com/graymeta/terraform12-aws-platform//modules/mlservices/tcues?ref=master"
+#   source = "github.com/graymeta/terraform12-aws-platform//modules/mlservices/tcues?ref=Support-No-Proxy"
 
 #   instance_type                   = var.tcues_instance_type
 #   key_name                        = var.key_name
@@ -196,7 +190,6 @@
 #   mlservices_subnet_id_1          = module.network.mlservices_subnet_id_1
 #   mlservices_subnet_id_2          = module.network.mlservices_subnet_id_2
 #   platform_instance_id            = var.platform_instance_id
-#   proxy_endpoint                  = module.proxy_loadbalancer.proxy_endpoint
 #   target_group_mlservices_arn     = module.mlservices_alb.target_group_tcues_arn
 #   user_init                       = ""
 #   volume_size                     = 50
@@ -206,29 +199,28 @@
 #   value = module.mlservices_tcues.endpoint
 # }
 
-# # ##########################################
-# # # MLServices VSSOCCER
-# # module "mlservices_vssoccer" {
-# #   # source = "./modules/mlservices/vssoccer"
-# #   source = "github.com/graymeta/terraform12-aws-platform//modules/mlservices/vssoccer?ref=master"
+# ##########################################
+# # MLServices VSSOCCER
+# module "mlservices_vssoccer" {
+#   # source = "./modules/mlservices/vssoccer"
+#   source = "github.com/graymeta/terraform12-aws-platform//modules/mlservices/vssoccer?ref=Support-No-Proxy"
 
-# #   instance_type                   = var.vssoccer_instance_type
-# #   key_name                        = var.key_name
-# #   max_cluster_size                = var.vssoccer_max_cluster_size
-# #   min_cluster_size                = var.vssoccer_min_cluster_size
-# #   mlservices_alb_dns              = module.mlservices_alb.mlservices_endpoint
-# #   mlservices_ami_id               = lookup(module.amis.mlservices_amis, data.aws_region.current.name)
-# #   mlservices_iam_instance_profile = module.mlservices_iam.mlservices_iam_instance_profile
-# #   mlservices_nsg                  = module.nsg.mlservices_nsg
-# #   mlservices_subnet_id_1          = module.network.mlservices_subnet_id_1
-# #   mlservices_subnet_id_2          = module.network.mlservices_subnet_id_2
-# #   platform_instance_id            = var.platform_instance_id
-# #   proxy_endpoint                  = module.proxy_loadbalancer.proxy_endpoint
-# #   target_group_mlservices_arn     = module.mlservices_alb.target_group_vssoccer_arn
-# #   user_init                       = ""
-# #   volume_size                     = 50
-# # }
+#   instance_type                   = var.vssoccer_instance_type
+#   key_name                        = var.key_name
+#   max_cluster_size                = var.vssoccer_max_cluster_size
+#   min_cluster_size                = var.vssoccer_min_cluster_size
+#   mlservices_alb_dns              = module.mlservices_alb.mlservices_endpoint
+#   mlservices_ami_id               = lookup(module.amis.mlservices_amis, data.aws_region.current.name)
+#   mlservices_iam_instance_profile = module.mlservices_iam.mlservices_iam_instance_profile
+#   mlservices_nsg                  = module.nsg.mlservices_nsg
+#   mlservices_subnet_id_1          = module.network.mlservices_subnet_id_1
+#   mlservices_subnet_id_2          = module.network.mlservices_subnet_id_2
+#   platform_instance_id            = var.platform_instance_id
+#   target_group_mlservices_arn     = module.mlservices_alb.target_group_vssoccer_arn
+#   user_init                       = ""
+#   volume_size                     = 50
+# }
 
-# # output "mlservices_vssoccer" {
-# #   value = module.mlservices_vssoccer.endpoint
-# # }
+# output "mlservices_vssoccer" {
+#   value = module.mlservices_vssoccer.endpoint
+# }

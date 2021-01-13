@@ -7,19 +7,19 @@ data "aws_region" "current" {}
 
 module "services_iam_role" {
   # source = "./modules/iam/services_role"
-  source = "github.com/graymeta/terraform12-aws-platform//modules/iam/services_role?ref=master"
+  source = "github.com/graymeta/terraform12-aws-platform//modules/iam/services_role?ref=Support-No-Proxy"
 
   platform_instance_id = var.platform_instance_id
 }
 
 module "amis" {
   # source = "./modules/amis"
-  source = "github.com/graymeta/terraform12-aws-platform//modules/amis?ref=master"
+  source = "github.com/graymeta/terraform12-aws-platform//modules/amis?ref=Support-No-Proxy"
 }
 
 module "network" {
   # source = "./modules/network/vpc"
-  source = "github.com/graymeta/terraform12-aws-platform//modules/network/vpc?ref=master"
+  source = "github.com/graymeta/terraform12-aws-platform//modules/network/vpc?ref=Support-No-Proxy"
 
   az1                         = var.az1
   az2                         = var.az2
@@ -43,7 +43,7 @@ module "network" {
 
 module "nsg" {
   # source = "./modules/security_groups"
-  source = "github.com/graymeta/terraform12-aws-platform//modules/security_groups?ref=master"
+  source = "github.com/graymeta/terraform12-aws-platform//modules/security_groups?ref=Support-No-Proxy"
 
   ecs_subnet_id_1        = module.network.ecs_subnet_id_1
   ecs_subnet_id_2        = module.network.ecs_subnet_id_2
@@ -61,14 +61,14 @@ module "nsg" {
 
 module "proxy_iam" {
   # source = "./modules/iam/proxy"
-  source = "github.com/graymeta/terraform12-aws-platform//modules/iam/proxy?ref=master"
+  source = "github.com/graymeta/terraform12-aws-platform//modules/iam/proxy?ref=Support-No-Proxy"
 
   platform_instance_id = var.platform_instance_id
 }
 
 module "proxy_loadbalancer" {
   # source = "./modules/loadbalancers/proxy"
-  source = "github.com/graymeta/terraform12-aws-platform//modules/loadbalancers/proxy?ref=master"
+  source = "github.com/graymeta/terraform12-aws-platform//modules/loadbalancers/proxy?ref=Support-No-Proxy"
 
   platform_instance_id = var.platform_instance_id
   subnets = [
@@ -79,7 +79,7 @@ module "proxy_loadbalancer" {
 
 module "proxy_asg" {
   #source = "./modules/proxy"
-  source = "github.com/graymeta/terraform12-aws-platform//modules/proxy?ref=master"
+  source = "github.com/graymeta/terraform12-aws-platform//modules/proxy?ref=Support-No-Proxy"
 
   dns_name                            = var.dns_name
   key_name                            = var.key_name
@@ -104,7 +104,7 @@ module "proxy_asg" {
 
 module "proxy_network" {
   # source = "./modules/network/proxy"
-  source = "github.com/graymeta/terraform12-aws-platform//modules/network/proxy?ref=master"
+  source = "github.com/graymeta/terraform12-aws-platform//modules/network/proxy?ref=Support-No-Proxy"
 
   default_route_table_id = module.network.default_route_table_id
   platform_instance_id   = var.platform_instance_id
@@ -117,7 +117,7 @@ module "proxy_network" {
 
 module "cloudwatch_logs" {
   # source = "./modules/cloudwatch"
-  source = "github.com/graymeta/terraform12-aws-platform//modules/cloudwatch?ref=master"
+  source = "github.com/graymeta/terraform12-aws-platform//modules/cloudwatch?ref=Support-No-Proxy"
 
   log_retention        = var.log_retention
   platform_instance_id = var.platform_instance_id
@@ -125,7 +125,7 @@ module "cloudwatch_logs" {
 
 module "dashboard" {
   #source = "./modules/dashboard"
-  source = "github.com/graymeta/terraform12-aws-platform//modules/dashboard?ref=master"
+  source = "github.com/graymeta/terraform12-aws-platform//modules/dashboard?ref=Support-No-Proxy"
 
   dashboard_name       = "GrayMetaPlatform-${var.platform_instance_id}"
   es_domain            = "graymeta-${var.platform_instance_id}"
@@ -139,7 +139,7 @@ module "dashboard" {
 
 module "queues" {
   # source = "./modules/queues"
-  source = "github.com/graymeta/terraform12-aws-platform//modules/queues?ref=master"
+  source = "github.com/graymeta/terraform12-aws-platform//modules/queues?ref=Support-No-Proxy"
 
 
   platform_instance_id = var.platform_instance_id
@@ -147,7 +147,7 @@ module "queues" {
 
 module "elasticache" {
   # source = "./modules/elasticache"
-  source = "github.com/graymeta/terraform12-aws-platform//modules/elasticache?ref=master"
+  source = "github.com/graymeta/terraform12-aws-platform//modules/elasticache?ref=Support-No-Proxy"
 
   elasticache_security_group    = module.nsg.elasticache_nsg
   elasticache_subnet_group_name = module.network.elasticache_subnet_group_name
@@ -157,7 +157,7 @@ module "elasticache" {
 
 module "rds" {
   # source = "./modules/rds/services"
-  source = "github.com/graymeta/terraform12-aws-platform//modules/rds/services?ref=master"
+  source = "github.com/graymeta/terraform12-aws-platform//modules/rds/services?ref=Support-No-Proxy"
 
   apply_immediately     = true
   instance_count        = var.rds_instance_count
@@ -178,7 +178,7 @@ module "rds" {
 
 module "elasticsearch" {
   # source = "./modules/elasticsearch"
-  source = "github.com/graymeta/terraform12-aws-platform//modules/elasticsearch?ref=master"
+  source = "github.com/graymeta/terraform12-aws-platform//modules/elasticsearch?ref=Support-No-Proxy"
 
   create_iam_service_linked_role = var.elasticsearch_create_service_role
   dedicated_master_count         = var.elasticsearch_dedicated_master_count
@@ -195,7 +195,7 @@ module "elasticsearch" {
 
 module "ecs_iam" {
   # source = "./modules/iam/ecs"
-  source = "github.com/graymeta/terraform12-aws-platform//modules/iam/ecs?ref=master"
+  source = "github.com/graymeta/terraform12-aws-platform//modules/iam/ecs?ref=Support-No-Proxy"
 
   platform_instance_id = var.platform_instance_id
   temp_bucket          = var.temp_bucket
@@ -203,7 +203,7 @@ module "ecs_iam" {
 
 module "ecs" {
   # source = "./modules/ecs"
-  source = "github.com/graymeta/terraform12-aws-platform//modules/ecs?ref=master"
+  source = "github.com/graymeta/terraform12-aws-platform//modules/ecs?ref=Support-No-Proxy"
 
   ecs_ami_id               = lookup(module.amis.ecs_amis, data.aws_region.current.name)
   ecs_iam_instance_profile = module.ecs_iam.ecs_iam_instance_profile
@@ -226,7 +226,7 @@ resource "aws_sns_topic" "harvest_complete" {
 
 module "services_iam" {
   # source = "./modules/iam/services_policy"
-  source = "github.com/graymeta/terraform12-aws-platform//modules/iam/services_policy?ref=master"
+  source = "github.com/graymeta/terraform12-aws-platform//modules/iam/services_policy?ref=Support-No-Proxy"
 
   custom_labels_bucket     = var.custom_labels_bucket
   file_api_bucket          = var.file_api_bucket
@@ -255,7 +255,7 @@ module "services_iam" {
 
 module "services_alb" {
   # source = "./modules/loadbalancers/services"
-  source = "github.com/graymeta/terraform12-aws-platform//modules/loadbalancers/services?ref=master"
+  source = "github.com/graymeta/terraform12-aws-platform//modules/loadbalancers/services?ref=Support-No-Proxy"
 
   platform_instance_id = var.platform_instance_id
   services_alb_nsg     = module.nsg.services_alb_nsg
@@ -268,7 +268,7 @@ module "services_alb" {
 
 module "services" {
   # source = "./modules/services"
-  source = "github.com/graymeta/terraform12-aws-platform//modules/services?ref=master"
+  source = "github.com/graymeta/terraform12-aws-platform//modules/services?ref=Support-No-Proxy"
 
   account_lockout_attempts          = 5
   account_lockout_interval          = "10m"
@@ -294,7 +294,8 @@ module "services" {
   elasticsearch_endpoint            = module.elasticsearch.elasticsearch_endpoint
   encrypted_config_blob             = var.encrypted_config_blob
   encryption_key                    = var.encryption_key
-  faces_endpoint                    = coalesce(module.mlservices_faces.faces_endpoint, var.faces_endpoint)
+  mlservices_endpoint               = var.mlservices_endpoint
+  faces_endpoint                    = var.faces_endpoint
   faces_user                        = var.faces_user
   faces_password                    = var.faces_password
   file_api_bucket                   = var.file_api_bucket
@@ -322,7 +323,6 @@ module "services" {
   jwt_key                           = var.jwt_key
   key_name                          = var.key_name
   logograb_key                      = var.logograb_key
-  mlservices_endpoint               = module.mlservices_alb.mlservices_endpoint
   notifications_from_addr           = var.notifications_from_addr
   notifications_region              = var.notifications_region
   oauthconnect_encryption_key       = var.oauthconnect_encryption_key

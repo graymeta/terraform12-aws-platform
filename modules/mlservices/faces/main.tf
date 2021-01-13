@@ -20,7 +20,6 @@ data "template_file" "userdata" {
     postgrespass      = var.rds_db_password
     postgresport      = "5432"
     postgresuser      = var.rds_db_username
-    proxy_endpoint    = var.proxy_endpoint
     service_name      = local.api_name
     tfs_port          = local.tfs_port
   }

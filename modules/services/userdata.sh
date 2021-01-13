@@ -1,5 +1,14 @@
 #!/bin/bash
 
+cat >/etc/chrony.conf <<CHRONYEOL
+server 169.254.169.123 prefer iburst minpoll 4 maxpoll 4
+driftfile /var/lib/chrony/drift
+makestep 1.0 3
+rtcsync
+logdir /var/log/chrony
+CHRONYEOL
+
+mkdir -p /etc/graymeta
 cat >/etc/graymeta/metafarm.env <<METAFARMEOL
 AWS_REGION=${region}
 PATH=/opt/graymeta/bin:/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin
@@ -126,13 +135,8 @@ stow_mountpath=/var/lib/graymeta/mounts
 walkd_item_batch_size=${walkd_item_batch_size}
 METAFARMEOL
 
-cat >/etc/chrony.conf <<CHRONYEOL
-server 169.254.169.123 prefer iburst minpoll 4 maxpoll 4
-driftfile /var/lib/chrony/drift
-makestep 1.0 3
-rtcsync
-logdir /var/log/chrony
-CHRONYEOL
+chmod 0400 /etc/graymeta/metafarm.env
+chown graymeta:graymeta /etc/graymeta/metafarm.env
 
 cat >/var/awslogs/etc/aws.conf <<AWSLOGSEOL
 [plugins]
@@ -163,26 +167,36 @@ else
     sed 's/^export //g' </etc/profile.d/proxy.sh >>/etc/graymeta/metafarm.env
 fi
 
+# Change yum repos from mirror to specific server
 sed -i 's/^metalink=/#metalink=/g' /etc/yum.repos.d/*
 sed -i 's/^mirrorlist=/#mirrorlist=/g' /etc/yum.repos.d/*
 sed -i 's/^#baseurl=/baseurl=/g' /etc/yum.repos.d/*
 sed -i 's/download.fedoraproject.org/dl.fedoraproject.org/g' /etc/yum.repos.d/epel*
+
 yum remove -y docker-engine docker-engine-selinux
+yum install -y cloud-utils-growpart
 growpart /dev/xvda 2
 growpart /dev/nvme0n1 2
 pvresize /dev/xvda2
 pvresize /dev/nvme0n1p2
 lvextend -l +100%FREE /dev/mapper/centos-root
 xfs_growfs /dev/mapper/centos-root
+
 systemctl enable chronyd
 systemctl start chronyd
+
 sed -i 's/^log_group_name = .*/log_group_name = ${services_log_group}/' /var/awslogs/etc/awslogs.conf
 systemctl restart awslogs
+
+# if gm_db_password is set to omitpassword then they have to set it up in the encrypted blob
 sed -i 's/^gm_db_password=omitpassword//g' /etc/graymeta/metafarm.env
+
 /opt/graymeta/bin/aws_configurator -bucket ${file_api_s3_bucket_arn} -usage-bucket ${usage_s3_bucket_arn} -region ${region} -encrypted-config-blob "${encrypted_config_blob}" >> /etc/graymeta/metafarm.env 2>/var/log/graymeta/aws_configurator.log
 systemctl daemon-reload
+
 /opt/graymeta/bin/all-services.sh restart
 /opt/graymeta/bin/all-services.sh enable
+
 systemctl enable gm-termprotector.service
 systemctl restart gm-termprotector.service
 
@@ -193,6 +207,3 @@ net.ipv4.tcp_keepalive_probes = 5
 SYSCTLEOL
 
 sysctl -p
-
-chmod 0400 /etc/graymeta/metafarm.env
-chown graymeta:graymeta /etc/graymeta/metafarm.env

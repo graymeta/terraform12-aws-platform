@@ -5,10 +5,9 @@ data "template_file" "userdata" {
   template = file("${path.module}/userdata.tpl")
 
   vars = {
-    api_port       = var.api_port
-    log_group      = var.log_group
-    proxy_endpoint = var.proxy_endpoint
-    service_name   = var.service_name
-    tfs_port       = var.tfs_port
+    api_port     = var.api_port
+    log_group    = var.log_group
+    service_name = var.service_name
+    tfs_port     = var.tfs_port
   }
 }
