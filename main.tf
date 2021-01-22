@@ -141,7 +141,6 @@ module "queues" {
   # source = "./modules/queues"
   source = "github.com/graymeta/terraform12-aws-platform//modules/queues?ref=Support-No-Proxy"
 
-
   platform_instance_id = var.platform_instance_id
 }
 
@@ -294,8 +293,8 @@ module "services" {
   elasticsearch_endpoint            = module.elasticsearch.elasticsearch_endpoint
   encrypted_config_blob             = var.encrypted_config_blob
   encryption_key                    = var.encryption_key
-  mlservices_endpoint               = var.mlservices_endpoint
-  faces_endpoint                    = var.faces_endpoint
+  mlservices_endpoint               = module.mlservices_alb.mlservices_endpoint
+  faces_endpoint                    = coalesce(module.mlservices_faces.faces_endpoint, var.faces_endpoint)
   faces_user                        = var.faces_user
   faces_password                    = var.faces_password
   file_api_bucket                   = var.file_api_bucket

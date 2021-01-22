@@ -1,6 +1,11 @@
 #cloud-config
 package_upgrade: false
 runcmd:
+- echo "export HTTP_PROXY=http://${proxy_endpoint}/" >> /etc/profile.d/proxy.sh
+- echo "export HTTPS_PROXY=http://${proxy_endpoint}/" >> /etc/profile.d/proxy.sh
+- echo "export NO_PROXY=169.254.169.254,localhost,127.0.0.1,/var/run/docker.sock" >> /etc/profile.d/proxy.sh
+- source /etc/profile.d/proxy.sh
+- echo "proxy=http://${proxy_endpoint}" >> /etc/yum.conf
 - sed -i 's/^metalink=/#metalink=/g' /etc/yum.repos.d/*
 - sed -i 's/^mirrorlist=/#mirrorlist=/g' /etc/yum.repos.d/*
 - sed -i 's/^#baseurl=/baseurl=/g' /etc/yum.repos.d/*
@@ -87,3 +92,13 @@ write_files:
         WantedBy=multi-user.target
     path: /etc/systemd/system/docker-${service_name}-tfs.service
     permissions: '0644'
+-   content: |
+        [Service]
+        Environment="HTTP_PROXY=http://${proxy_endpoint}" "HTTPS_PROXY=http://${proxy_endpoint}" "NO_PROXY=169.254.169.254,localhost,127.0.0.1,/var/run/docker.sock"
+    path: /etc/systemd/system/docker.service.d/http-proxy.conf
+    permissions: '0644'
+-   content: |
+        HTTP_PROXY=http://${proxy_endpoint}
+        HTTPS_PROXY=http://${proxy_endpoint}
+        NO_PROXY=169.254.169.254
+    path: /var/awslogs/etc/proxy.conf

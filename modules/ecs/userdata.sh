@@ -21,7 +21,7 @@ else
 
   mkdir -p /etc/systemd/system/docker.service.d
   echo "[Service]" > /etc/systemd/system/docker.service.d/http-proxy.conf
-  echo "Environment=\"HTTP_PROXY=http://${proxy_endpoint}\""HTTPS_PROXY=http://${proxy_endpoint}\""NO_PROXY=localhost,127.0.0.1,169.254.169.254\"" >> /etc/systemd/system/docker.service.d/http-proxy.conf
+  echo "Environment=\"HTTP_PROXY=http://${proxy_endpoint}\" \"HTTPS_PROXY=http://${proxy_endpoint}\" \"NO_PROXY=localhost,127.0.0.1,169.254.169.254\"" >> /etc/systemd/system/docker.service.d/http-proxy.conf
 
   echo "HTTP_PROXY=http://${proxy_endpoint}" >> /etc/ecs/ecs.config
   echo "HTTPS_PROXY=http://${proxy_endpoint}" >> /etc/ecs/ecs.config

@@ -2,7 +2,6 @@
 #   # source = "./modules/loadbalancers/mlservices"
 #   source = "github.com/graymeta/terraform12-aws-platform//modules/loadbalancers/mlservices?ref=Support-No-Proxy"
 
-
 #   platform_instance_id = var.platform_instance_id
 #   mlservices_alb_nsg   = module.nsg.mlservices_alb_nsg
 #   subnets = [

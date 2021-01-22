@@ -9,6 +9,7 @@ data "template_file" "userdata" {
   vars = {
     api_port     = local.api_port
     log_group    = "GrayMetaPlatform-${var.platform_instance_id}-ML"
+    proxy_endpoint = var.proxy_endpoint
     service_name = local.api_name
   }
 }
