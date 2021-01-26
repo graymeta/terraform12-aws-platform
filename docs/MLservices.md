@@ -1,8 +1,10 @@
 # Graymeta Machine Learning services
 
+If you do not want to deploy any ML services, comment out all the modules in [mlservices.tf](../mlservices.tf) (including `mlservices_alb` and `mlservices_iam`). Next, comment out the `faces_endpoint` and `mlservices_endpoint` variables in [main.tf](../main.tf).
+
 In order to deploy the optional GrayMeta Machine Learning Services take the following steps:
 
-From the [mlservices.tf](../mlservices.tf) comment out all modules you *do not* wish to deploy.  To avoid deploying unwanted ML Service nodes, we recommend you do this prior to the first `terraform apply`.  
+From the [mlservices.tf](../mlservices.tf) comment out all modules you *do not* wish to deploy. To avoid deploying unwanted ML Service nodes, we recommend you do this prior to the first `terraform apply`.
 
 In the below example `mlservices_tcues` will be deployed and `mlservices_vssoccer` will not.
 
@@ -11,7 +13,7 @@ In the below example `mlservices_tcues` will be deployed and `mlservices_vssocce
 # MLServices Tcues
 module "mlservices_tcues" {
   # source = "./modules/mlservices/tcues"
-  source = "github.com/graymeta/terraform12-aws-platform//modules/mlservices/tcues?ref=master"
+  source = "github.com/graymeta/terraform12-aws-platform//modules/mlservices/tcues"
 
   instance_type                   = var.tcues_instance_type
   key_name                        = var.key_name
@@ -38,7 +40,7 @@ output "mlservices_tcues" {
 # # MLServices VSSOCCER
 # module "mlservices_vssoccer" {
 #   # source = "./modules/mlservices/vssoccer"
-#   source = "github.com/graymeta/terraform12-aws-platform//modules/mlservices/vssoccer?ref=master"
+#   source = "github.com/graymeta/terraform12-aws-platform//modules/mlservices/vssoccer"
 
 #   instance_type                   = var.vssoccer_instance_type
 #   key_name                        = var.key_name
@@ -64,6 +66,7 @@ output "mlservices_tcues" {
 
 Once you are happy with your deployment choices, proceed back to the [platform.md](platform.md) to complete your platform deployment.  Upon completing your deployment, get the mlservice hostnames from `terraform output`. These values will reflect the modules specified and will be required for the Extractor Service Configs.
 
+EXAMPLE:
 ```
 GrayMetaPlatformEndpoint = svcs-20201109114921780400000018-1463743644.us-east-1.elb.amazonaws.com
 mlservices_audio = http://internal-ml-2020110911492395660000001a-1234567891.us-east-1.elb.amazonaws.com:10300
