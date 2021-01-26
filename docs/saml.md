@@ -4,6 +4,7 @@ The GrayMeta Platform supports SP initiated SAML logins and has been tested agai
 
 * Okta
 * Azure AD
+* onelogin
 
 **IMPORTANT NOTE:** Before enabling SAML, please deploy the platform as described in the main README, log into the platform with the `admin@graymeta.com` account, create at least one account that uses an email address that is the same as an email address associated with a user in your identity provider. This new account needs to be assigned the super-user role as once SAML is enabled the local `admin@graymeta.com` account will no longer be able to authenticate.
 
@@ -78,4 +79,52 @@ Various URLs that you will need:
     cat myservice.key | base64 -w0
     ```
     Add this string to the `platform` section of your Terraform configuration as the `saml_key` variable. If you are using the encrypted blob, feel free to add this information to that configuration instead: `saml_key={base64 encoded key}`.
+1. Run a `terraform apply` and browse to your `{endpoint}` URL. You should be redirected to your IDP's login screen to begin the authentication process. If you are not redirected and instead are dropped into the application, you may still be logged in as the `admin@graymeta.com` account. If that is the case, click the logout button and you should get redirected to your IDP login screen.
+
+### onelogin Procedure
+
+1. Create an App in the onelogin console using the **SAML Test Connector (Advanced)** template.
+    * [onelogin Developer Guide](https://onelogin.service-now.com/support?id=kb_article&sys_id=c89fefdadb2310503de43e043996195a&kb_category=93e869b0db185340d5505eea4b961934)
+1. Enter the following configurations in the App Configuration tab:
+
+
+    | Field | Value |
+    | --- | --- |
+    | Audience (EntityID) | {endpoint}/saml/metadata |
+    | Recipient | {endpoint}/saml/acs |
+    |ACS (Consumer) URL Validator* | {endpoint}/saml/acs |
+    |ACS (Consumer) URL* | {endpoint} |
+    |SAML initiator | OneLogin |
+    |SAML nameID format | Unspecified |
+    |SAML Issuer type | Generic |
+    |SAML signature element | Assertion |
+
+    All other default fields can be left blank or unchanged.
+1. Add the following changes/additions to your App Parameters tab:
+   * Change NameID Value to - No default –
+   * Add the Field name “email”, click “include in SAML assertion”, set the value to “Email”
+   * Add the Field name “firstname”, click “include in SAML assertion”, set the value to “First Name”
+   * Add the Field name “lastname”, click “include in SAML assertion”, set the value to “Last Name”
+   * Add the Field name “uid”, click “include in SAML assertion”, set the value to “OneLogin ID”
+1. Retrieve the **SAML IDP Metedata URL** from your App by clicking the More Actions button, then right-click on the SAML Metadata option and copy the link address.  Add this URL to your [terraform.tfvars](./../terraform.tfvars) file under (Optional) SAML Configuration as the `saml_idp_metadata_url` variable.
+1. Set the following your variables to your [terraform.tfvars](./../terraform.tfvars) file under (Optional) SAML Configuration:
+    * `saml_attr_email       = "email"`
+    * `saml_attr_firstname   = "firstname"`
+    * `saml_attr_lastname    = "lastname"`
+    * `saml_attr_uid         = "uid"`
+1. Generate a self-signed x509 certificate:
+    ```
+    openssl req -x509 -newkey rsa:2048 -keyout myservice.key -out myservice.cert -days 365 -nodes -subj "/CN=myservice.example.com"
+    ```
+    **NOTE:** the CN of the certificate doesn't matter.
+1. base64 encode the certificate:
+    ```
+    cat myservice.cert | base64 -w0
+    ```
+    Add this string to your [terraform.tfvars](./../terraform.tfvars) file under (Optional) SAML Configuration as the `saml_cert` variable. If you are using the encrypted blob, feel free to add this information to that configuration instead: `saml_cert={base64 encoded cert}`.
+1. base64 encode the key:
+    ```
+    cat myservice.key | base64 -w0
+    ```
+    Add this string to your [terraform.tfvars](./../terraform.tfvars) file under (Optional) SAML Configuration as the `saml_key` variable. If you are using the encrypted blob, feel free to add this information to that configuration instead: `saml_key={base64 encoded key}`.
 1. Run a `terraform apply` and browse to your `{endpoint}` URL. You should be redirected to your IDP's login screen to begin the authentication process. If you are not redirected and instead are dropped into the application, you may still be logged in as the `admin@graymeta.com` account. If that is the case, click the logout button and you should get redirected to your IDP login screen.

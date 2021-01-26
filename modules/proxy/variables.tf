@@ -81,6 +81,7 @@ variable "safelist" {
     ".logograb.com",
     ".microsoftonline.com",
     ".okta.com",
+    ".onelogin.com",
     ".picpurify.com",
     ".platform.bing.com",
     ".speech.microsoft.com",

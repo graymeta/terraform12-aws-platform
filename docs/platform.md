@@ -27,9 +27,9 @@ In the `terraform.tfvars` are all the variables available to be set. At a minimu
 * Review plan `terraform plan`
 * Apply terraform using the "sizing" tfvars for the size of system to deploy:
   * Small
-    * `terraform apply -var-files=sizing_small.tfvars`
+    * `terraform apply -var-file=sizing_small.tfvars`
   * Medium
-    * `terraform apply -var-files=sizing_medium.tfvars`
+    * `terraform apply -var-file=sizing_medium.tfvars`
   * Large
     * `terraform apply -var-files=sizing_large.tfvars`
     
