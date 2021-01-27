@@ -4,14 +4,14 @@ The below instructions will allow you to deploy Curio with additional OAuth base
 
 ## Box.com
 
-* Navigate to https://app.box.com/developers/services.
+* Navigate to https://app.box.com/developers/console.
 * Click "Create new App".
 * Select "Custom App" then select "Next".
 * Select "Standard OAuth 2.0 (User Authentication)" and select "Next".
 * Give your app a unique name, then select "Create App".
-* Select "View your app".
 * Under "Oauth 2.0 Credentials" record the Client ID and Client Secret as the `box_com_client_id` and `box_com_secret_key` input Terraform variables to your [terraform.tfvars] (terraform.tfvars) file.
 * In the "OAuth 2.0 Redirect URI" section of your box app, set the Redirect URI to `https://{dns_name}:8443/connect` (where `{dns_name}` is the domain name you will be hosting the platform on).
+* Under "Application Scopes" select the "Read all files and folders stored in Box" and "Write all files and folders stored in Box" checkboxes.
 * Select "Save Changes".
 * Deploy your Terraform environment.
 
