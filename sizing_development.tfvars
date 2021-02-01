@@ -1,3 +1,4 @@
+# Do not use this sizing. It is not suitable for production workloads. Development use only.
 proxy_instance_type                    = "m5.large"
 proxy_max_cluster_size                 = 2
 proxy_min_cluster_size                 = 1

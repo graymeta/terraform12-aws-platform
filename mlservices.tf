@@ -127,8 +127,7 @@
 # ###########################################
 # # MLServices NLP
 # module "mlservices_nlp" {
-#   # source = "./modules/mlservices/nlp"
-#   source = "github.com/graymeta/terraform12-aws-platform//modules/mlservices/nlp?ref=Support-No-Proxy"
+#   # source = "./modules/mlservices/nlp"#   source = "github.com/graymeta/terraform12-aws-platform//modules/mlservices/nlp?ref=Support-No-Proxy"
 
 #   instance_type                   = var.nlp_instance_type
 #   key_name                        = var.key_name

@@ -1,10 +1,8 @@
 # Deploy platform
  This doc outlines deploying the Network and Platform modules. You should have already deployed the four S3 buckets described in [Create S3 buckets](./docs/buckets.md) prior to this step.
-
 ### Variable Definitions
 
 In the `terraform.tfvars` are all the variables available to be set. At a minimum, the variables listed below need to be provided. There are many other variables within `terraform.tfvars` which only need to be provided if you wish to use an optional feature, or change a default setting.
-
 
 * `customer` - Short name for you company.
 * `platform_instance_id` - Pick a _platform instance id_ for this deployment of the GrayMeta platform. A short, descriptive name like `production`, `labs`, `test`, etc. that can be used to uniquely identify this deployment of the GrayMeta Platform within your environment.
@@ -21,6 +19,7 @@ In the `terraform.tfvars` are all the variables available to be set. At a minimu
 * `temp_bucket` - Used for specific ML services to transfer files.
 * `custom_labels_bucket` - Used for the AWS Rekognition Custom Labels services.
 
+**Note:** The default deployment will include the GrayMeta Faces ML Service. If you do not want to use that service or wish to deploy additional GrayMeta ML Services, see [MLservices.md](MLservices.md) for instructions prior to completing the install steps below.
 ### Install steps
 * Download this repo https://github.com/graymeta/terraform12-aws-platform
 * Update the `terraform.tfvars`
@@ -32,7 +31,9 @@ In the `terraform.tfvars` are all the variables available to be set. At a minimu
   * Medium
     * `terraform apply -var-file=sizing_medium.tfvars`
   * Large
-    * `terraform apply -var-file=sizing_large.tfvars`
+    * `terraform apply -var-files=sizing_large.tfvars`
+    
+(Do not use `sizing_development.tfvars` it is not suitable for production workloads.)
 
 ### Post steps
 * After the apply.  Create a CNAME from your `dns_name` to the value of the `GrayMetaPlatformEndpoint` output. This needs to be publicly resolvable.
