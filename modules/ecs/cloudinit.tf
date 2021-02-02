@@ -5,7 +5,7 @@ data "template_cloudinit_config" "config" {
   base64_encode = true
 
   part {
-    content_type = "text/cloud-config"
+    content_type = "text/x-shellscript"
     content      = data.template_file.userdata.rendered
   }
 
@@ -17,7 +17,7 @@ data "template_cloudinit_config" "config" {
 }
 
 data "template_file" "userdata" {
-  template = file("${path.module}/userdata.tpl")
+  template = file("${path.module}/userdata.sh")
 
   vars = {
     ecs_cluster    = aws_ecs_cluster.ecs_cluster.name

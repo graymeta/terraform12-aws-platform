@@ -24,7 +24,7 @@ data "aws_region" "current" {}
 
 module "services_iam_role" {
   # source = "./modules/iam/services_role"
-  source = "github.com/graymeta/terraform12-aws-platform//modules/iam/services_role?ref=master"
+  source = "github.com/graymeta/terraform12-aws-platform//modules/iam/services_role?ref={tag}"
 
   platform_instance_id = var.platform_instance_id
 }

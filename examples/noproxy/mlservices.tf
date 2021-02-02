@@ -1,5 +1,5 @@
 # module "mlservices_alb" {
-#   # source = "./modules/loadbalancers/mlservices"
+#   # source = "../modules/loadbalancers/mlservices"
 #   source = "github.com/graymeta/terraform12-aws-platform//modules/loadbalancers/mlservices?ref=v0.0.2"
 
 #   platform_instance_id = var.platform_instance_id
@@ -11,7 +11,7 @@
 # }
 
 # module "mlservices_iam" {
-#   # source = "./modules/iam/mlservices"
+#   # source = "../modules/iam/mlservices"
 #   source = "github.com/graymeta/terraform12-aws-platform//modules/iam/mlservices?ref=v0.0.2"
 
 #   platform_instance_id = var.platform_instance_id
@@ -20,7 +20,7 @@
 # ###########################################
 # # MLServices Faces
 # module "rds_faces" {
-#   # source = "./modules/rds/faces"
+#   # source = "../modules/rds/faces"
 #   source = "github.com/graymeta/terraform12-aws-platform//modules/rds/faces?ref=v0.0.2"
 
 #   apply_immediately         = true
@@ -45,7 +45,7 @@
 # }
 
 # module "mlservices_faces" {
-#   # source = "./modules/mlservices/faces"
+#   # source = "../modules/mlservices/faces"
 #   source = "github.com/graymeta/terraform12-aws-platform//modules/mlservices/faces?ref=v0.0.2"
 
 #   instance_type                   = var.faces_instance_type
@@ -59,7 +59,6 @@
 #   mlservices_subnet_id_1          = module.network.mlservices_subnet_id_1
 #   mlservices_subnet_id_2          = module.network.mlservices_subnet_id_2
 #   platform_instance_id            = var.platform_instance_id
-#   proxy_endpoint                  = module.proxy_loadbalancer.proxy_endpoint
 #   rds_database_name               = module.rds_faces.rds_database_name
 #   rds_db_password                 = var.faces_rds_password
 #   rds_db_username                 = var.faces_rds_username
@@ -87,7 +86,6 @@
 #   mlservices_subnet_id_1          = module.network.mlservices_subnet_id_1
 #   mlservices_subnet_id_2          = module.network.mlservices_subnet_id_2
 #   platform_instance_id            = var.platform_instance_id
-#   proxy_endpoint                  = module.proxy_loadbalancer.proxy_endpoint
 #   target_group_mlservices_arn     = module.mlservices_alb.target_group_audio_arn
 #   user_init                       = ""
 #   volume_size                     = 50
@@ -114,7 +112,6 @@
 #   mlservices_subnet_id_1          = module.network.mlservices_subnet_id_1
 #   mlservices_subnet_id_2          = module.network.mlservices_subnet_id_2
 #   platform_instance_id            = var.platform_instance_id
-#   proxy_endpoint                  = module.proxy_loadbalancer.proxy_endpoint
 #   target_group_mlservices_arn     = module.mlservices_alb.target_group_nld_arn
 #   user_init                       = ""
 #   volume_size                     = 50
@@ -127,7 +124,8 @@
 # ###########################################
 # # MLServices NLP
 # module "mlservices_nlp" {
-#   # source = "./modules/mlservices/nlp"#   source = "github.com/graymeta/terraform12-aws-platform//modules/mlservices/nlp?ref=v0.0.2"
+#   # source = "./modules/mlservices/nlp"
+#   source = "github.com/graymeta/terraform12-aws-platform//modules/mlservices/nlp?ref=v0.0.2"
 
 #   instance_type                   = var.nlp_instance_type
 #   key_name                        = var.key_name
@@ -140,7 +138,6 @@
 #   mlservices_subnet_id_1          = module.network.mlservices_subnet_id_1
 #   mlservices_subnet_id_2          = module.network.mlservices_subnet_id_2
 #   platform_instance_id            = var.platform_instance_id
-#   proxy_endpoint                  = module.proxy_loadbalancer.proxy_endpoint
 #   target_group_mlservices_arn     = module.mlservices_alb.target_group_nlp_arn
 #   user_init                       = ""
 #   volume_size                     = 50
@@ -167,7 +164,6 @@
 #   mlservices_subnet_id_1          = module.network.mlservices_subnet_id_1
 #   mlservices_subnet_id_2          = module.network.mlservices_subnet_id_2
 #   platform_instance_id            = var.platform_instance_id
-#   proxy_endpoint                  = module.proxy_loadbalancer.proxy_endpoint
 #   target_group_mlservices_arn     = module.mlservices_alb.target_group_object_arn
 #   user_init                       = ""
 #   volume_size                     = 50
@@ -194,7 +190,6 @@
 #   mlservices_subnet_id_1          = module.network.mlservices_subnet_id_1
 #   mlservices_subnet_id_2          = module.network.mlservices_subnet_id_2
 #   platform_instance_id            = var.platform_instance_id
-#   proxy_endpoint                  = module.proxy_loadbalancer.proxy_endpoint
 #   target_group_mlservices_arn     = module.mlservices_alb.target_group_tcues_arn
 #   user_init                       = ""
 #   volume_size                     = 50
@@ -221,7 +216,6 @@
 #   mlservices_subnet_id_1          = module.network.mlservices_subnet_id_1
 #   mlservices_subnet_id_2          = module.network.mlservices_subnet_id_2
 #   platform_instance_id            = var.platform_instance_id
-#   proxy_endpoint                  = module.proxy_loadbalancer.proxy_endpoint
 #   target_group_mlservices_arn     = module.mlservices_alb.target_group_vssoccer_arn
 #   user_init                       = ""
 #   volume_size                     = 50

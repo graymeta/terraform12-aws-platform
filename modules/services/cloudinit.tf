@@ -3,7 +3,7 @@ data "template_cloudinit_config" "config" {
   base64_encode = true
 
   part {
-    content_type = "text/cloud-config"
+    content_type = "text/x-shellscript"
     content      = data.template_file.userdata.rendered
   }
 
@@ -25,7 +25,7 @@ data "aws_s3_bucket" "usage" {
 }
 
 data "template_file" "userdata" {
-  template = file("${path.module}/userdata.tpl")
+  template = file("${path.module}/userdata.sh")
 
   vars = {
     account_lockout_attempts          = var.account_lockout_attempts

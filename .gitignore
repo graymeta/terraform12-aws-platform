@@ -5,6 +5,7 @@ private_dns.tf
 private_*
 .terraform.tfstate.lock.info
 terraform.tfstate
+terraform.tfstate.backup
 
 # VIm swap
 [._]*.s[a-v][a-z]

@@ -4,7 +4,7 @@ provider "aws" {
 }
 
 module "buckets" {
-  source = "github.com/graymeta/terraform12-aws-platform//modules/buckets?ref=master"
+  source = "github.com/graymeta/terraform12-aws-platform//modules/buckets?ref=v0.0.2"
 
   platform_instance_id = var.platform_instance_id
 

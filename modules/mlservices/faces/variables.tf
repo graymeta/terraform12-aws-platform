@@ -18,5 +18,3 @@ variable "rds_ro_endpoint" { type = string }
 variable "target_group_mlservices_arn" { type = string }
 variable "user_init" { type = string }
 variable "volume_size" { type = string }
-
-

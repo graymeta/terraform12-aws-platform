@@ -23,7 +23,7 @@ resource "aws_rds_cluster" "postgresql" {
   db_subnet_group_name      = var.rds_subnet_group_name
   engine                    = "aurora-postgresql"
   engine_version            = var.rds_version
-  final_snapshot_identifier = "GrayMetaPlatform-${var.platform_instance_id}-aurora-final"
+  final_snapshot_identifier = "GrayMetaPlatform-${var.platform_instance_id}-final"
   master_password           = var.rds_password
   master_username           = var.rds_username
   port                      = "5432"
