@@ -2,13 +2,13 @@
 
 # Generate the cloud-init script
 data "template_file" "userdata" {
-  template = file("${path.module}/userdata.tpl")
+  template = file("${path.module}/userdata.sh")
 
   vars = {
-    api_port     = var.api_port
-    log_group    = var.log_group
+    api_port       = var.api_port
+    log_group      = var.log_group
     proxy_endpoint = var.proxy_endpoint
-    service_name = var.service_name
-    tfs_port     = var.tfs_port
+    service_name   = var.service_name
+    tfs_port       = var.tfs_port
   }
 }

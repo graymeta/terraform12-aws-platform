@@ -4,13 +4,13 @@ locals {
 }
 
 data "template_file" "userdata" {
-  template = file("${path.module}/userdata.tpl")
+  template = file("${path.module}/userdata.sh")
 
   vars = {
-    api_port     = local.api_port
-    log_group    = "GrayMetaPlatform-${var.platform_instance_id}-ML"
+    api_port       = local.api_port
+    log_group      = "GrayMetaPlatform-${var.platform_instance_id}-ML"
     proxy_endpoint = var.proxy_endpoint
-    service_name = local.api_name
+    service_name   = local.api_name
   }
 }
 

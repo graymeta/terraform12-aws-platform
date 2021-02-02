@@ -1,14 +1,40 @@
 # Graymeta Machine Learning services
 
-If you do not want to deploy any ML services, comment out all the modules in [mlservices.tf](../mlservices.tf) (including `mlservices_alb` and `mlservices_iam`). Next, comment out the `faces_endpoint` and `mlservices_endpoint` variables in [main.tf](../main.tf).
+By default, no ML services will be deployed.
 
 In order to deploy the optional GrayMeta Machine Learning Services take the following steps:
 
-From the [mlservices.tf](../mlservices.tf) comment out all modules you *do not* wish to deploy. To avoid deploying unwanted ML Service nodes, we recommend you do this prior to the first `terraform apply`.
+1. Set the following variables in [main.tf](../main.tf) (By default they are set as empty strings.):
+
+- For any/all ML services: `mlservices_endpoint = module.mlservices_alb.mlservices_endpoint`
+
+- For GrayMeta Faces: `faces_endpoint = coalesce(module.mlservices_faces.faces_endpoint, var.faces_endpoint)`
+
+2. In [mlservices.tf](../mlservices.tf):
+
+- Uncomment the `mlservices_alb` and `mlservices_iam` modules.
+
+- Comment out all "MLServices" modules you *do not* wish to deploy. To avoid deploying unwanted ML Service nodes, we recommend you do this prior to the first `terraform apply`.
 
 In the below example `mlservices_tcues` will be deployed and `mlservices_vssoccer` will not.
 
 ```
+module "mlservices_alb" {
+  # source = "./modules/loadbalancers/mlservices"
+  source = "github.com/graymeta/terraform12-aws-platform//modules/loadbalancers/mlservices?ref=v0.0.2"
+  platform_instance_id = var.platform_instance_id
+  mlservices_alb_nsg   = module.nsg.mlservices_alb_nsg
+  subnets = [
+    module.network.mlservices_subnet_id_1,
+    module.network.mlservices_subnet_id_2
+  ]
+}
+module "mlservices_iam" {
+  # source = "./modules/iam/mlservices"
+  source = "github.com/graymeta/terraform12-aws-platform//modules/iam/mlservices?ref=v0.0.2"
+  platform_instance_id = var.platform_instance_id
+}
+
 ###########################################
 # MLServices Tcues
 module "mlservices_tcues" {

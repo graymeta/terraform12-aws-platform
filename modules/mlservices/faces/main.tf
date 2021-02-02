@@ -7,7 +7,7 @@ locals {
 
 # Generate the cloud-init script
 data "template_file" "userdata" {
-  template = file("${path.module}/userdata.tpl")
+  template = file("${path.module}/userdata.sh")
 
   vars = {
     api_port          = local.api_port

@@ -1,6 +1,6 @@
 # module "mlservices_alb" {
 #   # source = "../modules/loadbalancers/mlservices"
-#   source = "github.com/graymeta/terraform12-aws-platform//modules/loadbalancers/mlservices?ref=Support-No-Proxy"
+#   source = "github.com/graymeta/terraform12-aws-platform//modules/loadbalancers/mlservices?ref=v0.0.2"
 
 #   platform_instance_id = var.platform_instance_id
 #   mlservices_alb_nsg   = module.nsg.mlservices_alb_nsg
@@ -12,7 +12,7 @@
 
 # module "mlservices_iam" {
 #   # source = "../modules/iam/mlservices"
-#   source = "github.com/graymeta/terraform12-aws-platform//modules/iam/mlservices?ref=Support-No-Proxy"
+#   source = "github.com/graymeta/terraform12-aws-platform//modules/iam/mlservices?ref=v0.0.2"
 
 #   platform_instance_id = var.platform_instance_id
 # }
@@ -21,7 +21,7 @@
 # # MLServices Faces
 # module "rds_faces" {
 #   # source = "../modules/rds/faces"
-#   source = "github.com/graymeta/terraform12-aws-platform//modules/rds/faces?ref=Support-No-Proxy"
+#   source = "github.com/graymeta/terraform12-aws-platform//modules/rds/faces?ref=v0.0.2"
 
 #   apply_immediately         = true
 #   instance_count            = var.faces_rds_instance_count
@@ -46,7 +46,7 @@
 
 # module "mlservices_faces" {
 #   # source = "../modules/mlservices/faces"
-#   source = "github.com/graymeta/terraform12-aws-platform//modules/mlservices/faces?ref=Support-No-Proxy"
+#   source = "github.com/graymeta/terraform12-aws-platform//modules/mlservices/faces?ref=v0.0.2"
 
 #   instance_type                   = var.faces_instance_type
 #   key_name                        = var.key_name
@@ -73,7 +73,7 @@
 # # MLServices Audio
 # module "mlservices_audio" {
 #   # source = "./modules/mlservices/audio"
-#   source = "github.com/graymeta/terraform12-aws-platform//modules/mlservices/audio?ref=Support-No-Proxy"
+#   source = "github.com/graymeta/terraform12-aws-platform//modules/mlservices/audio?ref=v0.0.2"
 
 #   instance_type                   = var.audio_instance_type
 #   key_name                        = var.key_name
@@ -99,7 +99,7 @@
 # # MLServices NLD
 # module "mlservices_nld" {
 #   # source = "./modules/mlservices/nld"
-#   source = "github.com/graymeta/terraform12-aws-platform//modules/mlservices/nld?ref=Support-No-Proxy"
+#   source = "github.com/graymeta/terraform12-aws-platform//modules/mlservices/nld?ref=v0.0.2"
 
 #   instance_type                   = var.nld_instance_type
 #   key_name                        = var.key_name
@@ -125,7 +125,7 @@
 # # MLServices NLP
 # module "mlservices_nlp" {
 #   # source = "./modules/mlservices/nlp"
-#   source = "github.com/graymeta/terraform12-aws-platform//modules/mlservices/nlp?ref=Support-No-Proxy"
+#   source = "github.com/graymeta/terraform12-aws-platform//modules/mlservices/nlp?ref=v0.0.2"
 
 #   instance_type                   = var.nlp_instance_type
 #   key_name                        = var.key_name
@@ -151,7 +151,7 @@
 # # MLServices Object
 # module "mlservices_object" {
 #   # source = "./modules/mlservices/object"
-#   source = "github.com/graymeta/terraform12-aws-platform//modules/mlservices/object?ref=Support-No-Proxy"
+#   source = "github.com/graymeta/terraform12-aws-platform//modules/mlservices/object?ref=v0.0.2"
 
 #   instance_type                   = var.object_instance_type
 #   key_name                        = var.key_name
@@ -177,7 +177,7 @@
 # # MLServices Tcues
 # module "mlservices_tcues" {
 #   # source = "./modules/mlservices/tcues"
-#   source = "github.com/graymeta/terraform12-aws-platform//modules/mlservices/tcues?ref=Support-No-Proxy"
+#   source = "github.com/graymeta/terraform12-aws-platform//modules/mlservices/tcues?ref=v0.0.2"
 
 #   instance_type                   = var.tcues_instance_type
 #   key_name                        = var.key_name
@@ -203,7 +203,7 @@
 # # MLServices VSSOCCER
 # module "mlservices_vssoccer" {
 #   # source = "./modules/mlservices/vssoccer"
-#   source = "github.com/graymeta/terraform12-aws-platform//modules/mlservices/vssoccer?ref=Support-No-Proxy"
+#   source = "github.com/graymeta/terraform12-aws-platform//modules/mlservices/vssoccer?ref=v0.0.2"
 
 #   instance_type                   = var.vssoccer_instance_type
 #   key_name                        = var.key_name
